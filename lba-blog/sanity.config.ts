@@ -3,20 +3,19 @@ import { deskTool } from "sanity/desk";
 import schemas from "./sanity/schemas";
 
 const config = defineConfig({
+  projectId: "gkx9isc7",
 
-    projectId: "gkx9isc7",
+  dataset: "production",
 
-    dataset: "production",
+  title: "LBA Blog",
 
-    title: "LBA Blog",
+  apiVersion: "2023-05-25",
 
-    apiVersion: "2023-05-25",
+  basePath: "/admin",
 
-    basePath: "/admin",
+  plugins: [deskTool()],
 
-    plugins: [deskTool()],
-
-    schema: { types: schemas }
-})
+  schema: { types: schemas },
+});
 
 export default config;
