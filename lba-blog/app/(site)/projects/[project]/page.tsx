@@ -1,5 +1,6 @@
 import { getProject } from "@/sanity/sanity-utils";
 import { PortableText } from "@portabletext/react";
+import moment from "moment";
 import Image from "next/image";
 
 type Props = {
@@ -12,8 +13,14 @@ export default async function Project({ params }: Props) {
   return (
     // 1h:30min
     <div>
+      {/* Author + Date */}
+      <h4>
+        {project.author} - {moment(project.date).format('MMM Do, YYYY')}
+      </h4>
+
       {/* flex - side by side, justify-btw - left and right */}
       <header className="flex items-center justify-between">
+        
         {/* left */}
         <h1 className=" text-5xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
           {project.name}

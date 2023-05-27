@@ -1,12 +1,13 @@
 import { getProjects } from "@/sanity/sanity-utils";
 import Image from "next/image";
 import Link from "next/link";
+import Footer from "./components/footer";
 
 export default async function Home() {
   //get props and paths the project and map the data to the page
   const projects = await getProjects();
 
-  return (
+  return (<>
     <div>
       <h1 className="text-7xl font-extrabold">
         Hello this is{" "}
@@ -48,5 +49,6 @@ export default async function Home() {
         ))}
       </div>
     </div>
-  );
+    <Footer></Footer>
+  </>);
 }
