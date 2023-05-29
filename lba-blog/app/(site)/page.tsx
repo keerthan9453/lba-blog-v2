@@ -72,8 +72,6 @@ export default async function Home() {
             </Link>
           ))}
         </div>
-        {/* footer section */}
-        <Footer />
       </div>
     </>
   );

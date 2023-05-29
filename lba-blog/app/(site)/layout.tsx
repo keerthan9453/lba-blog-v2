@@ -1,6 +1,7 @@
 import Link from "next/link";
 import "../globals.css";
 import { Inter } from "next/font/google";
+import Footer from "./components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,10 @@ export default function RootLayout({
           </Link>
           <main className="py-20">{children}</main>
         </header>
+        <footer>
+          {/* footer section */}
+          <Footer />
+        </footer>
       </body>
     </html>
   );

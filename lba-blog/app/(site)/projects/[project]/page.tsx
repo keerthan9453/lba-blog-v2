@@ -13,23 +13,33 @@ export default async function Blog({ params }: Props) {
   return (
     // 1h:30min
     <div>
-      {/* Author + Date */}
-      <h4>
-        {blog.author.name} - {moment(blog.publichedAt).format("MMM Do, YYYY")}
-      </h4>
-
-      {/* flex - side by side, justify-btw - left and right */}
-      <header className="flex items-center justify-between">
-        {/* left */}
-        <h1 className=" text-5xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
-          {blog.title}
-        </h1>
-        {/* right */}
-        <a className="bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-blue-900 hover:text-blue-200 transition">
-          {/* {blog.categories.toString()} */}
-          Display category
-        </a>
+      
+      <header>
+        {/* Author + Date */}
+        <div className="flex items-center justify-between">
+          <h4>
+            {blog.author.name} - {moment(blog.publichedAt).format("MMM Do, YYYY")}
+          </h4>
+          {/* Categories above Display Category button */}
+          <h4>
+            {blog.categories.toString()}
+          </h4>
+        </div>
+      
+        {/* flex - side by side, justify-btw - left and right */}
+        <div className="flex items-center justify-between">
+          {/* left */}
+          <h1 className=" text-5xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
+            {blog.title}
+          </h1>
+          {/* right */}
+          <a className="bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-blue-900 hover:text-blue-200 transition">
+            {/* {blog.categories.toString()} */}
+            Display category
+          </a>
+        </div>
       </header>
+
       {/* image sction */}
       <Image
         src={blog.image}
