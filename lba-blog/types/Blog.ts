@@ -5,10 +5,10 @@ export type Blog = {
   _createAt: Date;
   title: string;
   author: { name: string; image: string };
+  categories: { title: string; description: string };
   publichedAt: string;
   description: string;
   slug: string;
   image: string;
-  categories: string;
   content: PortableTextBlock[];
 };
