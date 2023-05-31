@@ -28,11 +28,9 @@ export default function RootLayout({
           </Link>
           <main className="py-20">{children}</main>
         </header>
-        <footer>
-          {/* footer section */}
-          <Footer />
-        </footer>
       </body>
+      {/* footer section */}
+      <Footer />
     </html>
   );
 }
