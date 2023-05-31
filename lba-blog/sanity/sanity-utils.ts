@@ -15,7 +15,7 @@ export async function getBlogs(): Promise<Blog[]> {
             publichedAt,
             "slug": slug.current,
             "image": image.asset->url,
-            categories,
+            categories-> {title, description},
             content
         }`
   );
@@ -32,7 +32,7 @@ export async function getBlog(slug: string): Promise<Blog> {
             publichedAt, 
             "slug": slug.current,
             "image": image.asset->url,
-            categories,
+            categories ->{title, description},
             content
         }`,
     { slug }

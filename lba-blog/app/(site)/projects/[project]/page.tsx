@@ -13,19 +13,17 @@ export default async function Blog({ params }: Props) {
   return (
     // 1h:30min
     <div>
-      
       <header>
         {/* Author + Date */}
         <div className="flex items-center justify-between">
           <h4>
-            {blog.author.name} - {moment(blog.publichedAt).format("MMM Do, YYYY")}
+            {blog.author.name} -{" "}
+            {moment(blog.publichedAt).format("MMM Do, YYYY")}
           </h4>
           {/* Categories above Display Category button */}
-          <h4>
-            {blog.categories.toString()}
-          </h4>
+          {/* <h4>{blog.categories.toString()}</h4> */}
         </div>
-      
+
         {/* flex - side by side, justify-btw - left and right */}
         <div className="flex items-center justify-between">
           {/* left */}
@@ -34,7 +32,7 @@ export default async function Blog({ params }: Props) {
           </h1>
           {/* right */}
           <a className="bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-blue-900 hover:text-blue-200 transition">
-            {/* {blog.categories.toString()} */}
+            {/* {blog.categories} */}
             Display category
           </a>
         </div>
