@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* home page style */}
-      <body className="max-w-6xl mx-auto py-10">
+      <body className="max-w-screen-2xl mx-auto py-10">
         <header>
           <Link
             href="/"
@@ -30,9 +30,9 @@ export default function RootLayout({
         </header>
       </body>
       {/* footer section */}
-      <footer>
+      <div>
         <Footer />
-      </footer>
+      </div>
     </html>
   );
 }

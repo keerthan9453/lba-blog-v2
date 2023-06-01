@@ -39,13 +39,15 @@ export default async function Blog({ params }: Props) {
       </header>
 
       {/* image sction */}
-      <Image
-        src={blog.image}
-        alt={blog.title}
-        width={1920}
-        height={1000}
-        className="mt-10 border-2 border-gray-700 object-cover ronuded-xl"
-      />
+      <div className=" mt-10 flex items-center justify-center">
+        <Image
+          src={blog.image}
+          alt={blog.title}
+          width={1000}
+          height={800}
+          className=" border-2 border-gray-700 object-cover ronuded-xl"
+        />
+      </div>
 
       {/* content section */}
       <div className="text-lg text-gray-700 mt-5">

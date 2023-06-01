@@ -1,7 +1,6 @@
 import { getBlogs } from "@/sanity/sanity-utils";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "./components/footer";
 import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 
@@ -29,8 +28,8 @@ export default async function Home() {
         {/* blog box section*/}
         {/* <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 md:p-6"> */}
 
-        <div className="grid grid-cols-4">
-          <div className="mt-5 col-span-3">
+        <div className=" mt-5 grid grid-cols-4">
+          <div className="border  col-span-3">
             {/* display info from each blog */}
             {blogs.map((blog) => (
               <Link
@@ -38,7 +37,7 @@ export default async function Home() {
                 key={blog._id}
                 // className="border-2 border-gray-500 rounded-lg p-1 "
               >
-                <div className="flex items-center justify-centemy-5">
+                <div className=" border flex items-center justify-centemy-5">
                   <div className="group cursor-pointer overflow-hidden p-5 ">
                     {blog.image && (
                       <Image
@@ -52,8 +51,10 @@ export default async function Home() {
                     )}
                   </div>
                   <div className="flex flex-col px-4">
-                    {/* <p>{blog.categories.title}</p> */}
-                    <p>{moment(blog.publichedAt).format("MMM Do, YYYY")}</p>
+                    <p className="tracking-wide	">
+                      Category: {blog.author.name}
+                    </p>
+                    <p>{moment(blog.publichedAt).format("MMM D")}</p>
 
                     <p className="text-6xl font-extrabold">{blog.title}</p>
                     {/* {blog.author && (
