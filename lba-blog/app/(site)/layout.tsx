@@ -30,7 +30,9 @@ export default function RootLayout({
         </header>
       </body>
       {/* footer section */}
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </html>
   );
 }
