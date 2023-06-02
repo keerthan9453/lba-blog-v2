@@ -1,7 +1,8 @@
 import author from "./author";
-import categories from "./category";
+import category from "./category";
 import project from "./project-schema";
+
 // As we build more schema, we can just import here
-const schemas = [project, author, categories];
+const schemas = [project, author, category];
 
 export default schemas;

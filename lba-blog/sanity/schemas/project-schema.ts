@@ -7,6 +7,20 @@ const project = {
       name: "title",
       title: "Title",
       type: "string",
+      validation: (Rule: {
+        required: () => {
+          (): any;
+          new (): any;
+          min: {
+            (arg0: number): {
+              (): any;
+              new (): any;
+              max: { (arg0: number): any; new (): any };
+            };
+            new (): any;
+          };
+        };
+      }) => Rule.required().min(1).max(32),
     },
     {
       name: "slug",
@@ -48,8 +62,11 @@ const project = {
       name: "categories",
       title: "Categories",
       type: "array",
-      // of: [{ type: "reference", to: { type: "categories" } }],
-      to: { type: "categories" },
+      of: [
+        { type: "reference", to: { type: "category" } },
+        // { type: "category" },
+      ],
+      // to: { type: "categories" },
     },
     {
       name: "content",
@@ -62,13 +79,12 @@ const project = {
     select: {
       title: "title",
       author: "author.name",
-      media: "author.image",
-      categories: "categories.title",
+      media: "image",
     },
-    prepare(selection: { author: any; category: any }) {
-      const { author, category } = selection;
+    prepare(selection: { author: any }) {
+      const { author } = selection;
       return Object.assign({}, selection, {
-        subtitle: (author && `by ${author}`) || (category && `by ${category}`),
+        subtitle: author && `by ${author}`,
       });
     },
   },
