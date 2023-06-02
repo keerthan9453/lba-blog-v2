@@ -11,11 +11,11 @@ export async function getBlogs(): Promise<Blog[]> {
             _createdAt,
             title,
             description,
-            author -> {name, image},
+            author -> {name, "authorImage": image.asset->url},
+            "categories": categories[]->title, 
             publichedAt,
             "slug": slug.current,
             "image": image.asset->url,
-            categories-> {title, description},
             content
         }`
   );
@@ -29,10 +29,10 @@ export async function getBlog(slug: string): Promise<Blog> {
             title,
             description,
             author -> {name, image},
+            "categories": categories[]->title, 
             publichedAt, 
             "slug": slug.current,
             "image": image.asset->url,
-            categories ->{title, description},
             content
         }`,
     { slug }

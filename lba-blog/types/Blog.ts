@@ -1,5 +1,6 @@
 import { PortableTextBlock } from "sanity";
 
+// declare variables from blog type
 export type Blog = {
   _id: string;
   _createAt: Date;
