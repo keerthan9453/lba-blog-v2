@@ -38,7 +38,7 @@ export default async function Home() {
                 key={blog._id}
                 // className="border-2 border-gray-500 rounded-lg p-1 "
               >
-                <div className="flex items-center my-5">
+                <div className="shadow-lg flex items-center my-5 mr-3">
                   <div className=" group cursor-pointer overflow-hidden p-5 ">
                     {blog.image && (
                       <Image
