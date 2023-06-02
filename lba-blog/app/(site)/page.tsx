@@ -12,7 +12,8 @@ export default async function Home() {
     <>
       <div>
         {/* header section */}
-        {/* <div className="border">
+        {/* replace this section with header component  */}
+        <div className="">
           <h1 className="text-7xl font-extrabold">
             Hello this is{" "}
             <span className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
@@ -23,12 +24,11 @@ export default async function Home() {
           <p className="mt-3 text-xl text-gray-600">
             Weclome everyone! Check out our blogs!
           </p>
-        </div> */}
-        <h2 className="font-bold text-gray-700 text-8xl">Trending Now</h2>
+        </div>
+
+        <h2 className="my-10 font-bold text-gray-700 text-8xl">Trending Now</h2>
 
         {/* blog box section*/}
-        {/* <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 md:p-6"> */}
-
         <div className="mt-5 grid grid-cols-4">
           <div className="col-span-3">
             {/* display info from each blog */}
@@ -38,16 +38,16 @@ export default async function Home() {
                 key={blog._id}
                 // className="border-2 border-gray-500 rounded-lg p-1 "
               >
-                <div className="flex items-center justify-centemy-5">
-                  <div className="flex group cursor-pointer overflow-hidden p-5 ">
+                <div className="flex items-center my-5">
+                  <div className=" group cursor-pointer overflow-hidden p-5 ">
                     {blog.image && (
                       <Image
                         src={blog.image}
                         alt={blog.title}
-                        width={750}
-                        height={750}
+                        width={200}
+                        height={200}
                         // className="object-cover rounded-lg border border-gray-500"
-                        className="h-60 w-60 object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
+                        className=" flex h-60 w-60 object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
                       />
                     )}
                   </div>
@@ -58,7 +58,7 @@ export default async function Home() {
                     <p className="mt-8">
                       {moment(blog.publichedAt).format("MMM D")}
                     </p>
-                    <p className="text-6xl font-extrabold">{blog.title}</p>
+                    <p className="text-5xl font-extrabold">{blog.title}</p>
                     {/* {blog.author && (
                       <Image
                         src={blog.author.image}

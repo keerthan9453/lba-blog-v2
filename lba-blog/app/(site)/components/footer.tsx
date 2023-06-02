@@ -1,6 +1,6 @@
 // Being built by Daniel
 
-export default function Footer() {
+function Footer() {
   return (
     <div className="grid grid-cols-9  bg-[#E0F2FF] py-8 px-14">
       <div className="flex-none mr-10 col-span-2">
@@ -38,3 +38,4 @@ export default function Footer() {
     </div>
   );
 }
+export default Footer;
