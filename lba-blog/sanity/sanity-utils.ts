@@ -1,3 +1,4 @@
+import { Category } from "./../types/Category";
 import { Blog } from "@/types/Blog";
 import { createClient, groq } from "next-sanity";
 import clientConfig from "./config/client-config";
@@ -12,6 +13,8 @@ export async function getBlogs(): Promise<Blog[]> {
             title,
             description,
             author -> {name, "authorImage": image.asset->url},
+            
+            // loop through all the entries in categories and return the title from the referenced document
             "categories": categories[]->title, 
             publichedAt,
             "slug": slug.current,
@@ -36,5 +39,15 @@ export async function getBlog(slug: string): Promise<Blog> {
             content
         }`,
     { slug }
+  );
+}
+// fetch all categories data
+export async function getCategories(): Promise<Category[]> {
+  return createClient(clientConfig).fetch(
+    groq`*[_type == "category"]{
+            _id,
+            title,
+            description,
+        }`
   );
 }

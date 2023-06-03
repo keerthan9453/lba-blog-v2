@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
+import CategoryTab from "./components/CategoryTab";
 
 export default async function Home() {
   //get props and paths the blog and map the data to the page
@@ -25,8 +26,11 @@ export default async function Home() {
             Weclome everyone! Check out our blogs!
           </p>
         </div>
+        <div>
+          <CategoryTab />
+        </div>
 
-        <h2 className="my-10 font-bold text-gray-700 text-8xl">Trending Now</h2>
+        <h2 className="my-6 font-bold text-gray-700 text-8xl">Trending Now</h2>
 
         {/* blog box section*/}
         <div className="mt-5 grid grid-cols-4">
@@ -55,6 +59,7 @@ export default async function Home() {
                     <p className=" text-sm tracking-wider uppercase">
                       Categories: {blog.categories.toString()}
                     </p>
+                    <p>{blog.categories.description}</p>
                     <p className="mt-8">
                       {moment(blog.publichedAt).format("MMM D")}
                     </p>
