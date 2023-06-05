@@ -6,6 +6,8 @@ import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
 
+
+
 export default async function Home() {
   //get props and paths the blog and map the data to the page
   const blogs = await getBlogs();
@@ -15,7 +17,7 @@ export default async function Home() {
       <div>
         {/* header section */}
         {/* replace this section with header component  */}
-        <div className="">
+        <div>
           <h1 className="text-7xl font-extrabold">
             Hello this is{" "}
             <span className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
