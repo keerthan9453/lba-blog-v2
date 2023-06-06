@@ -1,33 +1,37 @@
 "use client";
-import { getBlogs, getFilterCategoryBlogs } from "@/sanity/sanity-utils";
+import {
+  getBlogs,
+  getFilterAIBlogs,
+  getFilterMetaverseBlogs,
+  getFilterBlockchainBlogs,
+  getFilteredBlogs,
+} from "@/sanity/sanity-utils";
 import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
-import { useState, useEffect } from "react";
+import MobileHamburgerSheet from "./components/Hamburger";
+import { useEffect } from "react";
 import React from "react";
 import { Blog } from "@/types/Blog";
 
-export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState("");
+var selectedCategoryTitle: string = "t";
+console.log(selectedCategoryTitle);
+var blogs;
 
-  const updateSelectedCategory = (newValue: string) => {
-    setSelectedCategory(newValue);
-    console.log(selectedCategory);
-
-    /*
-    if (selectedCategory === "") {
-      const blogs = getBlogs();
-    } else {
-      const blogs = getFilterCategoryBlogs(selectedCategory);
-    }*/
-  };
-  import MobileHamburgerSheet from "./components/Hamburger";
-
+export default async function Home() {
   //get props and paths the blog and map the data to the page
-  var blogs: Blog[] = fetchBlogs();
+  if (selectedCategoryTitle === "t") {
+    blogs = await getBlogs();
+  } else {
+    blogs = await getFilterMetaverseBlogs();
+  }
+
+  const updateSelectedCategory = async (newValue: string) => {
+    selectedCategoryTitle = newValue;
+  };
 
   return (
     <>
@@ -50,10 +54,7 @@ export default function Home() {
           </p>
         </div>
         <div>
-          <CategoryTab
-            selectedCategory={selectedCategory}
-            updateSelectedCategory={updateSelectedCategory}
-          />
+          <CategoryTab updateSelectedCategory={updateSelectedCategory} />
         </div>
 
         <h2 className="my-6 font-bold text-gray-700 text-8xl">Trending Now</h2>
@@ -69,10 +70,4 @@ export default function Home() {
       </div>
     </>
   );
-}
-
-async function fetchBlogs() {
-  const value = await getBlogs();
-  const realValue: Blog[] = value;
-  return realValue;
 }

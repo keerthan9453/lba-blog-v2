@@ -8,14 +8,17 @@ import {
 import Link from "next/link";
 
 type Props = {
-  selectedCategory: string;
   updateSelectedCategory: (newValue: string) => void;
 };
 
-async function CategoryTab({
-  selectedCategory,
-  updateSelectedCategory,
-}: Props) {
+const handleButtonClick = (
+  updateSelectedCategory: (newValue: string) => void,
+  newValue: string
+) => {
+  updateSelectedCategory(newValue);
+};
+
+async function CategoryTab({ updateSelectedCategory }: Props) {
   const categories = await getCategories();
   const categoryList = await getFilterAIBlogs();
 
@@ -39,8 +42,10 @@ async function CategoryTab({
             <div className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500 dark:text-gray-400">
               <button
                 className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white"
-                key={category._id}
-                onClick={() => handleButtonClick(category._id)}
+                key={category.title}
+                onClick={() => {
+                  handleButtonClick(updateSelectedCategory, category.title);
+                }}
               >
                 {category.title}
               </button>
