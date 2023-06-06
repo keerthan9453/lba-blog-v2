@@ -5,9 +5,10 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import RecentBlogs from "./components/RecentBlogs";
+import Providers from "./providers.jsx";
 
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Lassonde Blockchain Blog",
@@ -21,18 +22,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <title>
-        {/* placeholder for dynamic title */}
-        {metadata.title} | {metadata.description}
-      </title>
-
       <body>
-        <Navbar />
         <main>
+          <Providers>
+          <Navbar />
           {children}
-          <RecentBlogs/>
+          <RecentBlogs />
+          <Footer />
+          </Providers>
         </main>
-        <Footer />
       </body>
     </html>
   );
