@@ -24,6 +24,7 @@ export default function Home() {
       const blogs = getFilterCategoryBlogs(selectedCategory);
     }*/
   };
+  import MobileHamburgerSheet from "./components/Hamburger";
 
   //get props and paths the blog and map the data to the page
   var blogs: Blog[] = fetchBlogs();
@@ -31,6 +32,9 @@ export default function Home() {
   return (
     <>
       <div>
+        <div>
+          <MobileHamburgerSheet />
+        </div>
         {/* header section */}
         {/* replace this section with header component  */}
         <div className="">

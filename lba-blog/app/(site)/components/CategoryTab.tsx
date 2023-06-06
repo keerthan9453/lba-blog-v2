@@ -1,6 +1,10 @@
 // Jun 3 - By Samson
 import React from "react";
-import { getCategories, getFilterCategoryBlogs } from "@/sanity/sanity-utils";
+import {
+  getCategories,
+  getFilterAIBlogs,
+  getFilterBlockchainBlogs,
+} from "@/sanity/sanity-utils";
 import Link from "next/link";
 
 type Props = {
@@ -13,11 +17,7 @@ async function CategoryTab({
   updateSelectedCategory,
 }: Props) {
   const categories = await getCategories();
-  //const categoryList = await getFilterCategoryBlogs();
-
-  const handleButtonClick = (newValue: string) => {
-    updateSelectedCategory(newValue);
-  };
+  const categoryList = await getFilterAIBlogs();
 
   return (
     <div className=" mt-5">

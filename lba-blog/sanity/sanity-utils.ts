@@ -56,12 +56,46 @@ export async function getCategories(): Promise<Category[]> {
     }[defined(id)]`
   );
 }
-export async function getFilterCategoryBlogs(
-  categoryId: string
-): Promise<Category[]> {
+// Blockchain Blog Filter
+export async function getFilterBlockchainBlogs(): Promise<Blog[]> {
   return createClient(clientConfig).fetch(
-    //old: slug in categories[]->slug.current
-    groq`*[_type == 'category' && $categoryId in categories[]._ref]{
+    groq`*[_type == 'project' && categories[]->title match "Blockchain"]{
+      _id,
+      _createdAt,
+      title,
+      description,
+      author -> {name, "authorImage": image.asset->url},
+      
+      // loop through all the entries in categories and return the title from the referenced document
+      "categories": categories[]->title, 
+      publichedAt,
+      "slug": slug.current,
+      "image": image.asset->url,
+      content}`
+  );
+}
+// AI/ML Blog Filter
+export async function getFilterAIBlogs(): Promise<Blog[]> {
+  return createClient(clientConfig).fetch(
+    groq`*[_type == 'project' && categories[]->title match "AI/ML"]{
+      _id,
+      _createdAt,
+      title,
+      description,
+      author -> {name, "authorImage": image.asset->url},
+      
+      // loop through all the entries in categories and return the title from the referenced document
+      "categories": categories[]->title, 
+      publichedAt,
+      "slug": slug.current,
+      "image": image.asset->url,
+      content}`
+  );
+}
+// Metaverse Blog Filter
+export async function getFilterMetaverseBlogs(): Promise<Blog[]> {
+  return createClient(clientConfig).fetch(
+    groq`*[_type == 'project' && categories[]->title match "Metaverse"]{
       _id,
       _createdAt,
       title,
