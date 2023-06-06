@@ -5,6 +5,7 @@ import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
+import MobileHamburgerSheet from "./components/Hamburger";
 
 export default async function Home() {
   //get props and paths the blog and map the data to the page
@@ -13,6 +14,9 @@ export default async function Home() {
   return (
     <>
       <div>
+        <div>
+          <MobileHamburgerSheet/>
+        </div>
         {/* header section */}
         {/* replace this section with header component  */}
         <div className="">
