@@ -1,14 +1,32 @@
-import { getBlogs } from "@/sanity/sanity-utils";
+"use client";
+import { getBlogs, getFilterCategoryBlogs } from "@/sanity/sanity-utils";
 import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
+import { useState, useEffect } from "react";
+import React from "react";
+import { Blog } from "@/types/Blog";
 
-export default async function Home() {
+export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const updateSelectedCategory = (newValue: string) => {
+    setSelectedCategory(newValue);
+    console.log(selectedCategory);
+
+    /*
+    if (selectedCategory === "") {
+      const blogs = getBlogs();
+    } else {
+      const blogs = getFilterCategoryBlogs(selectedCategory);
+    }*/
+  };
+
   //get props and paths the blog and map the data to the page
-  const blogs = await getBlogs();
+  var blogs: Blog[] = fetchBlogs();
 
   return (
     <>
@@ -28,7 +46,10 @@ export default async function Home() {
           </p>
         </div>
         <div>
-          <CategoryTab />
+          <CategoryTab
+            selectedCategory={selectedCategory}
+            updateSelectedCategory={updateSelectedCategory}
+          />
         </div>
 
         <h2 className="my-6 font-bold text-gray-700 text-8xl">Trending Now</h2>
@@ -44,4 +65,10 @@ export default async function Home() {
       </div>
     </>
   );
+}
+
+async function fetchBlogs() {
+  const value = await getBlogs();
+  const realValue: Blog[] = value;
+  return realValue;
 }

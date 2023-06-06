@@ -56,9 +56,12 @@ export async function getCategories(): Promise<Category[]> {
     }[defined(id)]`
   );
 }
-export async function getFilterCategoryBlogs(): Promise<Category[]> {
+export async function getFilterCategoryBlogs(
+  categoryId: string
+): Promise<Category[]> {
   return createClient(clientConfig).fetch(
-    groq`*[_type == 'category' && slug in categories[]->slug.current]{
+    //old: slug in categories[]->slug.current
+    groq`*[_type == 'category' && $categoryId in categories[]._ref]{
       _id,
       _createdAt,
       title,

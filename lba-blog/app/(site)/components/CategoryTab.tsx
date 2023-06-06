@@ -3,9 +3,21 @@ import React from "react";
 import { getCategories, getFilterCategoryBlogs } from "@/sanity/sanity-utils";
 import Link from "next/link";
 
-async function CategoryTab() {
+type Props = {
+  selectedCategory: string;
+  updateSelectedCategory: (newValue: string) => void;
+};
+
+async function CategoryTab({
+  selectedCategory,
+  updateSelectedCategory,
+}: Props) {
   const categories = await getCategories();
-  const categoryList = await getFilterCategoryBlogs();
+  //const categoryList = await getFilterCategoryBlogs();
+
+  const handleButtonClick = (newValue: string) => {
+    updateSelectedCategory(newValue);
+  };
 
   return (
     <div className=" mt-5">
@@ -13,7 +25,7 @@ async function CategoryTab() {
         <>
           {/* display info from each blog */}
           {categories.map((category) => (
-            <Link
+            /*<Link
               href={`/categories/${category.title}`}
               key={category._id}
               //   className="border-2 border-gray-500 rounded-lg p-1 "
@@ -22,8 +34,17 @@ async function CategoryTab() {
                 <div className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">
                   {category.title}
                 </div>
-              </div>
-            </Link>
+              </div>*/
+            //</Link>
+            <div className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500 dark:text-gray-400">
+              <button
+                className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white"
+                key={category._id}
+                onClick={() => handleButtonClick(category._id)}
+              >
+                {category.title}
+              </button>
+            </div>
           ))}
         </>
       </div>
