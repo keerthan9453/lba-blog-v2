@@ -1,10 +1,11 @@
 // Jun 3 - By Samson
 import React from "react";
-import { getCategories } from "@/sanity/sanity-utils";
+import { getCategories, getFilterCategoryBlogs } from "@/sanity/sanity-utils";
 import Link from "next/link";
 
 async function CategoryTab() {
   const categories = await getCategories();
+  const categoryList = await getFilterCategoryBlogs();
 
   return (
     <div className=" mt-5">
