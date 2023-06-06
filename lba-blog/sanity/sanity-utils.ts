@@ -44,10 +44,32 @@ export async function getBlog(slug: string): Promise<Blog> {
 // fetch all categories data
 export async function getCategories(): Promise<Category[]> {
   return createClient(clientConfig).fetch(
-    groq`*[_type == "category"]{
-            _id,
-            title,
-            description,
-        }`
+    // groq`*[_type == "category"]{
+    //         _id,
+    //         title,
+    //         description,
+    //     }`
+    groq`*[_type == 'category']{
+      title,
+     'id':*[defined(categories) && _type == 'project' && references(^._id)][0]{_id},
+     description,
+    }[defined(id)]`
+  );
+}
+export async function getFilterCategoryBlogs(): Promise<Category[]> {
+  return createClient(clientConfig).fetch(
+    groq`*[_type == 'category' && slug in categories[]->slug.current]{
+      _id,
+      _createdAt,
+      title,
+      description,
+      author -> {name, "authorImage": image.asset->url},
+      
+      // loop through all the entries in categories and return the title from the referenced document
+      "categories": categories[]->title, 
+      publichedAt,
+      "slug": slug.current,
+      "image": image.asset->url,
+      content}`
   );
 }
