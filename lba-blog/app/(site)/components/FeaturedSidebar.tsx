@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 
 function FeaturedSidebar() {
   return (
-    <div className="">
-      <aside className=" sticky top-5">
+    <div className=" hidden md:block">
+      <aside className=" sticky top-5 ">
         <div className="border-solid border-2 border-black py-2">
           <div>
             <h1 className="text-4xl font-bold text-center">FEATURED</h1>
