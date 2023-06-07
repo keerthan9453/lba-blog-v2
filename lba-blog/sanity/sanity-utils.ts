@@ -74,6 +74,25 @@ export async function getFilterBlockchainBlogs(): Promise<Blog[]> {
       content}`
   );
 }
+// Market Blog Filter
+export async function getFilterMarketBlogs(): Promise<Blog[]> {
+  return createClient(clientConfig).fetch(
+    groq`*[_type == 'project' && categories[]->title match "Market"]{
+      _id,
+      _createdAt,
+      title,
+      description,
+      author -> {name, "authorImage": image.asset->url},
+      
+      // loop through all the entries in categories and return the title from the referenced document
+      "categories": categories[]->title, 
+      publichedAt,
+      "slug": slug.current,
+      "image": image.asset->url,
+      content}`
+  );
+}
+
 // AI/ML Blog Filter
 export async function getFilterAIBlogs(): Promise<Blog[]> {
   return createClient(clientConfig).fetch(

@@ -2,12 +2,19 @@ import { Blog } from "@/types/Blog";
 import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
+import { useState, useEffect } from "react";
 
 interface TrendingBlogProps {
-  blogs: Blog[];
+  inputBlogs: Blog[];
 }
 
-function TrendingBlogs({ blogs }: TrendingBlogProps) {
+function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
+  const [blogs, setBlogs] = useState<Blog[]>(inputBlogs);
+
+  useEffect(() => {
+    setBlogs(inputBlogs);
+  }, [inputBlogs]);
+
   return (
     <>
       {blogs.map((blog) => (

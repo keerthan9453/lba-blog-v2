@@ -1,26 +1,39 @@
 // Jun 3 - By Samson
-import React from "react";
+import React, { useEffect } from "react";
 import {
   getCategories,
   getFilterAIBlogs,
   getFilterBlockchainBlogs,
 } from "@/sanity/sanity-utils";
 import Link from "next/link";
+import { Category } from "@/types/Category";
 
 type Props = {
   updateSelectedCategory: (newValue: string) => void;
 };
 
-const handleButtonClick = (
-  updateSelectedCategory: (newValue: string) => void,
-  newValue: string
-) => {
-  updateSelectedCategory(newValue);
-};
+var categories: Category[] = [];
+var categoryList;
 
-async function CategoryTab({ updateSelectedCategory }: Props) {
-  const categories = await getCategories();
-  const categoryList = await getFilterAIBlogs();
+export default function CategoryTab({ updateSelectedCategory }: Props) {
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        categories = await getCategories();
+        categoryList = await getFilterAIBlogs();
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const handleButtonClick = (
+    updateSelectedCategory: (newValue: string) => void,
+    newValue: string
+  ) => {
+    updateSelectedCategory(newValue);
+  };
 
   return (
     <div className=" mt-5">
@@ -56,5 +69,3 @@ async function CategoryTab({ updateSelectedCategory }: Props) {
     </div>
   );
 }
-
-export default CategoryTab;
