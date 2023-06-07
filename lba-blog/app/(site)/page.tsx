@@ -46,6 +46,9 @@ export default function Home() {
         } else if (selectedCategoryTitle === "Blockchain") {
           var blogVal = await getFilterBlockchainBlogs();
           setBlogs(blogVal);
+        } else if (selectedCategoryTitle === "Mateverse") {
+          var blogVal = await getFilterBlockchainBlogs();
+          setBlogs(blogVal);
         } else if (selectedCategoryTitle === "Market") {
           var blogVal = await getFilterMarketBlogs();
           setBlogs(blogVal);
