@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import RecentBlogs from "./components/RecentBlogs";
-import Providers from "./providers.jsx";
+import Providers from "./providers";
 
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -25,10 +25,10 @@ export default function RootLayout({
       <body>
         <main>
           <Providers>
-          <Navbar />
-          {children}
-          <RecentBlogs />
-          <Footer />
+            <Navbar />
+            {children}
+            <RecentBlogs />
+            <Footer />
           </Providers>
         </main>
       </body>
