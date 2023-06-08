@@ -96,6 +96,7 @@ export default function Home() {
             {/* display info from each blog */}
             <TrendingBlogs inputBlogs={blogs} />
           </div>
+          {/* feature box */}
           <FeaturedSidebar />
         </div>
       </div>
