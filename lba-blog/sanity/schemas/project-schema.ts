@@ -75,18 +75,25 @@ const project = {
       of: [{ type: "block" }],
     },
   ],
-  preview: {
-    select: {
-      title: "title",
-      author: "author.name",
-      media: "image",
-    },
-    prepare(selection: { author: any }) {
-      const { author } = selection;
-      return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`,
-      });
-    },
+  // preview: {
+  //   select: {
+  //     title: "title",
+  //     author: "author.name",
+  //     media: "image",
+  //   },
+  //   prepare(selection: { author: any }) {
+  //     const { author } = selection;
+  //     return Object.assign({}, selection, {
+  //       subtitle: author && `by ${author}`,
+  //     });
+  //   },
+  // },
+  prepare(selection: Record<string, any>) {
+    const { author } = selection;
+    return {
+      ...selection,
+      subtitle: author && `by ${author}`,
+    };
   },
 };
 
