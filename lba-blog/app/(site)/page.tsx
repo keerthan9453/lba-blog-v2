@@ -69,8 +69,6 @@ export default function Home() {
         {/* header section */}
         {/* replace this section with header component  */}
         <div className="">
-        
-
           <p className="mt-3 text-xl text-gray-600">
             Weclome everyone! Check out our blogs!
           </p>
@@ -78,7 +76,6 @@ export default function Home() {
         {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
         <div>
           <CategoryTab updateSelectedCategory={updateSelectedCategory} />
-
         </div>
 
         <h2 className="my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
@@ -88,7 +85,7 @@ export default function Home() {
           <div className="grid grid-cols-4">
             <div className=" col-span-5 md:col-span-3">
               {/* display info from each blog */}
-              <TrendingBlogs blogs={blogs} />
+              <TrendingBlogs inputBlogs={blogs} />
             </div>
             <FeaturedSidebar />
           </div>

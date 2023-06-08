@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import {
   getCategories,
@@ -37,7 +36,7 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
 
   return (
     //CSS reference
-    {/*     <div className="mt-5 flex flex-wrap justify-center lg:justify-start">
+    /*     <div className="mt-5 flex flex-wrap justify-center lg:justify-start">
       {categories.map((category) => (
         <Link href={`/categories/${category.title}`} key={category._id}>
           <div className="m-2 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500 dark:text-gray-400">
@@ -46,8 +45,7 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
             </div>
           </div>
         </Link>
-      ))} */}
-    
+      ))} */
     <div className=" mt-5">
       <div className="flex flex-row ">
         <>
