@@ -4,7 +4,7 @@ function Footer() {
   return (
     <div className="grid grid-cols-9  bg-[#E0F2FF] py-8 px-14">
       <div className="flex-none mr-10 col-span-2">
-        <img src=""></img>
+        {/* <img src=""></img> */}
         <h1 className="font-bold">LBA</h1>
       </div>
       <div className="flex-none mr-10 col-span-1">
