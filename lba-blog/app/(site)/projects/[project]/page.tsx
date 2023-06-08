@@ -53,7 +53,7 @@ export default async function Blog({ params }: Props) {
     <div className="w-2/3 ml-4">
       <PortableText value={blog.content} />
     </div>
-    <div className="md:w-1/5 ml-5 mr-10"style={{ marginTop: '1%' }} >
+    <div className="md:w-1/5 ml-20 mr-5"style={{ marginTop: '1%' }} >
       <p className="text-xl uppercase font-bold text-gray900">A U T H O R ( S )</p>
       <div className="bg-gray-100 rounded-lg p-2">
         <div className="flex flex-col items-center">
