@@ -5,7 +5,7 @@ import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
-import MobileHamburgerSheet from "./components/Hamburger";
+
 
 export default async function Home() {
   //get props and paths the blog and map the data to the page
@@ -24,18 +24,20 @@ export default async function Home() {
             Weclome everyone! Check out our blogs!
           </p>
         </div>
-        <h2 className="my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
+        <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2>
         <div>
           <CategoryTab />
         </div>
 
         {/* blog box section*/}
-        <div className="mt-5 grid grid-cols-4">
-          <div className="col-span-3">
-            {/* display info from each blog */}
-            <TrendingBlogs blogs={blogs} />
+        <div className="flex justify-center items-center">
+          <div className="grid grid-cols-4">
+            <div className=" col-span-5 md:col-span-3">
+              {/* display info from each blog */}
+              <TrendingBlogs blogs={blogs} />
+            </div>
+            <FeaturedSidebar />
           </div>
-          <FeaturedSidebar />
         </div>
       </div>
     </>

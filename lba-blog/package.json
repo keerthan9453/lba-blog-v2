@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@portabletext/react": "^3.0.0",
     "@radix-ui/react-dialog": "^1.0.4",
@@ -30,7 +32,8 @@
     "sanity": "^3.11.2",
     "tailwind-merge": "^1.13.0",
     "tailwindcss-animate": "^1.0.5",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "vibrant": "^0.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
