@@ -3,8 +3,8 @@ import "../globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
+import CategoryTab from "./components/CategoryTab";
 import FeaturedSidebar from "./components/FeaturedSidebar";
-import RecentBlogs from "./components/RecentBlogs";
 import Providers from "./providers";
 
 
@@ -27,7 +27,6 @@ export default function RootLayout({
           <Providers>
             <Navbar />
             {children}
-            <RecentBlogs />
             <Footer />
           </Providers>
         </main>

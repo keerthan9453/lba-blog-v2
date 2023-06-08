@@ -15,33 +15,32 @@ export default async function Home() {
   return (
     <>
       <div>
+
         {/* header section */}
         {/* replace this section with header component  */}
-        <div>
-          <h1 className="text-7xl font-extrabold">
-            Hello this is{" "}
-            <span className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
-              Lassonde Blockchain
-            </span>
-          </h1>
+        <div className="">
+        
 
           <p className="mt-3 text-xl text-gray-600">
             Weclome everyone! Check out our blogs!
           </p>
         </div>
+        {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
         <div>
-          <CategoryTab />
+          {/* <CategoryTab /> */}
         </div>
 
         <h2 className="my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
 
         {/* blog box section*/}
-        <div className="mt-5 grid grid-cols-4">
-          <div className="col-span-3">
-            {/* display info from each blog */}
-            <TrendingBlogs blogs={blogs} />
+        <div className="flex justify-center items-center">
+          <div className="grid grid-cols-4">
+            <div className=" col-span-5 md:col-span-3">
+              {/* display info from each blog */}
+              <TrendingBlogs blogs={blogs} />
+            </div>
+            <FeaturedSidebar />
           </div>
-          <FeaturedSidebar />
         </div>
       </div>
     </>
