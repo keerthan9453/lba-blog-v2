@@ -23,8 +23,8 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
           key={blog._id}
           // className="border-2 border-gray-500 rounded-lg p-1 "
         >
-          <div className="shadow-lg flex items-center my-5 mr-3">
-            <div className=" group cursor-pointer overflow-hidden p-5 ">
+          <div className="shadow-lg flex flex-col md:flex-row items-center my-5 mr-3 ">
+            <div className="group cursor-pointer overflow-hidden p-5">
               {blog.image && (
                 <Image
                   src={blog.image}
@@ -32,17 +32,19 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
                   width={200}
                   height={200}
                   // className="object-cover rounded-lg border border-gray-500"
-                  className=" flex h-60 w-60 object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
+                  className="flex h-60 w-60 object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
                 />
               )}
             </div>
             <div className="flex flex-col px-4">
-              <p className=" text-sm tracking-wider uppercase">
+              <p className="text-sm tracking-wider uppercase">
                 Categories: {blog.categories.toString()}
               </p>
               <p>{blog.categories.description}</p>
-              <p className="mt-8">{moment(blog.publichedAt).format("MMM D")}</p>
-              <p className="text-5xl font-extrabold">{blog.title}</p>
+              <p className="mt-4 md:mt-8">
+                {moment(blog.publichedAt).format("MMM D")}
+              </p>
+              <p className="text-2xl md:text-5xl font-extrabold">{blog.title}</p>
               {/* {blog.author && (
                 <Image
                   src={blog.author.image}
@@ -54,7 +56,7 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
                 {blog.description}
               </p>
               <span className="uppercase font-extralight">
-                By {blog.author.name}{" "}
+                By {blog.author.name}
               </span>
             </div>
           </div>
