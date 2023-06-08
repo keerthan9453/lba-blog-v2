@@ -1,6 +1,8 @@
 import { defineConfig } from "sanity";
 import { deskTool } from "sanity/desk";
 import schemas from "./sanity/schemas";
+import projectStructure from "./sanity/projectStructure";
+import { visionTool } from "@sanity/vision";
 
 const config = defineConfig({
   projectId: "gkx9isc7",
@@ -13,7 +15,12 @@ const config = defineConfig({
 
   basePath: "/admin",
 
-  plugins: [deskTool()],
+  plugins: [
+    deskTool({
+      structure: projectStructure,
+    }),
+    visionTool(),
+  ],
 
   schema: { types: schemas },
 });
