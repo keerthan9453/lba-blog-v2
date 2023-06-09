@@ -1,14 +1,13 @@
 import Link from "next/link";
 import "../globals.css";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import CategoryTab from "./components/CategoryTab";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import Providers from "./providers";
 
-
-// const inter = Inter({ subsets: ["latin"] });
+// const poppin = Poppins({ subsets: [""] });
 
 export const metadata = {
   title: "Lassonde Blockchain Blog",

@@ -65,16 +65,15 @@ export default function Home() {
 
   return (
     <>
-      <div className="">
+      <div className="mt-20 my-6">
         {/* header section */}
         {/* replace this section with header component  */}
-        
+
         {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
-        <h2 className="mt-20 my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
+        <h2 className="font-bold text-gray-700 text-8xl">Blogs.</h2>
         <div className="">
           <CategoryTab updateSelectedCategory={updateSelectedCategory} />
         </div>
-
 
         {/* blog box section*/}
         <div className="flex justify-center items-center">
@@ -83,7 +82,7 @@ export default function Home() {
               {/* display info from each blog */}
               <TrendingBlogs inputBlogs={blogs} />
             </div>
-            <FeaturedSidebar />
+            {/* <FeaturedSidebar /> */}
           </div>
         </div>
       </div>
