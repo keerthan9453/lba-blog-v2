@@ -65,20 +65,16 @@ export default function Home() {
 
   return (
     <>
-      <div>
+      <div className="">
         {/* header section */}
         {/* replace this section with header component  */}
-        <div className="">
-          <p className="mt-3 text-xl text-gray-600">
-            Weclome everyone! Check out our blogs!
-          </p>
-        </div>
+        
         {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
-        <div>
+        <h2 className="mt-20 my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
+        <div className="">
           <CategoryTab updateSelectedCategory={updateSelectedCategory} />
         </div>
 
-        <h2 className="my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
 
         {/* blog box section*/}
         <div className="flex justify-center items-center">

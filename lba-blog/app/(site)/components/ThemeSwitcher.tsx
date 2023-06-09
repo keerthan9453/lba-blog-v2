@@ -1,6 +1,6 @@
 'use client'
 
-import { useTheme } from "next-themes";
+import {useTheme} from 'next-themes';
 import { useState, useEffect } from "react";
 // import * as Switch from '@radix-ui/react-switch';
 import { MdDarkMode } from 'react-icons/md';
