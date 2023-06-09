@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-// import ThemeSwitcher from './ThemeSwitcher';
 import Image from 'next/image';
 import marker from '../components/lib/marker.gif';
 import {
@@ -12,10 +11,8 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "./Sheets";
-
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from "react";
-// import * as Switch from '@radix-ui/react-switch';
 import { MdDarkMode } from 'react-icons/md';
 import { FaSun } from 'react-icons/fa';
 
@@ -83,4 +80,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
