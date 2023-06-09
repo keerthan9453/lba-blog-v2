@@ -65,7 +65,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="mt-20 my-6">
+      <div className="mt-20 my-6 mx-11">
         {/* header section */}
         {/* replace this section with header component  */}
 
