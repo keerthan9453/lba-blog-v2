@@ -58,6 +58,9 @@ const Navbar = () => {
                                 </button>
                             </div>
                         </div>
+
+                            {/* Hidden Side Bar */}
+
                         <div className="top-0 right-0 p-4 md:hidden">
                             <Sheet>
                                 <SheetTrigger>
