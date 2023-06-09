@@ -7,9 +7,6 @@ import {
   getFilterMarketBlogs,
   getFilteredBlogs,
 } from "@/sanity/sanity-utils";
-import Image from "next/image";
-import Link from "next/link";
-import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
@@ -65,10 +62,11 @@ export default function Home() {
 
   return (
     <>
-      <div className="">
+      <div className="container mx-auto sm:px-4">
         {/* header section */}
+
         {/* replace this section with header component  */}
-        
+
         {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
         <h2 className="mt-20 my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
         <div className="">
