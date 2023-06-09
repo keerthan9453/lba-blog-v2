@@ -1,13 +1,10 @@
-import Link from "next/link";
 import "../globals.css";
-import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import CategoryTab from "./components/CategoryTab";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import Providers from "./providers";
-
-// const poppin = Poppins({ subsets: [""] });
+import Head from "next/head";
 
 export const metadata = {
   title: "Lassonde Blockchain Blog",
