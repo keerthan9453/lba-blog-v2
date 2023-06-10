@@ -58,30 +58,28 @@ export default function Home() {
     fetchBlogs();
   }, [selectedCategoryTitle]);
 
-  
+
 
   return (
     <>
-      <div className="container mx-auto sm:px-4">
-        {/*<div className="mt-20 my-6 mx-11">*/}
-        {/* header section */}
+      <div className="container mx-auto sm:px-4 top-20 box-border">
+        <div className="lg:mt-20 lg:my-6 lg:mx-10">
+          {/* header section */}
 
-        {/* replace this section with header component  */}
+          {/* replace this section with header component  */}
 
-        {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
-        <h2 className="font-bold text-gray-700 text-8xl">Blogs.</h2>
-        <div className="">
-          <CategoryTab updateSelectedCategory={updateSelectedCategory} />
-        </div>
+          {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
+          <h2 className="font-bold text-gray-700 text-8xl">Blogs.</h2>
+          <div className="">
+            <CategoryTab updateSelectedCategory={updateSelectedCategory} />
+          </div>
 
-        {/* blog box section*/}
-        <div className="flex justify-center items-center">
-          <div className="grid grid-cols-4">
-            <div className="col-span-5 md:col-span-3">
+          {/* blog box section*/}
+          <div className="flex w-full justify-center items-center">
+            <div className="col container max-w-full">
               {/* display info from each blog */}
               <TrendingBlogs inputBlogs={blogs} />
             </div>
-            {/* <FeaturedSidebar /> */}
           </div>
         </div>
       </div>
