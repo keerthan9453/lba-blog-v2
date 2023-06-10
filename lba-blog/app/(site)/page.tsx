@@ -14,8 +14,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { Blog } from "@/types/Blog";
 
-//var blogs: Blog[] = [];
-
 export default function Home() {
   //get props and paths the blog and map the data to the page
 
@@ -60,6 +58,8 @@ export default function Home() {
     fetchBlogs();
   }, [selectedCategoryTitle]);
 
+  
+
   return (
     <>
       <div className="container mx-auto sm:px-4">
@@ -68,7 +68,7 @@ export default function Home() {
         {/* replace this section with header component  */}
 
         {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
-        <h2 className="mt-20 my-6 font-bold text-gray-700 text-8xl">Blogs.</h2>
+        <h2 className="mt-20 my-6 font-bold text-gray-700 dark:text-gray-300 text-8xl">Blogs.</h2>
         <div className="">
           <CategoryTab updateSelectedCategory={updateSelectedCategory} />
         </div>
@@ -77,7 +77,7 @@ export default function Home() {
         {/* blog box section*/}
         <div className="flex justify-center items-center">
           <div className="grid grid-cols-4">
-            <div className=" col-span-5 md:col-span-3">
+            <div className="col-span-5 md:col-span-3">
               {/* display info from each blog */}
               <TrendingBlogs inputBlogs={blogs} />
             </div>
