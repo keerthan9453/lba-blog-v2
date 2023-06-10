@@ -41,25 +41,29 @@ const Navbar = () => {
               </Link>
             </div>
             <div>
-              <div className="right-10 border dark:hover:bg-slate-50 duration-100 dark:bg-slate-800 bg-grap-100 rounded transition">
-                {/* light button */}
-                <button
-                  // onClick={() => setTheme("light")}
-                  onClick={() =>
-                    theme == "dark" ? setTheme("light") : setTheme("dark")
-                  }
-                  className="w-8 h-8 leading-9 text-x1 rounded-full m-1 text-sky-600"
-                >
-                  <FaSun className="mx-2" target="_blank" />
-                </button>
+              <div className="flex justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                {/* <div className="right-10 border dark:hover:bg-slate-50 duration-100 dark:bg-slate-800 bg-grap-100 rounded transition"> */}
+                {currentTheme === "dark" ? (
+                  // {/* light button */}
 
-                {/* dark button */}
-                {/* <button
-                  onClick={() => setTheme("dark")}
-                  className="w-8 h-8 leading-9 text-x1 rounded-full m-1 text-sky-600"
-                >
-                  <MdDarkMode className="mx-2" target="_blank" />
-                </button> */}
+                  <button
+                    onClick={() => setTheme("light")}
+                    // onClick={() =>
+                    //   theme == "dark" ? setTheme("light") : setTheme("dark")
+                    // }
+                    className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-orange-300"
+                  >
+                    <FaSun className="w-7 h-7" target="_blank" />
+                  </button>
+                ) : (
+                  // {/* dark button */}
+                  <button
+                    onClick={() => setTheme("dark")}
+                    className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-purple-600"
+                  >
+                    <MdDarkMode className="w-7 h-7" target="_blank" />
+                  </button>
+                )}
               </div>
             </div>
 
