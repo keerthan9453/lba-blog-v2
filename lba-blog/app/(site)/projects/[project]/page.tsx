@@ -28,52 +28,57 @@ export default async function Blog({ params }: Props) {
     //       <h4>
     //         By {blog.author.name} -{" "}
     <div className={roboto_slab.className}>
+
       {/* header section */}
       <div className="container mb-20 mx-auto py-auto sm:px-4">
-        <header className="mt-32">
+        <header className="mt-24">
           <div className="md:flex items-center justify-between">
+
             {/* left */}
-            <h1
-              className=" text-5xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent "
-              style={{ marginTop: "5%" }}
-            >
-              {blog.title}
-            </h1>
+            <div className="grid grid-cols-1">
+              <h1
+                className="grid grid-rows-1 lg:text-6xl md:text-4xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent "
+                style={{ marginTop: "5%" }}
+              >
+                {blog.title}
+              </h1>
+              <p className="grid grid-rows-1 lg:text-2xl">{blog.description}</p>
+            </div>
+
             {/* right */}
             {/* image section */}
-            <div className="flex items-center justify-center h-screen/2 ">
+            <div className="flex items-center justify-center h-screen/2 md:pr-5">
               <Image
                 src={blog.image}
                 alt={blog.title}
                 width={800}
                 height={600}
-                // className="border-2 border-gray-700 object-cover rounded-xl"
+              // className="border-2 border-gray-700 object-cover rounded-xl"
               />
             </div>
-            <div></div>
           </div>
         </header>
 
         {/* body */}
-        <div className="md:text-lg text-gray-500 mt-5">
+        <div className="md:text-lg text-gray-600 mt-5">
           {/* content */}
-          <p className="text-gray-700 font-bold underline">
-            {moment(blog.publichedAt).format("MMM D, YYYY")}
+          <p className="text-gray-800 dark:text-gray-400 font-bold">
+            Published: <span className="underline">{moment(blog.publichedAt).format("MMM D, YYYY")}</span>
           </p>
           <div className="mt-5 md:flex items-start">
-            <div className="lg:w-2/3 md:w-full">
+            <div className="lg:w-2/3 md:w-2/3 dark:text-slate-400 lg:text-left sm:text sm:px-5 lg:border-r-2 lg:border-gray-500 ">
               <PortableText value={blog.content} />
             </div>
             {/* author  */}
-            <div className="lg:ml-10 md:w-1/5 mr-5" style={{ marginTop: "1%" }}>
-              <p className="text-xl uppercase font-bold text-gray900 tracking-wider">
+            <div className="lg:ml-10 md:w-1/5 mr-5 justify-center" style={{ marginTop: "1%" }}>
+              <p className="text-xl uppercase font-bold text-gray-900 tracking-wider dark:text-slate-500 pb-2">
                 Author(s)
               </p>
               <div className="bg-gray-100 rounded-lg p-2">
                 <div className="flex flex-col items-center">
                   <div>
                     <Image
-                      src={icon}
+                      src={blog.author.image}
                       alt={blog.author.name}
                       width={80}
                       height={80}
@@ -81,92 +86,27 @@ export default async function Blog({ params }: Props) {
                     />
                   </div>
                   <div className="text-center">
-                    <p className="text-lg uppercase font-extralight text-black mb-3">
-                      written by: {blog.author.name}
+                    <p className="text-lg text-bold font-extralight text-black mb-3">
+                      Author: {blog.author.name}
                     </p>
-                    <p className="text-sm uppercase font-extralight text-black">
-                      some description dsiod jfijaodij faodifj oadij fopadi
-                      jfoadijf oaidjf oaidjfoj dfoaijd foj
+                    {/* author bio */}
+                    <p className="text-sm font-extralight text-slate-700">
+                      {blog.author.bio}
                     </p>
                   </div>
                 </div>
               </div>
               <div className="mt-2">
-                <p className="text-xl uppercase font-bold text-gray900 tracking-wider">
+                <p className="text-xl uppercase font-bold text-gray-900 dark:text-slate-500 tracking-wider pb-2">
                   Categories
                 </p>
-                <div className=" p-2 inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-blue-900 hover:text-blue-200 transition">
+                <div className=" p-2 inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-[#554abb] hover:text-[#ffffff] transition">
                   {blog.categories.toString()}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* flex - side by side, justify-btw - left and right
-        <div className="flex items-center justify-between">
-          {/* left }
-          <h1 className="text-5xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent " style={{ marginTop: '5%' }}>
-            {blog.title}
-          </h1>
-          {/* right }
-
-        </div>
-      </header>
-
-      {/* image section }
-      <div className="border-4">
-        <div className="flex items-center justify-center h-screen/2 ">
-          <Image
-            src={blog.image}
-            alt={blog.title}
-            width={1000}
-            height={800}
-          // className="border-2 border-gray-700 object-cover rounded-xl"
-          />
-        </div>
-      </div>
-
-      <div className="md:text-lg text-gray-500 mt-5 ml-4">
-        <p className="text-gray-700 font-bold underline ml-4">
-          {moment(blog.publichedAt).format("MMM D, YYYY")}
-        </p>
-        <div className="md:flex items-start">
-          <div className="w-2/3 ml-4">
-            <PortableText value={blog.content} />
-          </div>
-          <div className="md:w-1/5 ml-20 mr-5" style={{ marginTop: '1%' }} >
-            <p className="text-xl uppercase font-bold text-gray900">A U T H O R ( S )</p>
-            <div className="bg-gray-100 rounded-lg p-2">
-              <div className="flex flex-col items-center">
-                <div>
-                  <Image
-                    src={icon}
-                    alt={blog.author.name}
-                    width={80}
-                    height={80}
-                    className="rounded-full mb-5 mt-5"
-                  />
-                </div>
-                <div className="ml-2 text-center">
-                  <p className="text-lg uppercase font-extralight text-black mb-3">written by: {blog.author.name}</p>
-                  <p className="text-sm uppercase font-extralight text-black">
-                    some description dsiod jfijaodij faodifj oadij fopadi jfoadijf oaidjf oaidjfoj dfoaijd foj
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="mt-2">
-              <p className="text-xl uppercase font-bold text-gray-900">CATEGORIES</p>
-              <div className="inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-blue-900 hover:text-blue-200 transition">
-                {blog.categories.toString()}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> */}
-
       </div>
     </div>
   );
