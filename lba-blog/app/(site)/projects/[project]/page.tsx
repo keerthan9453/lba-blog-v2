@@ -66,7 +66,7 @@ export default async function Blog({ params }: Props) {
             Published: <span className="underline">{moment(blog.publichedAt).format("MMM D, YYYY")}</span>
           </p>
           <div className="mt-5 md:flex items-start">
-            <div className="lg:w-2/3 md:w-2/3 dark:text-slate-400 lg:text-justify sm:text sm:px-5">
+            <div className="lg:w-2/3 md:w-2/3 dark:text-slate-400 lg:text-left sm:text sm:px-5 lg:border-r-2 lg:border-gray-500 ">
               <PortableText value={blog.content} />
             </div>
             {/* author  */}

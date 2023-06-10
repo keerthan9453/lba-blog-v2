@@ -35,22 +35,11 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
   };
 
   return (
-    //CSS reference
-    /*     <div className="mt-5 flex flex-wrap justify-center lg:justify-start">
-      {categories.map((category) => (
-        <Link href={`/categories/${category.title}`} key={category._id}>
-          <div className="m-2 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500 dark:text-gray-400">
-            <div className="px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">
-              {category.title}
-            </div>
-          </div>
-        </Link>
-      ))} */
     <div className="mt-5">
       <div className="flex flex-row overflow-y-auto">
-        <div className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500">
+        <div className="mr-3 rounded-lg bg-gray-300 text-md font-medium text-center text-gray-800">
           <button
-            className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-200 "
+            className="inline-block px-4 py-3 rounded-lg hover:text-black hover:bg-gray-400 "
             onClick={() => {
               handleButtonClick(updateSelectedCategory, "");
             }}
@@ -63,10 +52,10 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
         {categories.map((category) => (
           <div
             key={category.title}
-            className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500"
+            className="mr-3 rounded-lg bg-gray-300 text-md font-medium text-center text-gray-800"
           >
             <button
-              className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-200 "
+              className="inline-block px-4 py-3 rounded-lg hover:text-black hover:bg-gray-400 "
               onClick={() => {
                 handleButtonClick(updateSelectedCategory, category.title);
               }}

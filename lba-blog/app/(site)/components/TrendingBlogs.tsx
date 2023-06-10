@@ -23,7 +23,7 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
           key={blog._id}
           // className="border-2 border-gray-500 rounded-lg p-1 "
         >
-          <div className="shadow-lg dark:shadow-rose-50 flex flex-col md:flex-row items-center my-5 mr-3 ">
+          <div className="shadow-lg rounded dark:shadow-slate-600 dark:bg-[#1e1e1e] flex flex-col md:flex-row items-center my-5 mr-3">
             <div className="group cursor-pointer overflow-hidden p-5">
               {blog.image && (
                 <Image
@@ -32,7 +32,7 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
                   width={200}
                   height={200}
                   // className="object-cover rounded-lg border border-gray-500"
-                  className="flex h-60 w-60 object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
+                  className="flex rounded h-60 w-60 object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
                 />
               )}
             </div>
