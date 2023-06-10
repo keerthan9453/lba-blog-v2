@@ -5,6 +5,17 @@ import CategoryTab from "./components/CategoryTab";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import Providers from "./providers";
 import Head from "next/head";
+import { Poppins, Roboto_Slab } from "next/font/google"
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
+
+const roboto_slab = Roboto_Slab({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 export const metadata = {
   title: "Lassonde Blockchain Blog",
@@ -19,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main>
+        <main className={poppins.className}>
           <Providers>
             <Navbar />
             {children}

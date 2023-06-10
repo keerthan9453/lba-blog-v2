@@ -1,6 +1,8 @@
 "use client";
+import React from 'react';
+// import next/theme
+import { useTheme } from 'next-themes';
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 
 var bgColor: string = "E0F2FF";
 var mainDiv: string = `grid grid-cols-1 md:grid-cols-9 bg-[#${bgColor}] py-8 px-4 md:px-14`;

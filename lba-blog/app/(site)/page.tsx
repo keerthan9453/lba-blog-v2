@@ -14,8 +14,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { Blog } from "@/types/Blog";
 
-//var blogs: Blog[] = [];
-
 export default function Home() {
   //get props and paths the blog and map the data to the page
 
@@ -60,6 +58,8 @@ export default function Home() {
     fetchBlogs();
   }, [selectedCategoryTitle]);
 
+  
+
   return (
     <>
       <div className="container mx-auto sm:px-4">
@@ -77,7 +77,7 @@ export default function Home() {
         {/* blog box section*/}
         <div className="flex justify-center items-center">
           <div className="grid grid-cols-4">
-            <div className=" col-span-5 md:col-span-3">
+            <div className="col-span-5 md:col-span-3">
               {/* display info from each blog */}
               <TrendingBlogs inputBlogs={blogs} />
             </div>
