@@ -14,7 +14,7 @@ import {
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { MdDarkMode } from "react-icons/md";
-import { FaSun } from "react-icons/fa";
+import { BsFillSunFill } from "react-icons/bs";
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
@@ -30,8 +30,8 @@ const Navbar = () => {
   return (
     <>
       <div className="container mx-auto sm:px-4">
-        <div className="fixed backdrop-blur-sm bg-white/75  z-50 top-0 left-0 right-0 h-fits border-b border-slate-300 dark:border-slate-700 dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
-          <div className="container mx-auto flex justify-between items-center">
+        <div className="fixed backdrop-blur-sm bg-white/75 z-50 top-0 left-0 right-0 h-fits border-b border-slate-300 dark:border-slate-700 dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
+          <div className="container mx-auto px-5 flex justify-between items-center">
             <div>
               <Link
                 href="/"
@@ -53,7 +53,7 @@ const Navbar = () => {
                     // }
                     className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-orange-300"
                   >
-                    <FaSun className="w-7 h-7" target="_blank" />
+                    <BsFillSunFill className="w-6 h-6" target="_blank" />
                   </button>
                 ) : (
                   // {/* dark button */}
@@ -61,7 +61,7 @@ const Navbar = () => {
                     onClick={() => setTheme("dark")}
                     className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-purple-600"
                   >
-                    <MdDarkMode className="w-7 h-7" target="_blank" />
+                    <MdDarkMode className="w-6 h-6" target="_blank" />
                   </button>
                 )}
               </div>
@@ -69,10 +69,10 @@ const Navbar = () => {
 
             {/* Hidden Side Bar */}
 
-            <div className="top-0 right-0 p-4 md:hidden">
+            <div className="top-0 right-0 p-0 md:hidden">
               <Sheet>
                 <SheetTrigger>
-                  <Image src={marker} alt="logo" width={100} height={100} />
+                  <Image src={marker} alt="logo" width={75} height={75} />
                 </SheetTrigger>
                 <SheetContent>
                   <SheetHeader>
