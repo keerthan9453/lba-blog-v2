@@ -48,33 +48,33 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
       ))} */
     <div className="mt-5">
       <div className="flex flex-row overflow-y-auto">
-          <div className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500 dark:text-gray-400">
+        <div className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500">
+          <button
+            className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-200 "
+            onClick={() => {
+              handleButtonClick(updateSelectedCategory, "");
+            }}
+          >
+            All
+          </button>
+        </div>
+
+        {/* display info from each blog */}
+        {categories.map((category) => (
+          <div
+            key={category.title}
+            className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500"
+          >
             <button
-              className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white"
+              className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-200 "
               onClick={() => {
-                handleButtonClick(updateSelectedCategory, "");
+                handleButtonClick(updateSelectedCategory, category.title);
               }}
             >
-              All
+              {category.title}
             </button>
           </div>
-
-          {/* display info from each blog */}
-          {categories.map((category) => (
-            <div
-              key={category.title}
-              className="mr-3 rounded-lg bg-gray-100 text-md font-medium text-center text-gray-500 dark:text-gray-400"
-            >
-              <button
-                className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white"
-                onClick={() => {
-                  handleButtonClick(updateSelectedCategory, category.title);
-                }}
-              >
-                {category.title}
-              </button>
-            </div>
-          ))}
+        ))}
       </div>
     </div>
   );
