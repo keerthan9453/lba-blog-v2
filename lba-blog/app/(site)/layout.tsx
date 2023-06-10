@@ -5,16 +5,17 @@ import CategoryTab from "./components/CategoryTab";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import Providers from "./providers";
 import Head from "next/head";
-import { Poppins, Roboto_Slab } from "next/font/google"
+import { Poppins, Roboto_Slab } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '700'],
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const roboto_slab = Roboto_Slab({
-  subsets: ['latin'],
-  weight: ['400', '700'],
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata = {
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body>
         <main className={poppins.className}>
           <Providers>

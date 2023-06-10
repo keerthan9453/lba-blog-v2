@@ -23,7 +23,7 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
           key={blog._id}
           // className="border-2 border-gray-500 rounded-lg p-1 "
         >
-          <div className="shadow-lg flex flex-col md:flex-row items-center my-5 mr-3 ">
+          <div className="shadow-lg dark:shadow-rose-50 flex flex-col md:flex-row items-center my-5 mr-3 ">
             <div className="group cursor-pointer overflow-hidden p-5">
               {blog.image && (
                 <Image
@@ -44,7 +44,9 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
               <p className="mt-4 md:mt-8">
                 {moment(blog.publichedAt).format("MMM D")}
               </p>
-              <p className="text-2xl md:text-5xl font-extrabold">{blog.title}</p>
+              <p className="text-2xl md:text-5xl font-extrabold">
+                {blog.title}
+              </p>
               {/* {blog.author && (
                 <Image
                   src={blog.author.image}
