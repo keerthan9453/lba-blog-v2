@@ -1,10 +1,29 @@
+"use client";
 import React from 'react';
 // import next/theme
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from "react";
+
+var bgColor: string = "E0F2FF";
+var mainDiv: string = `grid grid-cols-1 md:grid-cols-9 bg-[#${bgColor}] py-8 px-4 md:px-14`;
 
 function Footer() {
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const changeColors = () => {
+      if (theme !== "dark") {
+        bgColor = "3E5F99";
+      } else {
+        bgColor = "E0F2FF";
+      }
+      mainDiv = `grid grid-cols-1 md:grid-cols-9 bg-[#${bgColor}] py-8 px-4 md:px-14`;
+    };
+    changeColors();
+  }, [theme]);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-9 bg-[#0c4f80] dark:bg-black py-8 px-4 md:px-14">
+    <div className={mainDiv}>
       <div className="flex-none mr-10 col-span-2 md:col-span-1 md:row-start-1 md:row-end-3">
         <h1 className="font-bold">LBA</h1>
       </div>
