@@ -23,7 +23,7 @@ function Footer() {
   // }, [theme]);
 
   return (
-    <div className="border-t grid grid-cols-1 md:grid-cols-9 py-8 px-4 md:px-14">
+    <div className="grid grid-cols-1 md:grid-cols-9 py-8 px-4 md:px-14 bg-[#6bf0f0] dark:bg-slate-700">
       <div className="flex-none mr-10 col-span-2 md:col-span-1 md:row-start-1 md:row-end-3">
         <h1 className="font-bold">LBA</h1>
       </div>

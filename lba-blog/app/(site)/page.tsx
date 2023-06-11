@@ -62,14 +62,14 @@ export default function Home() {
   return (
     <>
       <ThemeProvider>
-        <div className=" container mx-auto sm:px-4 top-20 box-border">
+        <div className="container mx-auto sm:px-4 top-20 box-border">
           <div className="lg:mt-20 lg:my-6 lg:mx-10">
             {/* header section */}
 
             {/* replace this section with header component  */}
 
             {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
-            <h2 className="font-bold text-8xl text-gray-700 dark:text-blue-50">
+            <h2 className="font-bold text-8xl text-gray-800 dark:text-blue-50">
               Blogs.
             </h2>
             <div className="">
