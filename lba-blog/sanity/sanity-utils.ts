@@ -12,7 +12,7 @@ export async function getBlogs(): Promise<Blog[]> {
             _createdAt,
             title,
             description,
-            author -> {name, "authorImage": image.asset->url},
+            author -> {name, "image": image.asset->url, "slug": slug.current, "bio": bio},
             
             // loop through all the entries in categories and return the title from the referenced document
             "categories": categories[]->title, 
@@ -31,7 +31,7 @@ export async function getBlog(slug: string): Promise<Blog> {
             _createdAt,
             title,
             description,
-            author -> {name, image},
+            author -> {name, "image": image.asset->url, "slug": slug.current, "bio": bio},
             "categories": categories[]->title, 
             publichedAt, 
             "slug": slug.current,
@@ -101,7 +101,7 @@ export async function getFilterAIBlogs(): Promise<Blog[]> {
       _createdAt,
       title,
       description,
-      author -> {name, "authorImage": image.asset->url},
+      author -> {name, "image": image.asset->url, slug, bio},
       
       // loop through all the entries in categories and return the title from the referenced document
       "categories": categories[]->title, 
