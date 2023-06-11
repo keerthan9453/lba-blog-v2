@@ -7,18 +7,13 @@ import {
   getFilterMarketBlogs,
   getFilteredBlogs,
 } from "@/sanity/sanity-utils";
-import Image from "next/image";
-import Link from "next/link";
-import moment from "moment";
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
-import MobileHamburgerSheet from "./components/Hamburger";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Blog } from "@/types/Blog";
-
-//var blogs: Blog[] = [];
+import { ThemeProvider } from "next-themes";
 
 export default function Home() {
   //get props and paths the blog and map the data to the page
@@ -66,39 +61,31 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        <div>
-          <MobileHamburgerSheet />
-        </div>
-        {/* header section */}
-        {/* replace this section with header component  */}
-        <div className="">
-          <h1 className="text-7xl font-extrabold">
-            Hello this is{" "}
-            <span className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
-              Lassonde Blockchain
-            </span>
-          </h1>
+      <ThemeProvider>
+        <div className="container mx-auto sm:px-4 top-20 box-border">
+          <div className="lg:mt-20 lg:my-6 lg:mx-10">
+            {/* header section */}
 
-          <p className="mt-3 text-xl text-gray-600">
-            Weclome everyone! Check out our blogs!
-          </p>
-        </div>
-        <div>
-          <CategoryTab updateSelectedCategory={updateSelectedCategory} />
-        </div>
+            {/* replace this section with header component  */}
 
-        <h2 className="my-6 font-bold text-gray-700 text-8xl">Trending Now</h2>
+            {/* <h2 className="my-6 font-bold text-gray-700 text-5xl mt-10 ">Blogs.</h2> */}
+            <h2 className="font-bold text-8xl text-gray-800 dark:text-blue-50">
+              Blogs.
+            </h2>
+            <div className="">
+              <CategoryTab updateSelectedCategory={updateSelectedCategory} />
+            </div>
 
-        {/* blog box section*/}
-        <div className="mt-5 grid grid-cols-4">
-          <div className="col-span-3">
-            {/* display info from each blog */}
-            <TrendingBlogs inputBlogs={blogs} />
+            {/* blog box section*/}
+            <div className="flex w-full justify-center items-center">
+              <div className="col container max-w-full">
+                {/* display info from each blog */}
+                <TrendingBlogs inputBlogs={blogs} />
+              </div>
+            </div>
           </div>
-          <FeaturedSidebar />
         </div>
-      </div>
+      </ThemeProvider>
     </>
   );
 }

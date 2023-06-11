@@ -1,10 +1,22 @@
-import Link from "next/link";
 import "../globals.css";
-import { Inter } from "next/font/google";
+import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import CategoryTab from "./components/CategoryTab";
+import FeaturedSidebar from "./components/FeaturedSidebar";
+import Providers from "./providers";
+import Head from "next/head";
+import { Poppins, Roboto_Slab } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const roboto_slab = Roboto_Slab({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export const metadata = {
   title: "Lassonde Blockchain Blog",
@@ -17,21 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/* home page style */}
+    <html lang="en" className="dark">
       <body>
-        <div className="max-w-screen-2xl mx-auto py-10">
-          <header>
-            <Link
-              href="/"
-              className="text-2xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent"
-            >
-              LBA - Blog
-            </Link>
-            <main className="py-20">{children}</main>
-          </header>
-        </div>
-        <Footer />
+        <main className={poppins.className}>
+          <Providers>
+            <Navbar />
+            {children}
+            <Footer />
+          </Providers>
+        </main>
       </body>
     </html>
   );
