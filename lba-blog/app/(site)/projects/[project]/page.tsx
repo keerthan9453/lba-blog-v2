@@ -2,7 +2,7 @@ import { getBlog } from "@/sanity/sanity-utils";
 import { PortableText } from "@portabletext/react";
 import moment from "moment";
 import Image from "next/image";
-import icon from "../../components/lib/headShot.jpg"
+import icon from "../../components/lib/headShot.jpg";
 import { Roboto_Slab } from "next/font/google";
 
 type Props = {
@@ -11,16 +11,16 @@ type Props = {
 
 // font import
 const roboto_slab = Roboto_Slab({
-  subsets: ['latin'],
-  weight: ['400', '700'],
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export default async function Blog({ params }: Props) {
   const slug = params.project;
   const blog = await getBlog(slug);
+  // const categories = (await getBlog(slug)).categories;
 
   return (
-
     // <div className={roboto_slab.className}>
     //   <header>
     //     {/* Author + Date */}
@@ -28,12 +28,10 @@ export default async function Blog({ params }: Props) {
     //       <h4>
     //         By {blog.author.name} -{" "}
     <div className={roboto_slab.className}>
-
       {/* header section */}
       <div className="container mb-20 mx-auto py-auto sm:px-4">
         <header className="mt-24">
           <div className="md:flex items-center justify-between">
-
             {/* left */}
             <div className="grid grid-cols-1">
               <h1
@@ -53,7 +51,7 @@ export default async function Blog({ params }: Props) {
                 alt={blog.title}
                 width={800}
                 height={600}
-              // className="border-2 border-gray-700 object-cover rounded-xl"
+                // className="border-2 border-gray-700 object-cover rounded-xl"
               />
             </div>
           </div>
@@ -62,15 +60,21 @@ export default async function Blog({ params }: Props) {
         {/* body */}
         <div className="md:text-lg text-gray-600 mt-5">
           {/* content */}
-          <p className="text-gray-800 dark:text-gray-400 font-bold">
-            Published: <span className="underline">{moment(blog.publichedAt).format("MMM D, YYYY")}</span>
+          <p className=" text-gray-800 dark:text-gray-400 font-bold">
+            Published:{" "}
+            <span className="underline">
+              {moment(blog.publichedAt).format("MMM D, YYYY")}
+            </span>
           </p>
           <div className="mt-5 md:flex items-start">
             <div className="lg:w-2/3 md:w-2/3 dark:text-slate-400 lg:text-left sm:text sm:px-5 lg:border-r-2 lg:border-gray-500 ">
               <PortableText value={blog.content} />
             </div>
             {/* author  */}
-            <div className="lg:ml-10 md:w-1/5 mr-5 justify-center" style={{ marginTop: "1%" }}>
+            <div
+              className="lg:ml-10 md:w-1/5 mr-5 justify-center"
+              style={{ marginTop: "1%" }}
+            >
               <p className="text-xl uppercase font-bold text-gray-900 tracking-wider dark:text-slate-500 pb-2">
                 Author(s)
               </p>
@@ -101,7 +105,7 @@ export default async function Blog({ params }: Props) {
                   Categories
                 </p>
                 <div className=" p-2 inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-[#554abb] hover:text-[#ffffff] transition">
-                  {blog.categories.toString()}
+                  {blog.categories.toString().trim().split(",")}
                 </div>
               </div>
             </div>

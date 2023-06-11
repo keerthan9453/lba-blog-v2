@@ -30,8 +30,8 @@ const Navbar = () => {
   return (
     <>
       <div className="container mx-auto sm:px-4">
-        <div className="fixed backdrop-blur-sm bg-white/75 z-50 top-0 left-0 right-0 h-fits border-b border-slate-300 dark:border-slate-700 dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
-          <div className="container mx-auto px-5 flex justify-between items-center">
+        <div className=" fixed backdrop-blur-sm bg-white/75 z-50 top-0 left-0 right-0 h-fits border-b border-slate-300 dark:border-slate-700 dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
+          <div className="container mx-auto flex justify-between items-center">
             <div>
               <Link
                 href="/"
@@ -51,7 +51,7 @@ const Navbar = () => {
                     // onClick={() =>
                     //   theme == "dark" ? setTheme("light") : setTheme("dark")
                     // }
-                    className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-orange-400"
+                    className="leading-9 text-x1 rounded-full m-1 text-orange-400"
                   >
                     <BsFillSunFill className="w-6 h-6" target="_blank" />
                   </button>
@@ -59,7 +59,7 @@ const Navbar = () => {
                   // {/* dark button */}
                   <button
                     onClick={() => setTheme("dark")}
-                    className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-purple-600"
+                    className=" leading-9 text-x1 rounded-full m-1 text-purple-600"
                   >
                     <MdDarkMode className="w-6 h-6" target="_blank" />
                   </button>
