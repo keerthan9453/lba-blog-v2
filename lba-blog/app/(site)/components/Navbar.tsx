@@ -51,7 +51,7 @@ const Navbar = () => {
                     // onClick={() =>
                     //   theme == "dark" ? setTheme("light") : setTheme("dark")
                     // }
-                    className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-orange-300"
+                    className="w-7 h-7 leading-9 text-x1 rounded-full m-1 text-orange-400"
                   >
                     <FaSun className="w-7 h-7" target="_blank" />
                   </button>
