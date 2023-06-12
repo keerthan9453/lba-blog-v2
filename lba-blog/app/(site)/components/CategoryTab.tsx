@@ -30,7 +30,7 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
 
   return (
     <div className="mt-5">
-      <div className="flex flex-row sm:no-scrollbar h-auto">
+      <div className="flex flex-row sm:no-scrollbar h-auto overflow-x-auto min-h-[50px]">
         {/* older rounded gray button css */}
         {/* <div className="mr-3 rounded-lg bg-gray-300 text-md font-medium text-center text-gray-800"> */}
         <div className="mr-3">
@@ -41,9 +41,9 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
             onClick={() => {
               handleButtonClick(updateSelectedCategory, "");
             }}
-          ><span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-            <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
-            <span className="relative text-black group-hover:text-white">
+          ><span className="absolute group inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black dark:bg-white group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+            <span className="absolute group inset-0 w-full h-full bg-white dark:bg-[#1e1e1e] border-2 border-black dark:border-white group-hover:bg-black dark:group-hover:bg-[#dedede]"></span>
+            <span className="relative text-black dark:text-white  group-hover:text-white dark:group-hover:text-black">
               All
             </span>
           </button>
@@ -63,9 +63,9 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
               onClick={() => {
                 handleButtonClick(updateSelectedCategory, category.title);
               }}
-            ><span className="absolute group inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-              <span className="absolute group inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
-              <span className="relative text-black group-hover:text-white">
+            ><span className="absolute group inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black dark:bg-white group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute group inset-0 w-full h-full bg-white dark:bg-[#1e1e1e] border-2 border-black dark:border-white group-hover:bg-black dark:group-hover:bg-[#dedede]"></span>
+              <span className="relative text-black dark:text-white  group-hover:text-white dark:group-hover:text-black">
                 {category.title}
               </span>
             </button>
