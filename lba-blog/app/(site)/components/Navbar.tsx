@@ -30,18 +30,18 @@ const Navbar = () => {
   return (
     <>
       <div className="container mx-auto sm:px-4">
-        <div className=" fixed backdrop-blur-sm bg-white/75 z-50 top-0 left-0 right-0 h-fits border-b border-slate-300 dark:border-slate-700 dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
-          <div className="container mx-auto flex justify-between items-center md:mx-10 sm:mx-5">
+        <div className="fixed backdrop-blur-sm bg-white/75 z-50 top-0 left-0 right-0 h-fits border-b border-slate-300 dark:border-slate-700 dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
+          <div className="container mx-auto flex justify-between items-center md:mx-10">
             <div>
               <Link
                 href="/"
-                className="text-2xl lg:mx-16 font-bold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent"
+                className="text-2xl lg:mx-16 font-bold bg-gradient-to-r justify-end from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent"
               >
                 LBA - Blog
               </Link>
             </div>
             <div>
-              <div className="flex justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+              <div className="flex justify-end text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                 {/* <div className="right-10 border dark:hover:bg-slate-50 duration-100 dark:bg-slate-800 bg-grap-100 rounded transition"> */}
                 {currentTheme === "dark" ? (
                   // {/* light button */}
