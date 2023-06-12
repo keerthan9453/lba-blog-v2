@@ -63,7 +63,7 @@ export default function Home() {
     <>
       <ThemeProvider>
         <div className="container mx-auto sm:px-4 top-20 box-border">
-          <div className="lg:mt-20 lg:my-6 lg:mx-10">
+          <div className="mt-20 my-6 lg:mx-10 md:mx-10">
             {/* header section */}
 
             {/* replace this section with header component  */}
