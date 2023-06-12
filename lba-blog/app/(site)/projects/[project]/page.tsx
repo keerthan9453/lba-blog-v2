@@ -29,7 +29,7 @@ export default async function Blog({ params }: Props) {
     //         By {blog.author.name} -{" "}
     <div className={roboto_slab.className}>
       {/* header section */}
-      <div className="container mb-20 mx-auto py-auto sm:px-4">
+      <div className="container mb-20 mx-auto py-auto px-4">
         <header className="mt-24">
           <div className="md:flex items-center justify-between">
             {/* left */}
@@ -71,10 +71,7 @@ export default async function Blog({ params }: Props) {
               <PortableText value={blog.content} />
             </div>
             {/* author  */}
-            <div
-              className="lg:ml-10 md:w-1/5 mr-5 justify-center"
-              style={{ marginTop: "1%" }}
-            >
+            <div className="lg:ml-10 md:w-1/5 mr-5 justify-center mt-5 md:mt-[1%]">
               <p className="text-xl uppercase font-bold text-gray-900 tracking-wider dark:text-slate-500 pb-2">
                 Author(s)
               </p>
@@ -100,13 +97,19 @@ export default async function Blog({ params }: Props) {
                   </div>
                 </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-5 md:mt-3">
                 <p className="text-xl uppercase font-bold text-gray-900 dark:text-slate-500 tracking-wider pb-2">
                   Categories
                 </p>
-                <div className=" p-2 inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-[#554abb] hover:text-[#ffffff] transition">
-                  {blog.categories.toString().trim().split(",")}
-                </div>
+                {blog.categories
+                  .toString()
+                  .trim()
+                  .split(",")
+                  .map((category) => (
+                    <div className=" p-2 inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-[#554abb] hover:text-[#ffffff] transition mb-2 mr-2">
+                      {category}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

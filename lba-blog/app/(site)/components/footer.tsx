@@ -52,7 +52,11 @@ function Footer() {
         <h1 className="font-bold mb-6">Contact</h1>
         <div>
           <p className="mt-3">(406) 555-0120</p>
-          <p className="mt-3">Lassondreblockchain@contact.com</p>
+          <p className="mt-3">
+            Lassondreblockchain
+            <br />
+            @contact.com
+          </p>
           <p className="mt-3">Toronto, Ontario</p>
         </div>
       </div>
