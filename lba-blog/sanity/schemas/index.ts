@@ -4,8 +4,6 @@ import project from "./project-schema";
 
 // As we build more schema, we can just import here
 const schemas = [project, author, category];
-// const schemas = (S: any) => {
-//   return (S = [project, author, category]);
-// };
+
 
 export default schemas;

@@ -30,15 +30,22 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
 
   return (
     <div className="mt-5">
-      <div className="flex flex-row sm:no-scrollbar overflow-y-auto">
-        <div className="mr-3 rounded-lg bg-gray-300 text-md font-medium text-center text-gray-800">
+      <div className="flex flex-row sm:no-scrollbar h-auto">
+        {/* older rounded gray button css */}
+        {/* <div className="mr-3 rounded-lg bg-gray-300 text-md font-medium text-center text-gray-800"> */}
+        <div className="mr-3">
           <button
-            className="inline-block px-4 py-3 rounded-lg hover:text-black hover:bg-gray-400 "
+            // older button css
+            // className="inline-block px-3 py-2 rounded-lg hover:text-black hover:bg-gray-400 "
+            className="relative inline-block px-4 py-2 font-medium group"
             onClick={() => {
               handleButtonClick(updateSelectedCategory, "");
             }}
-          >
-            All
+          ><span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+            <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
+            <span className="relative text-black group-hover:text-white">
+              All
+            </span>
           </button>
         </div>
 
@@ -46,15 +53,21 @@ export default function CategoryTab({ updateSelectedCategory }: Props) {
         {categories.map((category) => (
           <div
             key={category.title}
-            className="mr-3 rounded-lg bg-gray-300 text-md font-medium text-center text-gray-800"
+            // older rounded gray button css
+            // className="mr-3 rounded-lg bg-gray-300 text-md font-medium text-center text-gray-800"
+            className="mr-3"
           >
             <button
-              className="inline-block px-4 py-3 rounded-lg hover:text-black hover:bg-gray-400 "
+              // className="inline-block px-4 py-3 rounded-lg hover:text-black hover:bg-gray-400"
+              className="relative inline-block px-4 py-2 font-medium group"
               onClick={() => {
                 handleButtonClick(updateSelectedCategory, category.title);
               }}
-            >
-              {category.title}
+            ><span className="absolute group inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute group inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
+              <span className="relative text-black group-hover:text-white">
+                {category.title}
+              </span>
             </button>
           </div>
         ))}
