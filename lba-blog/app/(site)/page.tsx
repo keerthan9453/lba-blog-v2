@@ -10,10 +10,13 @@ import {
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import React from "react";
 import { Blog } from "@/types/Blog";
 import { ThemeProvider } from "next-themes";
+import CategoryContext from "./CategoryContext";
+
+// export const SelectedCategory = createContext("");
 
 export default function Home() {
   //get props and paths the blog and map the data to the page
@@ -60,7 +63,9 @@ export default function Home() {
   }, [selectedCategoryTitle]);
 
   return (
-    <>
+    <CategoryContext.Provider
+      value={{ selectedCategoryTitle, setSelectedCategoryTitle }}
+    >
       <ThemeProvider>
         <div className="container mx-auto sm:px-4 top-20 box-border">
           <div className="mt-20 my-6 lg:mx-10 md:mx-10">
@@ -86,6 +91,6 @@ export default function Home() {
           </div>
         </div>
       </ThemeProvider>
-    </>
+    </CategoryContext.Provider>
   );
 }
