@@ -1,3 +1,4 @@
+"use client";
 import { getBlog } from "@/sanity/sanity-utils";
 import { PortableText } from "@portabletext/react";
 import moment from "moment";
@@ -5,8 +6,7 @@ import Image from "next/image";
 import icon from "../../components/lib/headShot.jpg";
 import { Roboto_Slab } from "next/font/google";
 import Link from "next/link";
-import { useContext } from "react";
-import CategoryContext from "../../CategoryContext";
+import SelectedCategorySingleton from "../../components/globalSelectedCategory";
 
 type Props = {
   params: { project: string };
@@ -19,10 +19,8 @@ const roboto_slab = Roboto_Slab({
 });
 
 export default async function Blog({ params }: Props) {
-  //const context = useContext(AppContext);
-
-  function changeCategoryContext(category: string) {
-    //context.setNameContext(category);
+  function changeCategoryTitle(category: string) {
+    SelectedCategorySingleton.setSelectedCategory(category);
   }
 
   const slug = params.project;
@@ -119,7 +117,9 @@ export default async function Blog({ params }: Props) {
                   .map((category) => (
                     <Link
                       href={`/`}
-                      /*onClick={() => changeCategoryContext(category)}*/
+                      onClick={() => {
+                        changeCategoryTitle(category);
+                      }}
                     >
                       <div className=" p-2 inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-[#554abb] hover:text-[#ffffff] transition mb-2 mr-2">
                         {category}
