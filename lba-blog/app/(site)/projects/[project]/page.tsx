@@ -1,9 +1,12 @@
+"use client";
 import { getBlog } from "@/sanity/sanity-utils";
 import { PortableText } from "@portabletext/react";
 import moment from "moment";
 import Image from "next/image";
 import icon from "../../components/lib/headShot.jpg";
 import { Roboto_Slab } from "next/font/google";
+import Link from "next/link";
+import SelectedCategorySingleton from "../../components/globalSelectedCategory";
 
 type Props = {
   params: { project: string };
@@ -16,7 +19,12 @@ const roboto_slab = Roboto_Slab({
 });
 
 export default async function Blog({ params }: Props) {
+  function changeCategoryTitle(category: string) {
+    SelectedCategorySingleton.setSelectedCategory(category);
+  }
+
   const slug = params.project;
+
   const blog = await getBlog(slug);
   // const categories = (await getBlog(slug)).categories;
 
@@ -101,14 +109,23 @@ export default async function Blog({ params }: Props) {
                 <p className="text-xl uppercase font-bold text-gray-900 dark:text-slate-500 tracking-wider pb-2">
                   Categories
                 </p>
+
                 {blog.categories
                   .toString()
                   .trim()
                   .split(",")
                   .map((category) => (
-                    <div className="inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-3 px-2 whitespace-nowrap hover:bg-[#554abb] hover:text-[#ffffff] transition mb-2 mr-2">
-                      {category}
-                    </div>
+                    <Link
+                      key={category.toString()}
+                      href={`/`}
+                      onClick={() => {
+                        changeCategoryTitle(category);
+                      }}
+                    >
+                      <div className=" p-2 inline-block bg-gray-100 rounded-lg text-gray-500 font-bold py-5 px-4 whitespace-nowrap hover:bg-[#554abb] hover:text-[#ffffff] transition mb-2 mr-2">
+                        {category}
+                      </div>
+                    </Link>
                   ))}
               </div>
             </div>

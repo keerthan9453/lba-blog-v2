@@ -10,22 +10,27 @@ import {
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import React from "react";
 import { Blog } from "@/types/Blog";
 import { ThemeProvider } from "next-themes";
+import SelectedCategorySingleton from "./components/globalSelectedCategory";
 
 export default function Home() {
   //get props and paths the blog and map the data to the page
 
-  const [selectedCategoryTitle, setSelectedCategoryTitle] = useState("");
+  const [selectedCategoryTitle, setSelectedCategoryTitle] = useState(
+    SelectedCategorySingleton.getSelectedCategory()
+  );
   const [blogs, setBlogs] = useState<Blog[]>([]);
 
   const updateSelectedCategory = (newValue: string) => {
     if (selectedCategoryTitle === newValue) {
       setSelectedCategoryTitle("");
+      SelectedCategorySingleton.setSelectedCategory("");
     } else {
       setSelectedCategoryTitle(newValue);
+      SelectedCategorySingleton.setSelectedCategory(newValue);
     }
   };
 
