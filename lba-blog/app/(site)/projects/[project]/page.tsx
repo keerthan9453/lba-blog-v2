@@ -116,6 +116,7 @@ export default async function Blog({ params }: Props) {
                   .split(",")
                   .map((category) => (
                     <Link
+                      key={category.toString()}
                       href={`/`}
                       onClick={() => {
                         changeCategoryTitle(category);
