@@ -59,7 +59,7 @@ export default async function Blog({ params }: Props) {
                 alt={blog.title}
                 width={800}
                 height={600}
-                // className="border-2 border-gray-700 object-cover rounded-xl"
+              // className="border-2 border-gray-700 object-cover rounded-xl"
               />
             </div>
           </div>
