@@ -31,7 +31,7 @@ const Navbar = () => {
     <>
       <div className="container mx-auto sm:px-4">
         <div className="fixed backdrop-blur-sm bg-white/75 z-50 top-0 left-0 right-0 h-fits border-b border-slate-300 dark:border-slate-700 dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
-          <div className="container mx-auto flex justify-between items-center md:mx-10">
+          <div className="container flex justify-between m-auto items-center">
             <div>
               <Link
                 href="/"
