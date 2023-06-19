@@ -30,18 +30,18 @@ export default async function Blog({ params }: Props) {
   return (
     <div className={roboto_slab.className}>
       {/* header section */}
-      <div className="container mb-20 mx-auto py-auto px-4">
+      <div className="container mb-20 mx-auto py-auto md:px-10 px-4">
         <header className="mt-24">
           <div className="md:flex items-center justify-between">
             {/* left */}
-            <div className="grid grid-cols-1">
+            <div className="grid grid-cols-1 md:pr-4 lg:pr-0 ">
               <h1
-                className="grid grid-rows-1 lg:text-6xl md:text-4xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent "
+                className="grid grid-rows-1 lg:text-6xl md:text-4xl text-4xl dropshadow font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent "
                 style={{ marginTop: "5%" }}
               >
                 {blog.title}
               </h1>
-              <p className="grid grid-rows-1 lg:text-2xl">{blog.description}</p>
+              <p className="grid grid-rows-1 lg:text-2xl md:mb-0 mb-4">{blog.description}</p>
             </div>
 
             {/* right */}
@@ -91,7 +91,7 @@ export default async function Blog({ params }: Props) {
                       Author: {blog.author.name}
                     </p>
                     {/* author bio */}
-                    <p className="text-sm font-extralight text-slate-700 dark:text-slate-300">
+                    <p className="text-sm mb-5 font-extralight text-slate-700 dark:text-slate-300">
                       {blog.author.bio}
                     </p>
                   </div>
