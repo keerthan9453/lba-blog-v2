@@ -19,7 +19,7 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
     <>
       {blogs.map((blog) => (
         <Link href={`/projects/${blog.slug}`} key={blog._id}>
-          <div className="shadow-lg rounded dark:shadow-slate-600 dark:bg-[#1e1e1e] flex flex-col md:flex-row items-center my-5 mx-3">
+          <div className="shadow-lg rounded dark:shadow-slate-600 dark:bg-[#1e1e1e] flex flex-col md:flex-row items-center my-10 mx-3">
             <div className="group cursor-pointer overflow-hidden p-5">
               {blog.image && (
                 <Image
