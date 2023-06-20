@@ -82,7 +82,7 @@ export default function Home() {
             </div>
 
             {/* blog box section*/}
-            <div className="flex w-full justify-center items-center">
+            <div className="flex w-full justify-center items-center mb-20">
               <div className="col container max-w-full">
                 {/* display info from each blog */}
                 <TrendingBlogs inputBlogs={blogs} />
