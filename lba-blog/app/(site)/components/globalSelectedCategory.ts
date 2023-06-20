@@ -14,6 +14,10 @@ class SelectedCategorySingleton {
   public static setSelectedCategory(newCategory: string) {
     globalSelectedCategory = newCategory;
   }
+
+  public static resetSelectedCategory() {
+    globalSelectedCategory = "";
+  }
 }
 
 export default SelectedCategorySingleton;

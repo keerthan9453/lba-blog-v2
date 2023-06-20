@@ -15,8 +15,13 @@ import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { MdDarkMode } from "react-icons/md";
 import { BsFillSunFill } from "react-icons/bs";
+import SelectedCategorySingleton from "../components/globalSelectedCategory";
 
 const Navbar = () => {
+  function resetCategory() {
+    SelectedCategorySingleton.resetSelectedCategory();
+  }
+
   const [mounted, setMounted] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
 
@@ -35,6 +40,9 @@ const Navbar = () => {
             <div>
               <Link
                 href="/"
+                onClick={() => {
+                  resetCategory();
+                }}
                 className="text-2xl lg:mx-12 md:mx-8 mx-4 font-bold bg-gradient-to-r justify-end from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent"
               >
                 LBA - Blog
