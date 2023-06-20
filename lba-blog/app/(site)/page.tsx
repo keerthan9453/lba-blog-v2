@@ -10,22 +10,27 @@ import {
 import FeaturedSidebar from "./components/FeaturedSidebar";
 import CategoryTab from "./components/CategoryTab";
 import TrendingBlogs from "./components/TrendingBlogs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import React from "react";
 import { Blog } from "@/types/Blog";
 import { ThemeProvider } from "next-themes";
+import SelectedCategorySingleton from "./components/globalSelectedCategory";
 
 export default function Home() {
   //get props and paths the blog and map the data to the page
 
-  const [selectedCategoryTitle, setSelectedCategoryTitle] = useState("");
+  const [selectedCategoryTitle, setSelectedCategoryTitle] = useState(
+    SelectedCategorySingleton.getSelectedCategory()
+  );
   const [blogs, setBlogs] = useState<Blog[]>([]);
 
   const updateSelectedCategory = (newValue: string) => {
     if (selectedCategoryTitle === newValue) {
       setSelectedCategoryTitle("");
+      SelectedCategorySingleton.setSelectedCategory("");
     } else {
       setSelectedCategoryTitle(newValue);
+      SelectedCategorySingleton.setSelectedCategory(newValue);
     }
   };
 
@@ -63,7 +68,7 @@ export default function Home() {
     <>
       <ThemeProvider>
         <div className="container mx-auto sm:px-4 top-20 box-border">
-          <div className="lg:mt-20 lg:my-6 lg:mx-10">
+          <div className="mt-20 my-6 lg:mx-10 md:mx-10">
             {/* header section */}
 
             {/* replace this section with header component  */}
@@ -77,7 +82,7 @@ export default function Home() {
             </div>
 
             {/* blog box section*/}
-            <div className="flex w-full justify-center items-center">
+            <div className="flex w-full justify-center items-center mb-20">
               <div className="col container max-w-full">
                 {/* display info from each blog */}
                 <TrendingBlogs inputBlogs={blogs} />
