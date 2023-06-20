@@ -18,10 +18,7 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
   return (
     <>
       {blogs.map((blog) => (
-        <Link
-          href={`/projects/${blog.slug}`}
-          key={blog._id}
-        >
+        <Link href={`/projects/${blog.slug}`} key={blog._id}>
           <div className="shadow-lg rounded dark:shadow-slate-600 dark:bg-[#1e1e1e] flex flex-col md:flex-row items-center my-5 mx-3">
             <div className="group cursor-pointer overflow-hidden p-5">
               {blog.image && (
@@ -36,7 +33,7 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
             </div>
             <div className="flex flex-col px-4">
               <p className="text-sm tracking-wider uppercase">
-                Categories: {blog.categories.toString()}
+                Categories: {blog.categories.toString().replace(/,/g, ", ")}
               </p>
               <p>{blog.categories.description}</p>
               <p className="mt-4 md:mt-8">
