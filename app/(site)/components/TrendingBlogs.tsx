@@ -2,18 +2,30 @@ import { Blog } from "@/types/Blog";
 import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
+import Pagination from "./Pagination";
 import { useState, useEffect } from "react";
 
 interface TrendingBlogProps {
   inputBlogs: Blog[];
+  postsPerPage: number;
+  selectedCategoryTitle: string;
 }
 
-function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
-  const [blogs, setBlogs] = useState<Blog[]>(inputBlogs);
+function  TrendingBlogs({ inputBlogs, postsPerPage, selectedCategoryTitle }: TrendingBlogProps) {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategoryTitle]);
 
   useEffect(() => {
-    setBlogs(inputBlogs);
-  }, [inputBlogs]);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = inputBlogs.slice(indexOfFirstPost, indexOfLastPost);
+    setBlogs(currentPosts);
+  }, [inputBlogs, currentPage, postsPerPage, selectedCategoryTitle]);
+
 
   return (
     <>
@@ -52,6 +64,11 @@ function TrendingBlogs({ inputBlogs }: TrendingBlogProps) {
           </div>
         </Link>
       ))}
+      <Pagination
+        currentPage={currentPage}
+        numTotalPages={Math.ceil(inputBlogs.length / postsPerPage)} 
+        onChangePage={setCurrentPage}
+      />
     </>
   );
 }
