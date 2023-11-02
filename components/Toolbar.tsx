@@ -123,7 +123,7 @@ const Toolbar = ({ editor }: Props) => {
           <Strikethrough></Strikethrough>
         </Toggle>
       </div>
-      <div>
+      <div className="border-l-2 border-black dark:border-gray-700">
         <Toggle
           size="sm"
           pressed={editor.isActive("bulletList")}
@@ -145,7 +145,7 @@ const Toolbar = ({ editor }: Props) => {
           <ListOrdered></ListOrdered>
         </Toggle>
       </div>
-      <div>
+      <div className="border-l-2 border-black dark:border-gray-700">
         <Toggle
           size="sm"
           pressed={editor.isActive("bulletList")}
