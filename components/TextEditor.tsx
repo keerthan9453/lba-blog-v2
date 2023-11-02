@@ -1,13 +1,17 @@
 "use client";
+import "./styles.scss";
 import { useEditor, EditorContent } from "@tiptap/react";
 import Underline from "@tiptap/extension-underline";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrderedList from "@tiptap/extension-ordered-list";
+import ListItem from "@tiptap/extension-list-item";
 
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
 
 const TextEditor = () => {
   const editor = useEditor({
-    extensions: [StarterKit, Underline],
+    extensions: [StarterKit, Underline, BulletList, OrderedList, ListItem],
     content: "<p>Hello World! 🌎️</p>",
   });
 
