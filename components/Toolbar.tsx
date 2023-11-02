@@ -17,9 +17,9 @@ import {
   SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
 } from "./ui/select";
+import { useEffect, useState } from "react";
 
 type Props = {
   editor: Editor | null;
@@ -29,20 +29,53 @@ const Toolbar = ({ editor }: Props) => {
   if (!editor) {
     return null;
   }
+  const [selectValue, setSelectValue] = useState<String>("normal");
+
+  useEffect(() => {
+    if (selectValue === "h1") {
+      editor.chain().focus().toggleHeading({ level: 1 }).run();
+    } else if (selectValue === "h2") {
+      editor.chain().focus().toggleHeading({ level: 2 }).run();
+    } else if (selectValue === "h3") {
+      editor.chain().focus().toggleHeading({ level: 3 }).run();
+    } else if (selectValue === "h4") {
+      editor.chain().focus().toggleHeading({ level: 4 }).run();
+    } else if (selectValue === "blockquote") {
+      editor.chain().focus().toggleBlockquote().run();
+    } else {
+      if (editor.isActive("heading"))
+        editor.chain().focus().toggleHeading({ level: 1 }).run();
+
+      if (editor.isActive("heading"))
+        editor.chain().focus().toggleHeading({ level: 1 }).run();
+
+      if (editor.isActive("blockquote"))
+        editor.chain().focus().toggleBlockquote().run();
+    }
+  }, [selectValue]);
+
   return (
     <div className="flex justify-start">
-      <Select>
+      <Select onValueChange={(selectValue) => setSelectValue(selectValue)}>
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select a fruit" />
+          <SelectValue placeholder="Normal" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Fruits</SelectLabel>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="blueberry">Blueberry</SelectItem>
-            <SelectItem value="grapes">Grapes</SelectItem>
-            <SelectItem value="pineapple">Pineapple</SelectItem>
+            <SelectItem value="normal">Normal</SelectItem>
+            <SelectItem className="text-3xl font-semibold" value="h1">
+              Heading 1
+            </SelectItem>
+            <SelectItem className="text-2xl font-semibold" value="h2">
+              Heading 2
+            </SelectItem>
+            <SelectItem className="text-xl font-semibold" value="h3">
+              Heading 3
+            </SelectItem>
+            <SelectItem className="text-lg font-semibold" value="h4">
+              Heading 4
+            </SelectItem>
+            <SelectItem value="blockquote">| Quote</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
