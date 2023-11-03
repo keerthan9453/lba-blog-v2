@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import marker from "../components/lib/marker.gif";
+import Logo from "../../../public/logo.png";
 import {
   Sheet,
   SheetContent,
@@ -37,13 +38,29 @@ const Navbar = () => {
       <div className="container mx-auto sm:px-4">
         <div className="fixed backdrop-blur-sm bg-white/75 z-50 top-0 left-0 right-0 h-fits dark:bg-slate-900/75 shadow-sm flex items-center justify-between">
           <div className="container flex justify-between m-auto items-center">
-            <div>
+            <div className="flex items-center gap-4 z-50 left-">
               <Link
-                href="/"
-                onClick={() => {
-                  resetCategory();
-                }}
-                className="text-2xl lg:mx-12 md:mx-8 mx-4 font-bold bg-gradient-to-r justify-end from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent"
+                //   href="/"
+                //   onClick={() => {
+                //     resetCategory();
+                //   }}
+                //   className="text-2xl lg:mx-12 md:mx-8 mx-4 font-bold bg-gradient-to-r justify-end from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent"
+                // >
+                //   LBA - Blog
+                // </Link>
+                href="https://lassondeblockchain.vercel.app/"
+                className=""
+              >
+                <Image
+                  alt="logo"
+                  src={Logo}
+                  className="cursor-pointer hover:shadow-lg transform duration-150 h-[50px] w-[50px] hover:h-[60px] hover:w-[60px]"
+                />
+              </Link>
+              <span className="text-white text-4xl">/</span>
+              <Link
+                href="https://lba-blog.vercel.app/"
+                className="text-white cursor-pointer text-xl hover:text-orange-300 transform duration-150"
               >
                 LBA - Blog
               </Link>
