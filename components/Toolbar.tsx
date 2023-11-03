@@ -31,6 +31,25 @@ const Toolbar = ({ editor }: Props) => {
   }
   const [selectValue, setSelectValue] = useState<String>("normal");
 
+  const { $from } = editor.view.state.selection;
+
+  // Find the node type at the current cursor position
+  const nodeType = $from.node($from.depth).type.name;
+
+  if (document.getElementById("selectValue") != null) {
+    if (nodeType === "paragraph") {
+      document.getElementById("selectValue").innerHTML = "Normal";
+    } else if (nodeType === "heading") {
+      document.getElementById("selectValue").innerHTML =
+        "Heading " + $from.parent.attrs.level;
+    }
+    if ($from.node($from.depth - 1).type.name === "blockquote") {
+      document.getElementById("selectValue").innerHTML = "Quote";
+    }
+  }
+
+  console.log(nodeType);
+
   useEffect(() => {
     if (selectValue === "h1") {
       editor.chain().focus().toggleHeading({ level: 1 }).run();
@@ -41,6 +60,11 @@ const Toolbar = ({ editor }: Props) => {
     } else if (selectValue === "h4") {
       editor.chain().focus().toggleHeading({ level: 4 }).run();
     } else if (selectValue === "blockquote") {
+      if (editor.isActive("heading"))
+        editor.chain().focus().toggleHeading({ level: 1 }).run();
+
+      if (editor.isActive("heading"))
+        editor.chain().focus().toggleHeading({ level: 1 }).run();
       editor.chain().focus().toggleBlockquote().run();
     } else {
       if (editor.isActive("heading"))
@@ -52,13 +76,18 @@ const Toolbar = ({ editor }: Props) => {
       if (editor.isActive("blockquote"))
         editor.chain().focus().toggleBlockquote().run();
     }
+
+    if (editor.isActive("blockquote") && editor.isActive("heading"))
+      editor.chain().focus().toggleBlockquote().run();
+
+    console.log(editor.getHTML());
   }, [selectValue]);
 
   return (
     <div className="flex justify-start">
       <Select onValueChange={(selectValue) => setSelectValue(selectValue)}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Normal" />
+        <SelectTrigger id="selectValue" className="w-[180px]">
+          <SelectValue placeholder="Normal"></SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
@@ -80,16 +109,6 @@ const Toolbar = ({ editor }: Props) => {
         </SelectContent>
       </Select>
       <div>
-        <Toggle
-          size="sm"
-          pressed={editor.isActive("heading")}
-          onPressedChange={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
-        >
-          {" "}
-          <Heading2></Heading2>
-        </Toggle>
         <Toggle
           size="sm"
           pressed={editor.isActive("bold")}
