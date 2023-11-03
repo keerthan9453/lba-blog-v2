@@ -85,7 +85,7 @@ export default function Home() {
             <div className="flex w-full justify-center items-center mb-20">
               <div className="col container max-w-full">
                 {/* display info from each blog */}
-                <TrendingBlogs inputBlogs={blogs} />
+                <TrendingBlogs inputBlogs={blogs} postsPerPage={3} selectedCategoryTitle={selectedCategoryTitle} /> 
               </div>
             </div>
           </div>
