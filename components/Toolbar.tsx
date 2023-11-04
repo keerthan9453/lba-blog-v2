@@ -1,5 +1,6 @@
 "use client";
 import { type Editor } from "@tiptap/react";
+import * as SelectPrimitive from "@radix-ui/react-select";
 import {
   Bold,
   Strikethrough,
@@ -30,32 +31,49 @@ const Toolbar = ({ editor }: Props) => {
     return null;
   }
 
-  const normalSelectRef = useRef();
-  const h1SelectRef = useRef(null);
-  const h2SelectRef = useRef();
-  const h3SelectRef = useRef();
-  const h4SelectRef = useRef();
-  const quoteSelectRef = useRef();
+  const isChecked: string[] = new Array(6).fill("unchecked");
 
-  if (h1SelectRef.current != null) {
-    const itemIndicator = h1SelectRef.current.querySelector(".span");
-    console.log(h1SelectRef.current.children[0].children);
-    if (itemIndicator) {
-      // You can now work with the itemIndicator element
-      console.log(itemIndicator);
-    }
-  }
+  const normalSelectRef = useRef(null);
+  const h1SelectRef = useRef(null);
+  const h2SelectRef = useRef(null);
+  const h3SelectRef = useRef(null);
+  const h4SelectRef = useRef(null);
+  const quoteSelectRef = useRef(null);
 
   const [selectValue, setSelectValue] = useState<String>("normal");
 
   const { $from } = editor.view.state.selection;
 
+  if (normalSelectRef.current != null)
+    console.log(normalSelectRef.current.getAttribute("data-state"));
+
   // Find the node type at the current cursor position
   const nodeType = $from.node($from.depth).type.name;
+
+  function setChecked(nodeType: string, attrLevel: number) {
+    normalSelectRef.current.setAttribute("data-state", "unchecked");
+    normalSelectRef.current.setAttribute("aria-selected", "false");
+    h1SelectRef.current.setAttribute("data-state", "unchecked");
+    h1SelectRef.current.setAttribute("aria-selected", "false");
+    h2SelectRef.current.setAttribute("data-state", "unchecked");
+    h2SelectRef.current.setAttribute("aria-selected", "false");
+    h3SelectRef.current.setAttribute("data-state", "unchecked");
+    h3SelectRef.current.setAttribute("aria-selected", "false");
+    h4SelectRef.current.setAttribute("data-state", "unchecked");
+    h4SelectRef.current.setAttribute("aria-selected", "false");
+    quoteSelectRef.current.setAttribute("data-state", "unchecked");
+    quoteSelectRef.current.setAttribute("aria-selected", "false");
+
+    if (nodeType === "paragraph") {
+      normalSelectRef.current.setAttribute("data-state", "checked");
+      normalSelectRef.current.setAttribute("aria-selected", "true");
+    }
+  }
 
   if (document.getElementById("selectValue") != null) {
     if (nodeType === "paragraph") {
       document.getElementById("selectValue").innerHTML = "Normal";
+      setChecked(nodeType, 0);
     } else if (nodeType === "heading") {
       document.getElementById("selectValue").innerHTML =
         "Heading " + $from.parent.attrs.level;
@@ -125,24 +143,58 @@ const Toolbar = ({ editor }: Props) => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="normal">Normal</SelectItem>
             <SelectItem
+              data-state={isChecked[0]}
+              id="normSelect"
+              value="normal"
+              ref={normalSelectRef}
+            >
+              Normal
+            </SelectItem>
+            <SelectItem
+              data-state={isChecked[1]}
+              id="h1Select"
               className="text-3xl font-semibold select-text"
               value="h1"
               ref={h1SelectRef}
             >
               Heading 1
             </SelectItem>
-            <SelectItem className="text-2xl font-semibold" value="h2">
+            <SelectItem
+              data-state={isChecked[2]}
+              id="h2Select"
+              className="text-2xl font-semibold"
+              value="h2"
+              ref={h2SelectRef}
+            >
               Heading 2
             </SelectItem>
-            <SelectItem className="text-xl font-semibold" value="h3">
+            <SelectItem
+              data-state={isChecked[3]}
+              id="h3Select"
+              className="text-xl font-semibold"
+              value="h3"
+              ref={h3SelectRef}
+            >
               Heading 3
             </SelectItem>
-            <SelectItem className="text-lg font-semibold" value="h4">
+            <SelectItem
+              data-state={isChecked[4]}
+              id="h4Select"
+              className="text-lg font-semibold"
+              value="h4"
+              ref={h4SelectRef}
+            >
               Heading 4
             </SelectItem>
-            <SelectItem value="blockquote">| Quote</SelectItem>
+            <SelectItem
+              data-state={isChecked[5]}
+              id="quoteSelect"
+              value="blockquote"
+              ref={quoteSelectRef}
+            >
+              | Quote
+            </SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
