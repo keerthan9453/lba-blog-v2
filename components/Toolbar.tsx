@@ -38,13 +38,13 @@ const Toolbar = ({ editor }: Props) => {
 
   if (document.getElementById("selectValue") != null) {
     if (nodeType === "paragraph") {
-      document.getElementById("selectValue").innerHTML = "Normal";
+      document.getElementById("selectValue")!.innerHTML = "Normal";
     } else if (nodeType === "heading") {
-      document.getElementById("selectValue").innerHTML =
+      document.getElementById("selectValue")!.innerHTML =
         "Heading " + $from.parent.attrs.level;
     }
     if ($from.node($from.depth - 1).type.name === "blockquote") {
-      document.getElementById("selectValue").innerHTML = "Quote";
+      document.getElementById("selectValue")!.innerHTML = "Quote";
     }
   }
 
