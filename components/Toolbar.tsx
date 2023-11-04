@@ -19,7 +19,7 @@ import {
   SelectGroup,
   SelectItem,
 } from "./ui/select";
-import { useCallback, useEffect, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
 type Props = {
   editor: Editor | null;
@@ -29,6 +29,23 @@ const Toolbar = ({ editor }: Props) => {
   if (!editor) {
     return null;
   }
+
+  const normalSelectRef = useRef();
+  const h1SelectRef = useRef(null);
+  const h2SelectRef = useRef();
+  const h3SelectRef = useRef();
+  const h4SelectRef = useRef();
+  const quoteSelectRef = useRef();
+
+  if (h1SelectRef.current != null) {
+    const itemIndicator = h1SelectRef.current.querySelector(".span");
+    console.log(h1SelectRef.current.children[0].children);
+    if (itemIndicator) {
+      // You can now work with the itemIndicator element
+      console.log(itemIndicator);
+    }
+  }
+
   const [selectValue, setSelectValue] = useState<String>("normal");
 
   const { $from } = editor.view.state.selection;
@@ -67,37 +84,38 @@ const Toolbar = ({ editor }: Props) => {
     // update link
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   }
-
-  useEffect(() => {
-    if (selectValue === "h1") {
-      editor.chain().focus().toggleHeading({ level: 1 }).run();
-    } else if (selectValue === "h2") {
-      editor.chain().focus().toggleHeading({ level: 2 }).run();
-    } else if (selectValue === "h3") {
-      editor.chain().focus().toggleHeading({ level: 3 }).run();
-    } else if (selectValue === "h4") {
-      editor.chain().focus().toggleHeading({ level: 4 }).run();
-    } else if (selectValue === "blockquote") {
-      if (editor.isActive("heading"))
+  if (editor != null) {
+    useEffect(() => {
+      if (selectValue === "h1") {
         editor.chain().focus().toggleHeading({ level: 1 }).run();
+      } else if (selectValue === "h2") {
+        editor.chain().focus().toggleHeading({ level: 2 }).run();
+      } else if (selectValue === "h3") {
+        editor.chain().focus().toggleHeading({ level: 3 }).run();
+      } else if (selectValue === "h4") {
+        editor.chain().focus().toggleHeading({ level: 4 }).run();
+      } else if (selectValue === "blockquote") {
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
 
-      if (editor.isActive("heading"))
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
-      editor.chain().focus().toggleBlockquote().run();
-    } else {
-      if (editor.isActive("heading"))
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
-
-      if (editor.isActive("heading"))
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
-
-      if (editor.isActive("blockquote"))
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
         editor.chain().focus().toggleBlockquote().run();
-    }
+      } else {
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
 
-    if (editor.isActive("blockquote") && editor.isActive("heading"))
-      editor.chain().focus().toggleBlockquote().run();
-  }, [selectValue]);
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
+
+        if (editor.isActive("blockquote"))
+          editor.chain().focus().toggleBlockquote().run();
+      }
+
+      if (editor.isActive("blockquote") && editor.isActive("heading"))
+        editor.chain().focus().toggleBlockquote().run();
+    }, [selectValue]);
+  }
 
   return (
     <div className="flex justify-start">
@@ -111,6 +129,7 @@ const Toolbar = ({ editor }: Props) => {
             <SelectItem
               className="text-3xl font-semibold select-text"
               value="h1"
+              ref={h1SelectRef}
             >
               Heading 1
             </SelectItem>
