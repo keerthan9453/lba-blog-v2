@@ -19,7 +19,7 @@ import {
   SelectGroup,
   SelectItem,
 } from "./ui/select";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   editor: Editor | null;
@@ -48,7 +48,25 @@ const Toolbar = ({ editor }: Props) => {
     }
   }
 
-  console.log(nodeType);
+  function setLink() {
+    if (editor === null) {
+      return;
+    }
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  }
 
   useEffect(() => {
     if (selectValue === "h1") {
@@ -79,8 +97,6 @@ const Toolbar = ({ editor }: Props) => {
 
     if (editor.isActive("blockquote") && editor.isActive("heading"))
       editor.chain().focus().toggleBlockquote().run();
-
-    console.log(editor.getHTML());
   }, [selectValue]);
 
   return (
@@ -92,7 +108,10 @@ const Toolbar = ({ editor }: Props) => {
         <SelectContent>
           <SelectGroup>
             <SelectItem value="normal">Normal</SelectItem>
-            <SelectItem className="text-3xl font-semibold" value="h1">
+            <SelectItem
+              className="text-3xl font-semibold select-text"
+              value="h1"
+            >
               Heading 1
             </SelectItem>
             <SelectItem className="text-2xl font-semibold" value="h2">
@@ -108,7 +127,7 @@ const Toolbar = ({ editor }: Props) => {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div>
+      <div className="border-l-2 border-gray-800 dark:border-gray-500">
         <Toggle
           size="sm"
           pressed={editor.isActive("bold")}
@@ -142,7 +161,7 @@ const Toolbar = ({ editor }: Props) => {
           <Strikethrough></Strikethrough>
         </Toggle>
       </div>
-      <div className="border-l-2 border-black dark:border-gray-700">
+      <div className="border-l-2 border-gray-800 dark:border-gray-500">
         <Toggle
           size="sm"
           pressed={editor.isActive("bulletList")}
@@ -164,13 +183,11 @@ const Toolbar = ({ editor }: Props) => {
           <ListOrdered></ListOrdered>
         </Toggle>
       </div>
-      <div className="border-l-2 border-black dark:border-gray-700">
+      <div className="border-l-2 border-gray-800 dark:border-gray-500">
         <Toggle
           size="sm"
-          pressed={editor.isActive("bulletList")}
-          onPressedChange={() =>
-            editor.chain().focus().toggleBulletList().run()
-          }
+          pressed={editor.isActive("link")}
+          onPressedChange={() => setLink()}
         >
           {" "}
           <Link></Link>

@@ -55,4 +55,15 @@ $dark-border-color: #ffffff;
         border-color: rgba($dark-border-color, 0.5);
       }
     }
+    a {
+      border-bottom: 1px solid ;
+      
+      .light & {
+        color: #5badec;
+      }
+
+      .dark & {
+        color: #68cef8;
+      }
+    }
   }

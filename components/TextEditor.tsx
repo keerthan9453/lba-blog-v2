@@ -5,13 +5,23 @@ import Underline from "@tiptap/extension-underline";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
+import Link from "@tiptap/extension-link";
 
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
 
 const TextEditor = () => {
   const editor = useEditor({
-    extensions: [StarterKit, Underline, BulletList, OrderedList, ListItem],
+    extensions: [
+      StarterKit,
+      Underline,
+      BulletList,
+      OrderedList,
+      ListItem,
+      Link.extend({ inclusive: false }).configure({
+        openOnClick: false,
+      }),
+    ],
     content: "<p>Hello World! 🌎️</p>",
   });
 
