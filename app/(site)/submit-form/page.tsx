@@ -1,5 +1,6 @@
 "use client";
 import React, { FC, useState } from "react";
+import TextEditor from "@/components/TextEditor";
 
 function MyForm() {
   const [formData, setFormData] = useState({
@@ -131,6 +132,9 @@ function MyForm() {
           >
             Submit
           </button>
+        </div>
+        <div className="mt-6">
+          <TextEditor></TextEditor>
         </div>
       </div>
     </form>
