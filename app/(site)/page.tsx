@@ -15,6 +15,7 @@ import React from "react";
 import { Blog } from "@/types/Blog";
 import { ThemeProvider } from "next-themes";
 import SelectedCategorySingleton from "./components/globalSelectedCategory";
+import Link from "next/link";
 
 export default function Home() {
   //get props and paths the blog and map the data to the page
@@ -77,15 +78,25 @@ export default function Home() {
             <h2 className="font-bold text-8xl text-gray-800 dark:text-blue-50">
               Blogs.
             </h2>
-            <div className="">
+
+            <div className="flex justify-between items-center">
               <CategoryTab updateSelectedCategory={updateSelectedCategory} />
+              <Link href="/submit-form">
+                <button className="mt-4 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                  Go to Submit Form
+                </button>
+              </Link>
             </div>
 
             {/* blog box section*/}
             <div className="flex w-full justify-center items-center mb-20">
               <div className="col container max-w-full">
                 {/* display info from each blog */}
-                <TrendingBlogs inputBlogs={blogs} postsPerPage={3} selectedCategoryTitle={selectedCategoryTitle} /> 
+                <TrendingBlogs
+                  inputBlogs={blogs}
+                  postsPerPage={3}
+                  selectedCategoryTitle={selectedCategoryTitle}
+                />
               </div>
             </div>
           </div>
