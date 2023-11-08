@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import {ClerkProvider} from "@clerk/nextjs";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ const Login = () => {
   const onButtonClick = () => {};
 
   return (
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
     <div className={"flex flex-col items-center justify-center h-screen"}>
       <div
         className={
@@ -48,6 +50,7 @@ const Login = () => {
         />
       </div>
     </div>
+    </ClerkProvider>
   );
 };
 
