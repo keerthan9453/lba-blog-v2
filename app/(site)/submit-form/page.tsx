@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import TextEditor from "@/components/TextEditor";
 
 function MyForm() {
@@ -12,10 +12,35 @@ function MyForm() {
     date: "",
   });
 
-  const handleInputChange = (event: { target: { name: any; value: any } }) => {
+
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+
+    // Update the slug when the title changes
+    if (name === 'title') {
+      const slug = generateSlug(value);
+      setFormData({ ...formData, [name]: value, slug });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
+
+  const categories = [
+    'Blockchain',
+    'AI/ML',
+    'Metaverse',
+    'Market',
+    'Programming',
+  ];
+
+  const generateSlug = (title: any) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9]/g, '-') // Replace non-alphanumeric characters with '-'
+      .replace(/-{2,}/g, '-') // Replace consecutive '-' with a single '-'
+      .trim(); // Trim leading and trailing spaces
+  };
+
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -44,6 +69,14 @@ function MyForm() {
   };
   if (file) reader.readAsDataURL(file);
 
+  const wordCount = (text: any) => {
+    const words = text.trim().split(/\s+/);
+    return words.length;
+  };
+
+  const isTitleValid = wordCount(formData.title) <= 25;
+  const isDescriptionValid = wordCount(formData.description) <= 100;
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="mt-28 flex align-items justify-center mb-28 w-2/3 flex flex-col mx-auto">
@@ -59,28 +92,33 @@ function MyForm() {
             className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
           />
         </div>
+      <div className="mt-4">
+        <label htmlFor="title">Title:</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value={formData.title}
+          onChange={handleInputChange}
+          className={`border w-full rounded py-2 text-white-700 leading-tight ${
+            isTitleValid ? 'bg-transparent' : 'bg-red-200'
+          } focus:outline-none focus:shadow-outline`}
+        />
+        <p className="text-sm text-gray-500">
+          {wordCount(formData.title)} / 25 words
+        </p>
+      </div>
         <div className="mt-4">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mt-4">
-          <label htmlFor="slug">Slug:</label>
-          <input
-            type="text"
-            id="slug"
-            name="slug"
-            value={formData.slug}
-            onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-          />
-        </div>
+        <label htmlFor="slug">Slug:</label>
+        <input
+          type="text"
+          id="slug"
+          name="slug"
+          value={formData.slug}
+          readOnly
+          className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+        />
+      </div>
         <div className="mt-4">
           <label htmlFor="description" className="mb-2">
             Description:
@@ -91,21 +129,32 @@ function MyForm() {
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              className="border  w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+              className={`border w-full rounded py-2 text-white-700 leading-tight ${
+                isDescriptionValid ? 'bg-transparent' : 'bg-black-700'
+              } focus:outline-none focus:shadow-outline`}
             />
           </div>
+          <p className="text-sm text-gray-500">
+          {wordCount(formData.description)} / 100 words
+          </p>
         </div>
-        <div className="mt-4">
-          <label htmlFor="category">Category:</label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-          />
-        </div>
+ <div className="mt-4">
+      <label htmlFor="category">Category:</label>
+      <select
+        id="category"
+        name="category"
+        value={formData.category}
+        onChange={handleInputChange}
+        className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+      >
+        <option value="" disabled style={{ color: 'white' }}>Select a category</option>
+        {categories.map((category, index) => (
+          <option key={index} value={category} style={{ color: 'black' }}>
+            {category}
+          </option>
+        ))}
+      </select>
+    </div>
         <div>
           <div className="mt-4">
             <label htmlFor="date" className="mb-2">
@@ -200,16 +249,15 @@ const FileDragDrop: FC<FileDragDrop> = ({ image, setimage }) => {
       if (newFile && /^image\//.test(newFile.type)) {
         setUploadedFile(newFile);
         setimage(newFile);
-
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          if (event.target) {
-            if (typeof event.target.result === "string") {
-              setImageSrc(event.target.result);
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            if (event.target) {
+              if (typeof event.target.result === "string") {
+                setImageSrc(event.target.result);
+              }
             }
-          }
-        };
-        if (newFile) reader.readAsDataURL(newFile);
+          }; 
+          if (newFile) reader.readAsDataURL(newFile);
       } else {
         alert("Invalid file format. Only image files are accepted.");
       }
