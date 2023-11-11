@@ -12,8 +12,7 @@ function MyForm() {
     date: "",
   });
 
-
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
 
     // Update the slug when the title changes
@@ -41,7 +40,6 @@ function MyForm() {
       .trim(); // Trim leading and trailing spaces
   };
 
-
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
@@ -59,15 +57,26 @@ function MyForm() {
   const [file, setFile] = useState<File>();
   const [imageSrc, setImageSrc] = useState("");
 
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    if (event.target) {
-      if (typeof event.target.result === "string") {
-        setImageSrc(event.target.result);
-      }
+  const [fileReader, setFileReader] = useState<FileReader>();
+
+  useEffect(() => {
+    // Instantiate the FileReader on the client side after DOM is hydrated
+    if (!fileReader && typeof window !== "undefined") {
+      setFileReader(new FileReader());
     }
-  };
-  if (file) reader.readAsDataURL(file);
+  }, [fileReader]);
+
+  if (fileReader) {
+    fileReader.onload = (event: any) => {
+      if (event.target) {
+        if (typeof event.target.result === "string") {
+          setImageSrc(event.target.result);
+        }
+      }
+    };
+    fileReader.abort()
+    if (file) fileReader.readAsDataURL(file);
+  }
 
   const wordCount = (text: any) => {
     const words = text.trim().split(/\s+/);
@@ -92,33 +101,33 @@ function MyForm() {
             className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
           />
         </div>
-      <div className="mt-4">
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-          className={`border w-full rounded py-2 text-white-700 leading-tight ${
-            isTitleValid ? 'bg-transparent' : 'bg-red-200'
-          } focus:outline-none focus:shadow-outline`}
-        />
-        <p className="text-sm text-gray-500">
-          {wordCount(formData.title)} / 25 words
-        </p>
-      </div>
         <div className="mt-4">
-        <label htmlFor="slug">Slug:</label>
-        <input
-          type="text"
-          id="slug"
-          name="slug"
-          value={formData.slug}
-          readOnly
-          className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-        />
-      </div>
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            className={`border w-full rounded py-2 text-white-700 leading-tight ${
+              isTitleValid ? "bg-transparent" : "bg-red-200"
+            } focus:outline-none focus:shadow-outline`}
+          />
+          <p className="text-sm text-gray-500">
+            {wordCount(formData.title)} / 25 words
+          </p>
+        </div>
+        <div className="mt-4">
+          <label htmlFor="slug">Slug:</label>
+          <input
+            type="text"
+            id="slug"
+            name="slug"
+            value={formData.slug}
+            readOnly
+            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+          />
+        </div>
         <div className="mt-4">
           <label htmlFor="description" className="mb-2">
             Description:
@@ -138,23 +147,25 @@ function MyForm() {
           {wordCount(formData.description)} / 100 words
           </p>
         </div>
- <div className="mt-4">
-      <label htmlFor="category">Category:</label>
-      <select
-        id="category"
-        name="category"
-        value={formData.category}
-        onChange={handleInputChange}
-        className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-      >
-        <option value="" disabled style={{ color: 'white' }}>Select a category</option>
-        {categories.map((category, index) => (
-          <option key={index} value={category} style={{ color: 'black' }}>
-            {category}
-          </option>
-        ))}
-      </select>
-    </div>
+        <div className="mt-4">
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
+            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+          >
+            <option value="" disabled style={{ color: "white" }}>
+              Select a category
+            </option>
+            {categories.map((category, index) => (
+              <option key={index} value={category} style={{ color: "black" }}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
         <div>
           <div className="mt-4">
             <label htmlFor="date" className="mb-2">
@@ -200,6 +211,14 @@ const FileDragDrop: FC<FileDragDrop> = ({ image, setimage }) => {
   const [uploadedFile, setUploadedFile] = useState<File>();
   const [isDragging, setIsDragging] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
+  const [fileReader, setFileReader] = useState<FileReader>();
+
+  useEffect(() => {
+    // Instantiate the FileReader on the client side after DOM is hydrated
+    if (!fileReader && typeof window !== "undefined") {
+      setFileReader(new FileReader());
+    }
+  }, [fileReader]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -249,15 +268,16 @@ const FileDragDrop: FC<FileDragDrop> = ({ image, setimage }) => {
       if (newFile && /^image\//.test(newFile.type)) {
         setUploadedFile(newFile);
         setimage(newFile);
-          const reader = new FileReader();
-          reader.onload = (event) => {
+        if (fileReader) {
+          fileReader.onload = (event: any) => {
             if (event.target) {
               if (typeof event.target.result === "string") {
                 setImageSrc(event.target.result);
               }
             }
-          }; 
-          if (newFile) reader.readAsDataURL(newFile);
+          };
+          fileReader.readAsDataURL(newFile);
+        }
       } else {
         alert("Invalid file format. Only image files are accepted.");
       }
