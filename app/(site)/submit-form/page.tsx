@@ -1,5 +1,7 @@
 "use client";
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
+import TextEditor from "@/components/TextEditor";
+
 
 function MyForm() {
   const [file, setFile] = useState<File>();
@@ -14,9 +16,32 @@ function MyForm() {
     date: "",
   });
 
-  const handleInputChange = (event: { target: { name: any; value: any } }) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+
+    // Update the slug when the title changes
+    if (name === 'title') {
+      const slug = generateSlug(value);
+      setFormData({ ...formData, [name]: value, slug });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const categories = [
+    'Blockchain',
+    'AI/ML',
+    'Metaverse',
+    'Market',
+    'Programming',
+  ];
+
+  const generateSlug = (title: any) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9]/g, '-') // Replace non-alphanumeric characters with '-'
+      .replace(/-{2,}/g, '-') // Replace consecutive '-' with a single '-'
+      .trim(); // Trim leading and trailing spaces
   };
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
@@ -34,17 +59,39 @@ function MyForm() {
     setFile(value);
   };
 
+  const [fileReader, setFileReader] = useState<FileReader>();
+
   useEffect(() => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
+    // Instantiate the FileReader on the client side after DOM is hydrated
+    if (!fileReader && typeof window !== "undefined") {
+      setFileReader(new FileReader());
+    }
+  }, [fileReader]);
+
+  if (fileReader) {
+    fileReader.onload = (event: any) => {
+//   useEffect(() => {
+//     const reader = new FileReader();
+//     reader.onload = (event) => {
       if (event.target) {
         if (typeof event.target.result === "string") {
           setImageSrc(event.target.result);
         }
       }
     };
-    if (file) reader.readAsDataURL(file);
-  }, [file]);
+    fileReader.abort()
+    if (file) fileReader.readAsDataURL(file);
+  }
+
+  const wordCount = (text: any) => {
+    const words = text.trim().split(/\s+/);
+    return words.length;
+  };
+
+  const isTitleValid = wordCount(formData.title) <= 25;
+  const isDescriptionValid = wordCount(formData.description) <= 100;
+<!--     if (file) reader.readAsDataURL(file);
+  }, [file]); -->
   // const reader = new FileReader();
   // reader.onload = (event) => {
   //   if (event.target) {
@@ -78,8 +125,14 @@ function MyForm() {
             name="title"
             value={formData.title}
             onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+            className={`border w-full rounded py-2 text-white-700 leading-tight ${
+              isTitleValid ? "bg-transparent" : "bg-red-200"
+            } focus:outline-none focus:shadow-outline`}
+<!--              className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
           />
+          <p className="text-sm text-gray-500">
+            {wordCount(formData.title)} / 25 words
+          </p>
         </div>
         <div className="mt-4">
           <label htmlFor="slug">Slug:</label>
@@ -88,8 +141,10 @@ function MyForm() {
             id="slug"
             name="slug"
             value={formData.slug}
-            onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+            readOnly
+            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+<!--             onChange={handleInputChange}
+            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
           />
         </div>
         <div className="mt-4">
@@ -102,20 +157,34 @@ function MyForm() {
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              className="border  w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+              className={`border w-full rounded py-2 text-white-700 leading-tight ${
+                isDescriptionValid ? 'bg-transparent' : 'bg-black-700'
+              } focus:outline-none focus:shadow-outline`}
+<!--               className="border  w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
             />
           </div>
+          <p className="text-sm text-gray-500">
+          {wordCount(formData.description)} / 100 words
+          </p>
         </div>
         <div className="mt-4">
           <label htmlFor="category">Category:</label>
-          <input
-            type="text"
+          <select
             id="category"
             name="category"
             value={formData.category}
             onChange={handleInputChange}
             className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-          />
+          >
+            <option value="" disabled style={{ color: "white" }}>
+              Select a category
+            </option>
+            {categories.map((category, index) => (
+              <option key={index} value={category} style={{ color: "black" }}>
+                {category}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <div className="mt-4">
@@ -144,6 +213,9 @@ function MyForm() {
             Submit
           </button>
         </div>
+        <div className="mt-6">
+          <TextEditor></TextEditor>
+        </div>
       </div>
     </form>
   );
@@ -159,6 +231,14 @@ const FileDragDrop: React.FC<FileDragDrop> = ({ image, setimage }) => {
   const [uploadedFile, setUploadedFile] = useState<File>();
   const [isDragging, setIsDragging] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
+  const [fileReader, setFileReader] = useState<FileReader>();
+
+  useEffect(() => {
+    // Instantiate the FileReader on the client side after DOM is hydrated
+    if (!fileReader && typeof window !== "undefined") {
+      setFileReader(new FileReader());
+    }
+  }, [fileReader]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -208,16 +288,16 @@ const FileDragDrop: React.FC<FileDragDrop> = ({ image, setimage }) => {
       if (newFile && /^image\//.test(newFile.type)) {
         setUploadedFile(newFile);
         setimage(newFile);
-
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          if (event.target) {
-            if (typeof event.target.result === "string") {
-              setImageSrc(event.target.result);
+        if (fileReader) {
+          fileReader.onload = (event: any) => {
+            if (event.target) {
+              if (typeof event.target.result === "string") {
+                setImageSrc(event.target.result);
+              }
             }
-          }
-        };
-        if (newFile) reader.readAsDataURL(newFile);
+          };
+          fileReader.readAsDataURL(newFile);
+        }
       } else {
         alert("Invalid file format. Only image files are accepted.");
       }
