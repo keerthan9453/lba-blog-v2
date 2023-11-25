@@ -2,7 +2,11 @@
 import React, { FC, useEffect, useState } from "react";
 import TextEditor from "@/components/TextEditor";
 
+
 function MyForm() {
+  const [file, setFile] = useState<File>();
+  const [imageSrc, setImageSrc] = useState("");
+
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
@@ -51,11 +55,9 @@ function MyForm() {
     console.log("Date:", formData.date);
     console.log("Image:", file);
   };
-  const handleimageChange = (value: File) => {
+  const handleImageChange = (value: File) => {
     setFile(value);
   };
-  const [file, setFile] = useState<File>();
-  const [imageSrc, setImageSrc] = useState("");
 
   const [fileReader, setFileReader] = useState<FileReader>();
 
@@ -68,6 +70,9 @@ function MyForm() {
 
   if (fileReader) {
     fileReader.onload = (event: any) => {
+//   useEffect(() => {
+//     const reader = new FileReader();
+//     reader.onload = (event) => {
       if (event.target) {
         if (typeof event.target.result === "string") {
           setImageSrc(event.target.result);
@@ -85,10 +90,21 @@ function MyForm() {
 
   const isTitleValid = wordCount(formData.title) <= 25;
   const isDescriptionValid = wordCount(formData.description) <= 100;
+<!--     if (file) reader.readAsDataURL(file);
+  }, [file]); -->
+  // const reader = new FileReader();
+  // reader.onload = (event) => {
+  //   if (event.target) {
+  //     if (typeof event.target.result === "string") {
+  //       setImageSrc(event.target.result);
+  //     }
+  //   }
+  // };
+  // if (file) reader.readAsDataURL(file);
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mt-28 flex align-items justify-center mb-28 w-2/3 flex flex-col mx-auto">
+      <div className="mt-28 flex align-items justify-center mb-28 w-2/3 flex-col mx-auto">
         <div className="mx-auto text-4xl">Post a Blog</div>
         <div className="mt-4">
           <label htmlFor="author">Author:</label>
@@ -98,7 +114,7 @@ function MyForm() {
             name="author"
             value={formData.author}
             onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="mt-4">
@@ -112,6 +128,7 @@ function MyForm() {
             className={`border w-full rounded py-2 text-white-700 leading-tight ${
               isTitleValid ? "bg-transparent" : "bg-red-200"
             } focus:outline-none focus:shadow-outline`}
+<!--              className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
           />
           <p className="text-sm text-gray-500">
             {wordCount(formData.title)} / 25 words
@@ -126,6 +143,8 @@ function MyForm() {
             value={formData.slug}
             readOnly
             className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+<!--             onChange={handleInputChange}
+            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
           />
         </div>
         <div className="mt-4">
@@ -141,6 +160,7 @@ function MyForm() {
               className={`border w-full rounded py-2 text-white-700 leading-tight ${
                 isDescriptionValid ? 'bg-transparent' : 'bg-black-700'
               } focus:outline-none focus:shadow-outline`}
+<!--               className="border  w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
             />
           </div>
           <p className="text-sm text-gray-500">
@@ -185,7 +205,7 @@ function MyForm() {
           <label className={`block mt-3 text-sm font-medium text-white `}>
             Image
           </label>
-          <FileDragDrop image={file} setimage={handleimageChange} />
+          <FileDragDrop image={file} setimage={handleImageChange} />
           <button
             type="submit"
             className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -207,7 +227,7 @@ interface FileDragDrop {
   setimage: (value: File) => void;
 }
 
-const FileDragDrop: FC<FileDragDrop> = ({ image, setimage }) => {
+const FileDragDrop: React.FC<FileDragDrop> = ({ image, setimage }) => {
   const [uploadedFile, setUploadedFile] = useState<File>();
   const [isDragging, setIsDragging] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
