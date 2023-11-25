@@ -6,6 +6,30 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { AiFillInstagram, AiOutlineTwitter, AiFillLinkedin } from "react-icons/ai";
 
+
+function NewsletterSection() {
+  return (
+    <section className="bg-gray-800 text-white p-20">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+        <div className="flex-1">
+          <h2 className="text-3xl font-bold">Welcome to LBA - Blog</h2>
+          <p className="mt-3">Don't just learn – share. Your articles can turn your profile into a hub for like-minded professionals, enhancing collaborations and knowledge exchange.</p>
+        </div>
+        <div className="flex-1 mt-6 md:mt-0">
+          <div className="flex flex-col items-center md:items-middle">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="p-1 text-black mb-2 w-1/2 rounded-lg text-sm" // Adjusted padding, width, and added border-radius
+            />
+            <button className="p-1 bg-red-600 text-white font-bold w-1/2 rounded-lg text-sm">Join Us</button> {/* Adjusted padding, width, and added border-radius */}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="bg-gray-900 text-white p-20 relative">
@@ -14,7 +38,7 @@ function Footer() {
           <h1 className="font-bold text-2xl">LBA</h1>
           <ul>
               <li><Link href="#">Lassonde Blockchain Association</Link></li>
-            </ul>
+            </ul> 
         </div>
         <div className="md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-4">
           <div>
@@ -69,4 +93,11 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default function Layout() {
+  return (
+    <>
+      <NewsletterSection />
+      <Footer />
+    </>
+  );
+}
