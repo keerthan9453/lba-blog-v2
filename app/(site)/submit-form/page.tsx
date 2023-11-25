@@ -2,7 +2,6 @@
 import React, { FC, useEffect, useState } from "react";
 import TextEditor from "@/components/TextEditor";
 
-
 function MyForm() {
   const [file, setFile] = useState<File>();
   const [imageSrc, setImageSrc] = useState("");
@@ -20,7 +19,7 @@ function MyForm() {
     const { name, value } = event.target;
 
     // Update the slug when the title changes
-    if (name === 'title') {
+    if (name === "title") {
       const slug = generateSlug(value);
       setFormData({ ...formData, [name]: value, slug });
     } else {
@@ -29,18 +28,18 @@ function MyForm() {
   };
 
   const categories = [
-    'Blockchain',
-    'AI/ML',
-    'Metaverse',
-    'Market',
-    'Programming',
+    "Blockchain",
+    "AI/ML",
+    "Metaverse",
+    "Market",
+    "Programming",
   ];
 
   const generateSlug = (title: any) => {
     return title
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, '-') // Replace non-alphanumeric characters with '-'
-      .replace(/-{2,}/g, '-') // Replace consecutive '-' with a single '-'
+      .replace(/[^a-zA-Z0-9]/g, "-") // Replace non-alphanumeric characters with '-'
+      .replace(/-{2,}/g, "-") // Replace consecutive '-' with a single '-'
       .trim(); // Trim leading and trailing spaces
   };
 
@@ -70,16 +69,16 @@ function MyForm() {
 
   if (fileReader) {
     fileReader.onload = (event: any) => {
-//   useEffect(() => {
-//     const reader = new FileReader();
-//     reader.onload = (event) => {
+      //   useEffect(() => {
+      //     const reader = new FileReader();
+      //     reader.onload = (event) => {
       if (event.target) {
         if (typeof event.target.result === "string") {
           setImageSrc(event.target.result);
         }
       }
     };
-    fileReader.abort()
+    fileReader.abort();
     if (file) fileReader.readAsDataURL(file);
   }
 
@@ -90,8 +89,8 @@ function MyForm() {
 
   const isTitleValid = wordCount(formData.title) <= 25;
   const isDescriptionValid = wordCount(formData.description) <= 100;
-<!--     if (file) reader.readAsDataURL(file);
-  }, [file]); -->
+  // if (file) reader.readAsDataURL(file);
+  //   }, [file]);
   // const reader = new FileReader();
   // reader.onload = (event) => {
   //   if (event.target) {
@@ -128,7 +127,7 @@ function MyForm() {
             className={`border w-full rounded py-2 text-white-700 leading-tight ${
               isTitleValid ? "bg-transparent" : "bg-red-200"
             } focus:outline-none focus:shadow-outline`}
-<!--              className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
+            //  className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
           />
           <p className="text-sm text-gray-500">
             {wordCount(formData.title)} / 25 words
@@ -143,8 +142,8 @@ function MyForm() {
             value={formData.slug}
             readOnly
             className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-<!--             onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
+            //  onChange={handleInputChange}
+            // className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="mt-4">
@@ -158,13 +157,13 @@ function MyForm() {
               value={formData.description}
               onChange={handleInputChange}
               className={`border w-full rounded py-2 text-white-700 leading-tight ${
-                isDescriptionValid ? 'bg-transparent' : 'bg-black-700'
+                isDescriptionValid ? "bg-transparent" : "bg-black-700"
               } focus:outline-none focus:shadow-outline`}
-<!--               className="border  w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
+              //  className="border  w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
             />
           </div>
           <p className="text-sm text-gray-500">
-          {wordCount(formData.description)} / 100 words
+            {wordCount(formData.description)} / 100 words
           </p>
         </div>
         <div className="mt-4">
