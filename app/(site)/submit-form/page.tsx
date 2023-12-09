@@ -6,6 +6,11 @@ import TextEditor from "@/components/TextEditor";
 function MyForm() {
   const [file, setFile] = useState<File>();
   const [imageSrc, setImageSrc] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [categoryError, SetCategoryError] = useState(false);
+  const [dateError, setDateError] = useState(false);
+  const [descError, setDescError] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -47,6 +52,28 @@ function MyForm() {
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
+    if(!formData.category) {
+      SetCategoryError(true);
+    }
+
+    if(!formData.date) {
+      setDateError(true);
+    }
+
+    if(!formData.title) {
+      setTitleError(true);
+    }
+
+    if(!formData.description) {
+      setDescError(true);
+    }
+
+    if(!file) {
+      setImageError(true);
+    }
+
+    if(categoryError || dateError || titleError || descError || imageError) return;
+
     console.log("Title:", formData.title);
     console.log("Slug:", formData.slug);
     console.log("Description:", formData.description);
@@ -66,7 +93,8 @@ function MyForm() {
     if (!fileReader && typeof window !== "undefined") {
       setFileReader(new FileReader());
     }
-  }, [fileReader]);
+    if(file) setImageError(false);
+  }, [fileReader, file]);
 
   if (fileReader) {
     fileReader.onload = (event: any) => {
@@ -132,9 +160,11 @@ function MyForm() {
                 value={formData.date}
                 onChange={handleInputChange}
                 placeholder="Date"
-                className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-800 focus:outline-none focus:shadow-outline"
+                className="border w-full placeholder-white-500 rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-800 focus:outline-none focus:shadow-outline"
+                onFocusCapture={()=>setDateError(false)}
               />
             {/* </div> */}
+            {dateError && <div className="text-red-600">The Date Field is Empty!</div>}
           </div>
          <div className="mt-4 flex-grow ml-2">
           <select
@@ -143,6 +173,7 @@ function MyForm() {
             value={formData.category}
             onChange={handleInputChange}
             className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-800 focus:outline-none focus:shadow-outline"
+            onFocus={() => SetCategoryError(false)}
           >
             <option value="" disabled style={{ color: "white" }}>
               Category
@@ -153,6 +184,7 @@ function MyForm() {
               </option>
             ))}
           </select>
+          {categoryError && <div className="text-red-600">Invalid Input for Category</div>}
         </div>
         </div>
 
@@ -169,11 +201,13 @@ function MyForm() {
             className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight ${
               isTitleValid ? "bg-slate-800" : "bg-red-200"
             } focus:outline-none focus:shadow-outline`}
+            onFocus={()=> setTitleError(false)}
 //             className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
           />
           <p className="text-sm text-gray-500">
             {wordCount(formData.title)} / 25 words
           </p>
+          {titleError && <div className="text-red-600">Invalid Input for Title</div>}
         </div>
         <div className="mt-4 mb-4 ">
           <input
@@ -191,7 +225,8 @@ function MyForm() {
         {/* <label className={`block mt-3 text-sm font-medium text-white `}>
             Image
           </label> */}
-          <FileDragDrop image={file} setimage={handleImageChange} />
+          <FileDragDrop image={file} setimage={handleImageChange}/>
+          {imageError && <div className="text-red-600">Invalid Input for Image</div>}
         <div className="mt-4">
           <div>
             <textarea
@@ -203,6 +238,7 @@ function MyForm() {
               className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight ${
                 isDescriptionValid ? 'bg-slate-800' : 'bg-black-700'
               } focus:outline-none focus:shadow-outline`}
+              onFocus={() => setDescError(false)}
 //<!--               className="border  w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" 
             />
                      
@@ -210,6 +246,7 @@ function MyForm() {
           <p className="m-0 text-sm text-gray-500">
           {wordCount(formData.description)} / 100 words
           </p>
+          {descError && <div className="text-red-600">Invalid Input for Descritption</div>}
 
         </div>
 
@@ -240,12 +277,14 @@ const FileDragDrop: React.FC<FileDragDrop> = ({ image, setimage }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [fileReader, setFileReader] = useState<FileReader>();
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     // Instantiate the FileReader on the client side after DOM is hydrated
     if (!fileReader && typeof window !== "undefined") {
       setFileReader(new FileReader());
     }
+    setImgError(imgError);
   }, [fileReader]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
