@@ -60,11 +60,11 @@ function MyForm() {
       setDateError(true);
     }
 
-    if(!formData.title) {
+    if(!formData.title || wordCount(formData.title)>25) {
       setTitleError(true);
     }
 
-    if(!formData.description) {
+    if(!formData.description || wordCount(formData.description)>100) {
       setDescError(true);
     }
 
