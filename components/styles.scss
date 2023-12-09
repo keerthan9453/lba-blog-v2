@@ -2,6 +2,10 @@
 $light-border-color: #304156;
 $dark-border-color: #ffffff;
 
+.tiptap:focus {
+  outline:none;
+}
+
 .tiptap {
     > * + * {
       margin-top: 0.75em;
