@@ -44,36 +44,12 @@ const Toolbar = ({ editor }: Props) => {
 
   const { $from } = editor.view.state.selection;
 
-  if (normalSelectRef.current != null)
-    console.log(normalSelectRef.current.getAttribute("data-state"));
-
   // Find the node type at the current cursor position
   const nodeType = $from.node($from.depth).type.name;
 
-  function setChecked(nodeType: string, attrLevel: number) {
-    normalSelectRef.current.setAttribute("data-state", "unchecked");
-    normalSelectRef.current.setAttribute("aria-selected", "false");
-    h1SelectRef.current.setAttribute("data-state", "unchecked");
-    h1SelectRef.current.setAttribute("aria-selected", "false");
-    h2SelectRef.current.setAttribute("data-state", "unchecked");
-    h2SelectRef.current.setAttribute("aria-selected", "false");
-    h3SelectRef.current.setAttribute("data-state", "unchecked");
-    h3SelectRef.current.setAttribute("aria-selected", "false");
-    h4SelectRef.current.setAttribute("data-state", "unchecked");
-    h4SelectRef.current.setAttribute("aria-selected", "false");
-    quoteSelectRef.current.setAttribute("data-state", "unchecked");
-    quoteSelectRef.current.setAttribute("aria-selected", "false");
-
-    if (nodeType === "paragraph") {
-      normalSelectRef.current.setAttribute("data-state", "checked");
-      normalSelectRef.current.setAttribute("aria-selected", "true");
-    }
-  }
-
   if (document.getElementById("selectValue") != null) {
     if (nodeType === "paragraph") {
-      document.getElementById("selectValue").innerHTML = "Normal";
-      setChecked(nodeType, 0);
+      document.getElementById("selectValue")!.innerHTML = "Normal";
     } else if (nodeType === "heading") {
       document.getElementById("selectValue")!.innerHTML =
         "Heading " + $from.parent.attrs.level;
@@ -138,67 +114,52 @@ const Toolbar = ({ editor }: Props) => {
   return (
     <div className="flex justify-start">
       <Select onValueChange={(selectValue) => setSelectValue(selectValue)}>
-        <SelectTrigger id="selectValue" className="w-[180px]">
+        <SelectTrigger
+          id="selectValue"
+          className="w-[180px] dark:dark:bg-slate-800 rounded-tl-xl"
+        >
           <SelectValue placeholder="Normal"></SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem
-              data-state={isChecked[0]}
-              id="normSelect"
-              value="normal"
-              ref={normalSelectRef}
-            >
+            <SelectItem id="normSelect" value="normal">
               Normal
             </SelectItem>
             <SelectItem
-              data-state={isChecked[1]}
               id="h1Select"
               className="text-3xl font-semibold select-text"
               value="h1"
-              ref={h1SelectRef}
             >
               Heading 1
             </SelectItem>
             <SelectItem
-              data-state={isChecked[2]}
               id="h2Select"
               className="text-2xl font-semibold"
               value="h2"
-              ref={h2SelectRef}
             >
               Heading 2
             </SelectItem>
             <SelectItem
-              data-state={isChecked[3]}
               id="h3Select"
               className="text-xl font-semibold"
               value="h3"
-              ref={h3SelectRef}
             >
               Heading 3
             </SelectItem>
             <SelectItem
-              data-state={isChecked[4]}
               id="h4Select"
               className="text-lg font-semibold"
               value="h4"
-              ref={h4SelectRef}
             >
               Heading 4
             </SelectItem>
-            <SelectItem
-              data-state={isChecked[5]}
-              id="quoteSelect"
-              value="blockquote"
-              ref={quoteSelectRef}
-            >
+            <SelectItem id="quoteSelect" value="blockquote">
               | Quote
             </SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 ">
         <Toggle
           size="sm"
           pressed={editor.isActive("bold")}
@@ -232,7 +193,7 @@ const Toolbar = ({ editor }: Props) => {
           <Strikethrough></Strikethrough>
         </Toggle>
       </div>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50">
         <Toggle
           size="sm"
           pressed={editor.isActive("bulletList")}
@@ -254,7 +215,7 @@ const Toolbar = ({ editor }: Props) => {
           <ListOrdered></ListOrdered>
         </Toggle>
       </div>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50">
         <Toggle
           size="sm"
           pressed={editor.isActive("link")}
