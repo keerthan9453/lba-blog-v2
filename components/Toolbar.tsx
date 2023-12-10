@@ -114,7 +114,10 @@ const Toolbar = ({ editor }: Props) => {
   return (
     <div className="flex justify-start">
       <Select onValueChange={(selectValue) => setSelectValue(selectValue)}>
-        <SelectTrigger id="selectValue" className="w-[180px]">
+        <SelectTrigger
+          id="selectValue"
+          className="w-[180px] dark:dark:bg-slate-800 rounded-tl-xl"
+        >
           <SelectValue placeholder="Normal"></SelectValue>
         </SelectTrigger>
         <SelectContent>
@@ -156,7 +159,7 @@ const Toolbar = ({ editor }: Props) => {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 ">
         <Toggle
           size="sm"
           pressed={editor.isActive("bold")}
@@ -190,7 +193,7 @@ const Toolbar = ({ editor }: Props) => {
           <Strikethrough></Strikethrough>
         </Toggle>
       </div>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50">
         <Toggle
           size="sm"
           pressed={editor.isActive("bulletList")}
@@ -212,7 +215,7 @@ const Toolbar = ({ editor }: Props) => {
           <ListOrdered></ListOrdered>
         </Toggle>
       </div>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50">
         <Toggle
           size="sm"
           pressed={editor.isActive("link")}
