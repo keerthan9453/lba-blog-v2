@@ -8,6 +8,7 @@ import ListItem from "@tiptap/extension-list-item";
 import Link from "@tiptap/extension-link";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import NextLink from "next/link";
 
 function MyForm() {
   const [file, setFile] = useState<File>();
@@ -152,6 +153,9 @@ function MyForm() {
   }
 
   const wordCount = (text: any) => {
+    if (text == undefined) {
+      return 0;
+    }
     const words = text.trim().split(/\s+/);
     return words.length;
   };
@@ -334,12 +338,19 @@ function MyForm() {
               <div className="text-red-600">Invalid Input for Content</div>
             )}
           </div>
-          <button
-            type="submit"
-            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline"
-          >
-            Submit
-          </button>
+          <div className="flex justify-between">
+            <NextLink href="/">
+              <button className="mt-4 border dark:border-slate-800 border-slate-300 hover:bg-gray-500 text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline">
+                Cancel
+              </button>
+            </NextLink>
+            <button
+              type="submit"
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </form>
