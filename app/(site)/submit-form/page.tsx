@@ -10,6 +10,7 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import NextLink from "next/link";
 
+
 function MyForm() {
   const [file, setFile] = useState<File>();
   const [imageSrc, setImageSrc] = useState("");
@@ -164,6 +165,7 @@ function MyForm() {
   const isDescriptionValid = wordCount(formData.description) <= 100;
   //     if (file) reader.readAsDataURL(file);
   //  }, [file]);
+
   // const reader = new FileReader();
   // reader.onload = (event) => {
   //   if (event.target) {
@@ -212,6 +214,7 @@ function MyForm() {
             onChange={handleInputChange}
             className="border w-full rounded-xl py-2 text-white leading-tight bg-slate-800 focus:outline-none focus:shadow-outline"
           />
+
         </div> */}
         <div className="flex flex-row justify-between">
           <div className="mt-4 flex-grow">
@@ -230,6 +233,7 @@ function MyForm() {
               placeholder="Date"
               className="border w-full placeholder-white-500 rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
               onFocusCapture={() => setDateError(false)}
+
             />
             {/* </div> */}
             {dateError && (
@@ -247,6 +251,7 @@ function MyForm() {
             >
               <option value="" disabled style={{ color: "white" }}>
                 Category
+
               </option>
               {categories.map((category, index) => (
                 <option key={index} value={category} style={{ color: "black" }}>
