@@ -1,9 +1,40 @@
 "use client";
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
+import TextEditor from "@/components/TextEditor";
+import Underline from "@tiptap/extension-underline";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrderedList from "@tiptap/extension-ordered-list";
+import ListItem from "@tiptap/extension-list-item";
+import Link from "@tiptap/extension-link";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import NextLink from "next/link";
+
 
 function MyForm() {
   const [file, setFile] = useState<File>();
   const [imageSrc, setImageSrc] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [categoryError, SetCategoryError] = useState(false);
+  const [dateError, setDateError] = useState(false);
+  const [descError, setDescError] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [contentError, setContentError] = useState(false);
+  const [shouldMsgShow, setShouldMsgShow] = useState(false);
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Underline,
+      BulletList,
+      OrderedList,
+      ListItem,
+      Link.extend({ inclusive: false }).configure({
+        openOnClick: false,
+      }),
+    ],
+    content: "<p>Hello World! 🌎️</p>",
+  });
 
   const [formData, setFormData] = useState({
     title: "",
@@ -14,13 +45,74 @@ function MyForm() {
     date: "",
   });
 
-  const handleInputChange = (event: { target: { name: any; value: any } }) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+
+    // Update the slug when the title changes
+    if (name === "title") {
+      const slug = generateSlug(value);
+      setFormData({ ...formData, [name]: value, slug });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const categories = [
+    "Blockchain",
+    "AI/ML",
+    "Metaverse",
+    "Market",
+    "Programming",
+  ];
+
+  const generateSlug = (title: any) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9]/g, "-") // Replace non-alphanumeric characters with '-'
+      .replace(/-{2,}/g, "-") // Replace consecutive '-' with a single '-'
+      .trim(); // Trim leading and trailing spaces
   };
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+
+    if (!formData.category) {
+      SetCategoryError(true);
+    }
+
+    if (!formData.date) {
+      setDateError(true);
+    }
+
+    if (editor?.getText() === "") {
+      setContentError(true);
+    } else {
+      setContentError(false);
+    }
+
+    if (!formData.title || wordCount(formData.title) > 25) {
+      setTitleError(true);
+    }
+
+    if (!formData.description || wordCount(formData.description) > 100) {
+      setDescError(true);
+    }
+
+    if (!file) {
+      setImageError(true);
+    }
+
+    if (
+      categoryError ||
+      dateError ||
+      titleError ||
+      descError ||
+      imageError ||
+      contentError
+    ) {
+      setShouldMsgShow(false);
+      return;
+    }
 
     console.log("Title:", formData.title);
     console.log("Slug:", formData.slug);
@@ -29,22 +121,51 @@ function MyForm() {
     console.log("Category:", formData.category);
     console.log("Date:", formData.date);
     console.log("Image:", file);
+    console.log("Content:", editor?.getHTML().toString());
+    setShouldMsgShow(true);
   };
   const handleImageChange = (value: File) => {
     setFile(value);
   };
 
+  const [fileReader, setFileReader] = useState<FileReader>();
+
   useEffect(() => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
+    // Instantiate the FileReader on the client side after DOM is hydrated
+    if (!fileReader && typeof window !== "undefined") {
+      setFileReader(new FileReader());
+    }
+    if (file) setImageError(false);
+  }, [fileReader, file]);
+
+  if (fileReader) {
+    fileReader.onload = (event: any) => {
+      //   useEffect(() => {
+      //     const reader = new FileReader();
+      //     reader.onload = (event) => {
       if (event.target) {
         if (typeof event.target.result === "string") {
           setImageSrc(event.target.result);
         }
       }
     };
-    if (file) reader.readAsDataURL(file);
-  }, [file]);
+    fileReader.abort();
+    if (file) fileReader.readAsDataURL(file);
+  }
+
+  const wordCount = (text: any) => {
+    if (text == undefined) {
+      return 0;
+    }
+    const words = text.trim().split(/\s+/);
+    return words.length;
+  };
+
+  const isTitleValid = wordCount(formData.title) <= 25;
+  const isDescriptionValid = wordCount(formData.description) <= 100;
+  //     if (file) reader.readAsDataURL(file);
+  //  }, [file]);
+
   // const reader = new FileReader();
   // reader.onload = (event) => {
   //   if (event.target) {
@@ -57,9 +178,33 @@ function MyForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      {shouldMsgShow &&
+        !(
+          categoryError ||
+          dateError ||
+          titleError ||
+          descError ||
+          imageError ||
+          contentError
+        ) && (
+          <div className="fixed w-full min-h-full ">
+            <div className="absolute border top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 p-8 border-opacity-20 dark:border-opacity-20 dark:bg-slate-800 dark:border-white border-black bg-slate-200 shadow-md z-50 rounded-xl drop-shadow-xl">
+              <button
+                className="absolute top-0 right-0 p-2 cursor-pointer font-semibold hover:bg-black hover:bg-opacity-30 rounded-xl "
+                onClick={() => {
+                  setShouldMsgShow(false);
+                }}
+              >
+                x
+              </button>
+              <p className="text-xl font-semibold">Submission Successful!</p>
+            </div>
+          </div>
+        )}
+
       <div className="mt-28 flex align-items justify-center mb-28 w-2/3 flex-col mx-auto">
         <div className="mx-auto text-4xl">Post a Blog</div>
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <label htmlFor="author">Author:</label>
           <input
             type="text"
@@ -67,82 +212,150 @@ function MyForm() {
             name="author"
             value={formData.author}
             onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+            className="border w-full rounded-xl py-2 text-white leading-tight bg-slate-800 focus:outline-none focus:shadow-outline"
           />
-        </div>
-        <div className="mt-4">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mt-4">
-          <label htmlFor="slug">Slug:</label>
-          <input
-            type="text"
-            id="slug"
-            name="slug"
-            value={formData.slug}
-            onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mt-4">
-          <label htmlFor="description" className="mb-2">
-            Description:
-          </label>
-          <div>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
+
+        </div> */}
+        <div className="flex flex-row justify-between">
+          <div className="mt-4 flex-grow">
+            {/* <label htmlFor="date" className="mb-2">
+              Date:
+            </label> */}
+            {/* <div className="flex-1"> */}
+            <input
+              type="text"
+              onFocus={(e) => (e.target.type = "date")}
+              onBlur={(e) => (e.target.type = "text")}
+              id="date"
+              name="date"
+              value={formData.date}
               onChange={handleInputChange}
-              className="border  w-full rounded py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+              placeholder="Date"
+              className="border w-full placeholder-white-500 rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
+              onFocusCapture={() => setDateError(false)}
+
             />
+            {/* </div> */}
+            {dateError && (
+              <div className="text-red-600">The Date Field is Empty!</div>
+            )}
+          </div>
+          <div className="mt-4 flex-grow ml-2">
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
+              onFocus={() => SetCategoryError(false)}
+            >
+              <option value="" disabled style={{ color: "white" }}>
+                Category
+
+              </option>
+              {categories.map((category, index) => (
+                <option key={index} value={category} style={{ color: "black" }}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            {categoryError && (
+              <div className="text-red-600">Invalid Input for Category</div>
+            )}
           </div>
         </div>
-        <div className="mt-4">
-          <label htmlFor="category">Category:</label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleInputChange}
-            className="border w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-          />
-        </div>
+
         <div>
           <div className="mt-4">
-            <label htmlFor="date" className="mb-2">
-              Date:
-            </label>
-            <div className="flex-1">
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Title"
+              value={formData.title}
+              onChange={handleInputChange}
+              className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight ${
+                isTitleValid
+                  ? "dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black"
+                  : "bg-red-200 dark:bg-red-700"
+              } focus:outline-none focus:shadow-outline`}
+              onFocus={() => setTitleError(false)}
+              //             className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
+            />
+            <p className="text-sm text-gray-500">
+              {wordCount(formData.title)} / 25 words
+            </p>
+            {titleError && (
+              <div className="text-red-600">Invalid Input for Title</div>
+            )}
+          </div>
+          <div className="mt-4 mb-4 ">
+            <input
+              type="text"
+              id="slug"
+              name="slug"
+              placeholder="Slug"
+              value={formData.slug}
+              readOnly
+              className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 focus:outline-none focus:shadow-outline"
+              //<!--             onChange={handleInputChange}
+              //        className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          {/* <label className={`block mt-3 text-sm font-medium text-white `}>
+            Image
+          </label> */}
+          <FileDragDrop image={file} setimage={handleImageChange} />
+          {imageError && (
+            <div className="text-red-600">Invalid Input for Image</div>
+          )}
+          <div className="mt-4">
+            <div>
+              <textarea
+                id="description"
+                name="description"
+                placeholder="Description"
+                value={formData.description}
                 onChange={handleInputChange}
-                className="border  w-full rounded py-2 text-white-700 leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+                className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight ${
+                  isDescriptionValid
+                    ? "border dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50"
+                    : "bg-black-700"
+                } focus:outline-none focus:shadow-outline`}
+                onFocus={() => setDescError(false)}
+                //<!--               className="border  w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
               />
             </div>
+            <p className="m-0 text-sm text-gray-500">
+              {wordCount(formData.description)} / 100 words
+            </p>
+            {descError && (
+              <div className="text-red-600">Invalid Input for Descritption</div>
+            )}
           </div>
-          <label className={`block mt-3 text-sm font-medium text-white `}>
-            Image
-          </label>
-          <FileDragDrop image={file} setimage={handleImageChange} />
-          <button
-            type="submit"
-            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Submit
-          </button>
+
+          <div className="mt-6">
+            <TextEditor editor={editor}></TextEditor>
+            <p className="m-0 text-sm text-gray-500">
+              {wordCount(editor?.getText())} words
+            </p>
+            {contentError && (
+              <div className="text-red-600">Invalid Input for Content</div>
+            )}
+          </div>
+          <div className="flex justify-between">
+            <NextLink href="/">
+              <button className="mt-4 border dark:border-slate-800 border-slate-300 hover:bg-gray-500 text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline">
+                Cancel
+              </button>
+            </NextLink>
+            <button
+              type="submit"
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </form>
@@ -159,6 +372,16 @@ const FileDragDrop: React.FC<FileDragDrop> = ({ image, setimage }) => {
   const [uploadedFile, setUploadedFile] = useState<File>();
   const [isDragging, setIsDragging] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
+  const [fileReader, setFileReader] = useState<FileReader>();
+  const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    // Instantiate the FileReader on the client side after DOM is hydrated
+    if (!fileReader && typeof window !== "undefined") {
+      setFileReader(new FileReader());
+    }
+    setImgError(imgError);
+  }, [fileReader]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -208,16 +431,16 @@ const FileDragDrop: React.FC<FileDragDrop> = ({ image, setimage }) => {
       if (newFile && /^image\//.test(newFile.type)) {
         setUploadedFile(newFile);
         setimage(newFile);
-
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          if (event.target) {
-            if (typeof event.target.result === "string") {
-              setImageSrc(event.target.result);
+        if (fileReader) {
+          fileReader.onload = (event: any) => {
+            if (event.target) {
+              if (typeof event.target.result === "string") {
+                setImageSrc(event.target.result);
+              }
             }
-          }
-        };
-        if (newFile) reader.readAsDataURL(newFile);
+          };
+          fileReader.readAsDataURL(newFile);
+        }
       } else {
         alert("Invalid file format. Only image files are accepted.");
       }
@@ -231,9 +454,7 @@ const FileDragDrop: React.FC<FileDragDrop> = ({ image, setimage }) => {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      className={` sm:text-lg text-base cursor-pointer w-auto min-h-[10rem] flex items-center justify-center flex-col flex-nowrap text-white border-2 border-white border-opacity-[0.35] rounded-lg ${
-        isDragging ? "" : "border-dashed"
-      }`}
+      className={`border dark:border-2 sm:text-lg dark:bg-slate-800 border-opacity-50 border-black text-base rounded-xl cursor-pointer w-auto min-h-[10rem] flex items-center justify-center flex-col flex-nowrap dark:text-white  dark:border-white dark:border-opacity-[0.35] rounded-xl-lg `}
     >
       {uploadedFile && (
         <div>You can drop another image to replace the older one</div>
