@@ -1,5 +1,6 @@
 "use client";
 import { type Editor } from "@tiptap/react";
+import * as SelectPrimitive from "@radix-ui/react-select";
 import {
   Bold,
   Strikethrough,
@@ -19,7 +20,7 @@ import {
   SelectGroup,
   SelectItem,
 } from "./ui/select";
-import { useCallback, useEffect, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
 type Props = {
   editor: Editor | null;
@@ -29,6 +30,16 @@ const Toolbar = ({ editor }: Props) => {
   if (!editor) {
     return null;
   }
+
+  const isChecked: string[] = new Array(6).fill("unchecked");
+
+  const normalSelectRef = useRef(null);
+  const h1SelectRef = useRef(null);
+  const h2SelectRef = useRef(null);
+  const h3SelectRef = useRef(null);
+  const h4SelectRef = useRef(null);
+  const quoteSelectRef = useRef(null);
+
   const [selectValue, setSelectValue] = useState<String>("normal");
 
   const { $from } = editor.view.state.selection;
@@ -67,67 +78,88 @@ const Toolbar = ({ editor }: Props) => {
     // update link
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   }
-
-  useEffect(() => {
-    if (selectValue === "h1") {
-      editor.chain().focus().toggleHeading({ level: 1 }).run();
-    } else if (selectValue === "h2") {
-      editor.chain().focus().toggleHeading({ level: 2 }).run();
-    } else if (selectValue === "h3") {
-      editor.chain().focus().toggleHeading({ level: 3 }).run();
-    } else if (selectValue === "h4") {
-      editor.chain().focus().toggleHeading({ level: 4 }).run();
-    } else if (selectValue === "blockquote") {
-      if (editor.isActive("heading"))
+  if (editor != null) {
+    useEffect(() => {
+      if (selectValue === "h1") {
         editor.chain().focus().toggleHeading({ level: 1 }).run();
+      } else if (selectValue === "h2") {
+        editor.chain().focus().toggleHeading({ level: 2 }).run();
+      } else if (selectValue === "h3") {
+        editor.chain().focus().toggleHeading({ level: 3 }).run();
+      } else if (selectValue === "h4") {
+        editor.chain().focus().toggleHeading({ level: 4 }).run();
+      } else if (selectValue === "blockquote") {
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
 
-      if (editor.isActive("heading"))
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
-      editor.chain().focus().toggleBlockquote().run();
-    } else {
-      if (editor.isActive("heading"))
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
-
-      if (editor.isActive("heading"))
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
-
-      if (editor.isActive("blockquote"))
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
         editor.chain().focus().toggleBlockquote().run();
-    }
+      } else {
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
 
-    if (editor.isActive("blockquote") && editor.isActive("heading"))
-      editor.chain().focus().toggleBlockquote().run();
-  }, [selectValue]);
+        if (editor.isActive("heading"))
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
+
+        if (editor.isActive("blockquote"))
+          editor.chain().focus().toggleBlockquote().run();
+      }
+
+      if (editor.isActive("blockquote") && editor.isActive("heading"))
+        editor.chain().focus().toggleBlockquote().run();
+    }, [selectValue]);
+  }
 
   return (
     <div className="flex justify-start">
       <Select onValueChange={(selectValue) => setSelectValue(selectValue)}>
-        <SelectTrigger id="selectValue" className="w-[180px]">
+        <SelectTrigger
+          id="selectValue"
+          className="w-[180px] dark:dark:bg-slate-800 rounded-tl-xl"
+        >
           <SelectValue placeholder="Normal"></SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="normal">Normal</SelectItem>
+            <SelectItem id="normSelect" value="normal">
+              Normal
+            </SelectItem>
             <SelectItem
+              id="h1Select"
               className="text-3xl font-semibold select-text"
               value="h1"
             >
               Heading 1
             </SelectItem>
-            <SelectItem className="text-2xl font-semibold" value="h2">
+            <SelectItem
+              id="h2Select"
+              className="text-2xl font-semibold"
+              value="h2"
+            >
               Heading 2
             </SelectItem>
-            <SelectItem className="text-xl font-semibold" value="h3">
+            <SelectItem
+              id="h3Select"
+              className="text-xl font-semibold"
+              value="h3"
+            >
               Heading 3
             </SelectItem>
-            <SelectItem className="text-lg font-semibold" value="h4">
+            <SelectItem
+              id="h4Select"
+              className="text-lg font-semibold"
+              value="h4"
+            >
               Heading 4
             </SelectItem>
-            <SelectItem value="blockquote">| Quote</SelectItem>
+            <SelectItem id="quoteSelect" value="blockquote">
+              | Quote
+            </SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 ">
         <Toggle
           size="sm"
           pressed={editor.isActive("bold")}
@@ -161,7 +193,7 @@ const Toolbar = ({ editor }: Props) => {
           <Strikethrough></Strikethrough>
         </Toggle>
       </div>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50">
         <Toggle
           size="sm"
           pressed={editor.isActive("bulletList")}
@@ -183,7 +215,7 @@ const Toolbar = ({ editor }: Props) => {
           <ListOrdered></ListOrdered>
         </Toggle>
       </div>
-      <div className="border-l-2 border-gray-800 dark:border-gray-500">
+      <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50">
         <Toggle
           size="sm"
           pressed={editor.isActive("link")}
