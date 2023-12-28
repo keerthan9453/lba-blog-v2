@@ -1,6 +1,6 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import TextEditor from "@/components/TextEditor";
+import TextEditor from "@/app/(site)/submit-form/components/TextEditor";
 import Underline from "@tiptap/extension-underline";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
@@ -9,7 +9,6 @@ import Link from "@tiptap/extension-link";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import NextLink from "next/link";
-
 
 function MyForm() {
   const [file, setFile] = useState<File>();
@@ -233,7 +232,6 @@ function MyForm() {
               placeholder="Date"
               className="border w-full placeholder-white-500 rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
               onFocusCapture={() => setDateError(false)}
-
             />
             {/* </div> */}
             {dateError && (
@@ -251,7 +249,6 @@ function MyForm() {
             >
               <option value="" disabled style={{ color: "white" }}>
                 Category
-
               </option>
               {categories.map((category, index) => (
                 <option key={index} value={category} style={{ color: "black" }}>
