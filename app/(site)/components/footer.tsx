@@ -1,68 +1,168 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { IoCallSharp } from "react-icons/io5";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { AiFillInstagram, AiOutlineTwitter, AiFillLinkedin } from "react-icons/ai";
+import {
+  AiFillInstagram,
+  AiOutlineTwitter,
+  AiFillLinkedin,
+} from "react-icons/ai";
 
-function Footer() {
+function NewsletterSection() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-9 py-8 px-4 md:px-14 bg-blue-50 dark:bg-slate-700"> 
-      <div className="flex-none mr-10 col-span-2 md:col-span-1 md:row-start-1 md:row-end-3">
-        <h1 className="font-bold">LBA</h1>
-      </div>
-      <div className="flex-none mr-10 col-span-5 md:col-span-3">
-        <div className="flex flex-row justify-between">
-          <div>
-            <h1 className="font-bold mb-6 col-span-3">About</h1>
-            <div>
-              <p className="mt-3">Blog</p>
-              <p className="mt-3">Main Website</p>
-              <p className="mt-3">UI/UX Design</p>
+    <section className="bg-gray-900 text-white py-8 px-4 md:px-8 lg:px-20">
+      <div className="max-w-6xl mx-auto">
+        <div
+          className="bg-gray-900 p-6 md:p-8 rounded-full"
+          style={{
+            borderImage: "linear-gradient(to left, orange, indigo) 1",
+            borderWidth: "2px",
+            borderStyle: "solid",
+          }}
+        >
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex-1 items-left">
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                <p>Welcome to LBA - Blog</p>
+                <p className="text-lg">a continuous improvement</p>
+              </h2>
+              <p className="mb-4 text-sm">
+                Don't just learn – share. Your articles can turn your profile
+                into a hub for like-minded professionals, enhancing
+                collaborations and knowledge exchange.
+              </p>
+            </div>
+            <div className="flex-1">
+              {/* <div className="flex flex-row justify-center items-end rounded-l"> */}
+              <div className="flex justify-center">
+                <form>
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    className="w-[50%] items-right p-2 text-black flex-1 rounded-l-lg"
+                    style={{ minWidth: "200px" }}
+                  />
+                  <button className="bg-white text-orange-700 hover:text-orange-600 font-bold py-2 px-4 rounded-r-lg transition-colors duration-300">
+                    Join Us {">"}
+                  </button>
+                </form>
+              </div>
+              <div className="flex justify-center">
+                <p className="text-xs text-center">
+                  Share your journey through engaging articles and videos that
+                  capture your discoveries, experiences, and insights within
+                  this vibrant community, fostering a cycle of perpetual growth
+                  and learning.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="md:mr-20 col-span-2">
-            <h1 className="font-bold mb-6">Pages</h1>
-            <div>
-              <p className="mt-3">NFT</p>
-              <p className="mt-3">Team</p>
-              <p className="mt-3">Blog</p>
-              <p className="mt-3">Demo</p>
-            </div>
-          </div>
         </div>
       </div>
-      <div className="flex-none md:ml-20 col-span-2 md:col-span-4">
-        <h1 className="font-bold mb-6">Contact</h1>
-        <div>
-          <p className="mt-3"><IoCallSharp className="w-fit h-fit inline-block mr-2" target="_blank"/>(406) 555-0120</p>
-          <Link href="mailto:lassondeblockchain@contact.com">
-          <p className="mt-3"><MdEmail className="w-fit h-fit inline-block mr-2" target="_blank" />Email Us</p>
-          </Link>
-          <Link href="https://goo.gl/maps/p4cjTFxrPgbEqGKh7"> 
-          <p className="mt-3"><FaMapMarkerAlt className="w-fit h-fit inline-block mr-2" target="_blank"/>York University, Toronto, Canada</p>
-          </Link>
-        </div>
-      </div>
-      <div className="flex-none mr100 col-span-2 md:col-span-1">
-        <h1 className="font-bold mb-6">Social Media</h1>
-        <div>
-        <Link href="https://www.instagram.com/lassondeblockchain/"> 
-        <p className="mt-3"><AiFillInstagram className="w-fit h-fit inline-block mr-2" target="_blank"/>Instagram</p>
-        </Link>
-        <Link href="https://twitter.com/lassondeLBA"> 
-        <p className="mt-3"><AiOutlineTwitter className="w-fit h-fit inline-block mr-2" target="_blank"/>Twitter</p>
-        </Link>
-        <Link href="https://www.linkedin.com/company/lassonde-blockchain-association"> 
-        <p className="mt-3"><AiFillLinkedin className="w-fit h-fit inline-block mr-2" target="_blank"/>LinkedIn</p>
-        </Link>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
-export default Footer;
+function Footer() {
+  return (
+    <footer className="bg-gray-950 text-white p-20 relative">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Link href="https://lassondeblockchain.vercel.app/">
+          <div className="md:col-span-1">
+            <h1 className="font-bold text-2xl">
+              <img
+                src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.d275875e.png&amp;w=1080&amp;q=75"
+                alt="LBA Logo"
+                width="80"
+              ></img>
+            </h1>
+            <ul>
+              <li>
+                <div>Lassonde</div>
+                <div>Blockchain Association</div>
+              </li>
+            </ul>
+          </div>
+        </Link>
+
+        <div className="md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div>
+            <h2 className="font-bold mb-2 text-xl">About</h2>
+            <ul>
+              <li>
+                <Link href="#">Blog</Link>
+              </li>
+              <li>
+                <Link href="#">Main Website</Link>
+              </li>
+              <li>
+                <Link href="#">UI/UX Design</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="font-bold mb-2 text-xl">Pages</h2>
+            <ul>
+              <li>
+                <Link href="#">NFT</Link>
+              </li>
+              <li>
+                <Link href="#">Team</Link>
+              </li>
+              <li>
+                <Link href="#">Blog</Link>
+              </li>
+              <li>
+                <Link href="#">Demo</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="font-bold mb-2 text-xl">Contact</h2>
+            <ul>
+              <li>
+                <IoCallSharp className="w-fit h-fit inline-block mr-2" />
+                <a href="tel:(406) 555-0120">(406) 555-0120</a>
+              </li>
+              <li>
+                <MdEmail className="w-fit h-fit inline-block mr-2" />
+                <Link href="mailto:lassondeblockchain@contact.com">
+                  Email Us
+                </Link>
+              </li>
+              <li>
+                <FaMapMarkerAlt className="w-fit h-fit inline-block mr-2" />
+                <Link href="https://goo.gl/maps/p4cjTFxrPgbEqGKh7">
+                  York University, Toronto, Canada
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr className="border-white mt-8" />
+      <div className="social-icons mt-8 flex justify-center">
+        <Link href="https://www.instagram.com/lassondeblockchain/">
+          <AiFillInstagram className="w-fit h-fit inline-block mx-2 text-4xl" />
+        </Link>
+        <Link href="https://twitter.com/lassondeLBA">
+          <AiOutlineTwitter className="w-fit h-fit inline-block mx-2 text-4xl" />
+        </Link>
+        <Link href="https://www.linkedin.com/company/lassonde-blockchain-association">
+          <AiFillLinkedin className="w-fit h-fit inline-block mx-2 text-4xl" />
+        </Link>
+      </div>
+    </footer>
+  );
+}
+
+export default function Layout() {
+  return (
+    <>
+      <NewsletterSection />
+      <Footer />
+    </>
+  );
+}

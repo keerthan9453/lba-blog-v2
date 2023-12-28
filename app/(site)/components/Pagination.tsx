@@ -20,6 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage,  numTotalPages, on
       }
 
       {Array.from({ length: numTotalPages }, (_, i) => i + 1).map((page) => {
+
         let buttonClasses = "";
         if (currentPage === page) {
           buttonClasses = "active text-blue-300";

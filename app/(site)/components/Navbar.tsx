@@ -59,14 +59,23 @@ const Navbar = () => {
               </Link>
               <span className="text-white text-4xl">/</span>
               <Link
-                href="https://lba-blog.vercel.app/"
+                href=""
+                // href="https://lba-blog.vercel.app/"
                 className="text-white cursor-pointer text-xl hover:text-orange-300 transform duration-150"
               >
                 LBA - Blog
               </Link>
             </div>
-            <div>
-              <div className="flex justify-end lg:mx-12 md:mx-8 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+            <div className="flex items-center justify-between ">
+              <div className="p-2.5">
+                <Link href="/login-page">
+                  <button className=" bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Login
+                  </button>
+                </Link>
+              </div>
+
+              <div className="cursor-pointer flex justify-end lg:mx-12 md:mx-8 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                 {/* <div className="right-10 border dark:hover:bg-slate-50 duration-100 dark:bg-slate-800 bg-grap-100 rounded transition"> */}
                 {currentTheme === "dark" ? (
                   // {/* light button */}
