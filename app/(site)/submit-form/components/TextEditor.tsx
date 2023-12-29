@@ -14,6 +14,7 @@ type Props = {
   editor: Editor | null;
 };
 
+
 const TextEditor = ({ editor }: Props) => {
   return (
     <div className="">

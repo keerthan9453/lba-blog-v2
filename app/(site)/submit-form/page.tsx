@@ -1,6 +1,6 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import TextEditor from "@/components/TextEditor";
+import TextEditor from "@/app/(site)/submit-form/components/TextEditor";
 import Underline from "@tiptap/extension-underline";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
@@ -164,6 +164,7 @@ function MyForm() {
   const isDescriptionValid = wordCount(formData.description) <= 100;
   //     if (file) reader.readAsDataURL(file);
   //  }, [file]);
+
   // const reader = new FileReader();
   // reader.onload = (event) => {
   //   if (event.target) {
@@ -212,6 +213,7 @@ function MyForm() {
             onChange={handleInputChange}
             className="border w-full rounded-xl py-2 text-white leading-tight bg-slate-800 focus:outline-none focus:shadow-outline"
           />
+
         </div> */}
         <div className="flex flex-row justify-between">
           <div className="mt-4 flex-grow">
