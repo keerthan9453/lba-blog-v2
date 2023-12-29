@@ -20,7 +20,7 @@ import {
   SelectGroup,
   SelectItem,
 } from "./ui/select";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 
 type Props = {
   editor: Editor | null;
@@ -31,33 +31,12 @@ const Toolbar = ({ editor }: Props) => {
     return null;
   }
 
-  const isChecked: string[] = new Array(6).fill("unchecked");
-
-  const normalSelectRef = useRef(null);
-  const h1SelectRef = useRef(null);
-  const h2SelectRef = useRef(null);
-  const h3SelectRef = useRef(null);
-  const h4SelectRef = useRef(null);
-  const quoteSelectRef = useRef(null);
-
   const [selectValue, setSelectValue] = useState<String>("normal");
 
-  const { $from } = editor.view.state.selection;
-
   // Find the node type at the current cursor position
-  const nodeType = $from.node($from.depth).type.name;
-
-  if (document.getElementById("selectValue") != null) {
-    if (nodeType === "paragraph") {
-      document.getElementById("selectValue")!.innerHTML = "Normal";
-    } else if (nodeType === "heading") {
-      document.getElementById("selectValue")!.innerHTML =
-        "Heading " + $from.parent.attrs.level;
-    }
-    if ($from.node($from.depth - 1).type.name === "blockquote") {
-      document.getElementById("selectValue")!.innerHTML = "Quote";
-    }
-  }
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSelectValue(event.target.value);
+  };
 
   function setLink() {
     if (editor === null) {
@@ -113,52 +92,51 @@ const Toolbar = ({ editor }: Props) => {
 
   return (
     <div className="flex justify-start">
-      <Select onValueChange={(selectValue) => setSelectValue(selectValue)}>
-        <SelectTrigger
-          id="selectValue"
-          className="w-[180px] dark:dark:bg-slate-800 rounded-tl-xl"
+      <select
+        id="selectValue"
+        // value={selectValue}
+        onChange={handleSelectChange}
+        className="px-2 w-[180px] dark:dark:bg-slate-800 rounded-tl-xl"
+      >
+        <option selected={editor.isActive("normal")} value="normal">
+          Normal
+        </option>
+        <option
+          selected={editor.isActive("heading", { level: 1 })}
+          className="text-3xl font-semibold select-text"
+          value="h1"
         >
-          <SelectValue placeholder="Normal"></SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectItem id="normSelect" value="normal">
-              Normal
-            </SelectItem>
-            <SelectItem
-              id="h1Select"
-              className="text-3xl font-semibold select-text"
-              value="h1"
-            >
-              Heading 1
-            </SelectItem>
-            <SelectItem
-              id="h2Select"
-              className="text-2xl font-semibold"
-              value="h2"
-            >
-              Heading 2
-            </SelectItem>
-            <SelectItem
-              id="h3Select"
-              className="text-xl font-semibold"
-              value="h3"
-            >
-              Heading 3
-            </SelectItem>
-            <SelectItem
-              id="h4Select"
-              className="text-lg font-semibold"
-              value="h4"
-            >
-              Heading 4
-            </SelectItem>
-            <SelectItem id="quoteSelect" value="blockquote">
-              | Quote
-            </SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+          Heading 1
+        </option>
+        <option
+          selected={editor.isActive("heading", { level: 2 })}
+          className="text-2xl font-semibold select-text"
+          value="h2"
+        >
+          <p>Heading 2</p>
+        </option>
+        <option
+          selected={editor.isActive("heading", { level: 3 })}
+          className="text-xl font-semibold select-text"
+          value="h3"
+        >
+          <p>Heading 3</p>
+        </option>
+        <option
+          selected={editor.isActive("heading", { level: 4 })}
+          className="text-lg font-semibold select-text"
+          value="h4"
+        >
+          <p>Heading 4</p>
+        </option>
+        <option
+          selected={editor.isActive("blockquote")}
+          className="select-text"
+          value="blockquote"
+        >
+          <p>| Quote</p>
+        </option>
+      </select>
       <div className="border-l dark:dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 ">
         <Toggle
           size="sm"
