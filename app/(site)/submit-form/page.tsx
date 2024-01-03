@@ -201,8 +201,10 @@ function MyForm() {
           </div>
         )}
 
-      <div className="mt-28 flex align-items justify-center mb-28 w-2/3 flex-col mx-auto">
-        <div className="mx-auto text-4xl">Post a Blog</div>
+      <div className="mt-28 flex align-items justify-center mb-28 w-2/3 flex-col mx-auto bg">
+        <div className="mx-auto text-4xl text-gray-700 dark:text-white">
+          Post a Blog
+        </div>
         {/* <div className="mt-4">
           <label htmlFor="author">Author:</label>
           <input
@@ -215,7 +217,7 @@ function MyForm() {
           />
 
         </div> */}
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between space-x-56">
           <div className="mt-4 flex-grow">
             {/* <label htmlFor="date" className="mb-2">
               Date:
@@ -230,7 +232,7 @@ function MyForm() {
               value={formData.date}
               onChange={handleInputChange}
               placeholder="Date"
-              className="border w-full placeholder-white-500 rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
+              className="border w-full placeholder-white-500 rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
               onFocusCapture={() => setDateError(false)}
             />
             {/* </div> */}
@@ -238,13 +240,13 @@ function MyForm() {
               <div className="text-red-600">The Date Field is Empty!</div>
             )}
           </div>
-          <div className="mt-4 flex-grow ml-2">
+          <div className="mt-4 flex-grow">
             <select
               id="category"
               name="category"
               value={formData.category}
               onChange={handleInputChange}
-              className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
+              className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black focus:outline-none focus:shadow-outline"
               onFocus={() => SetCategoryError(false)}
             >
               <option value="" disabled style={{ color: "white" }}>
@@ -271,7 +273,7 @@ function MyForm() {
               placeholder="Title"
               value={formData.title}
               onChange={handleInputChange}
-              className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight ${
+              className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 ${
                 isTitleValid
                   ? "dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black"
                   : "bg-red-200 dark:bg-red-700"
@@ -279,7 +281,7 @@ function MyForm() {
               onFocus={() => setTitleError(false)}
               //             className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
             />
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-slate-300 flex justify-end mr-5 mt-2">
               {wordCount(formData.title)} / 25 words
             </p>
             {titleError && (
@@ -294,7 +296,7 @@ function MyForm() {
               placeholder="Slug"
               value={formData.slug}
               readOnly
-              className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 focus:outline-none focus:shadow-outline"
+              className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 focus:outline-none focus:shadow-outline"
               //<!--             onChange={handleInputChange}
               //        className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
             />
@@ -302,10 +304,13 @@ function MyForm() {
           {/* <label className={`block mt-3 text-sm font-medium text-white `}>
             Image
           </label> */}
-          <FileDragDrop image={file} setimage={handleImageChange} />
+          <div className="bg-slate-200">
+            <FileDragDrop image={file} setimage={handleImageChange} />
+          </div>
           {imageError && (
             <div className="text-red-600">Invalid Input for Image</div>
           )}
+
           <div className="mt-4">
             <div>
               <textarea
@@ -314,7 +319,7 @@ function MyForm() {
                 placeholder="Description"
                 value={formData.description}
                 onChange={handleInputChange}
-                className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight ${
+                className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 ${
                   isDescriptionValid
                     ? "border dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50"
                     : "bg-black-700"
@@ -323,32 +328,33 @@ function MyForm() {
                 //<!--               className="border  w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
               />
             </div>
-            <p className="m-0 text-sm text-gray-500">
+            <p className="m-0 text-sm text-gray-500 dark:text-slate-300 flex justify-end mr-5">
               {wordCount(formData.description)} / 100 words
             </p>
             {descError && (
-              <div className="text-red-600">Invalid Input for Descritption</div>
+              <div className="text-red-600">Invalid Input for Description</div>
             )}
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 bg-slate-200">
             <TextEditor editor={editor}></TextEditor>
-            <p className="m-0 text-sm text-gray-500">
-              {wordCount(editor?.getText())} words
-            </p>
-            {contentError && (
-              <div className="text-red-600">Invalid Input for Content</div>
-            )}
           </div>
+          <p className="m-0 text-sm text-gray-500 dark:text-slate-300 flex justify-end mr-5 mt-1">
+            {wordCount(editor?.getText())} words
+          </p>
+          {contentError && (
+            <div className="text-red-600">Invalid Input for Content</div>
+          )}
+
           <div className="flex justify-between">
             <NextLink href="/">
-              <button className="mt-4 border dark:border-slate-800 border-slate-300 hover:bg-gray-500 text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline">
+              <button className="mt-4 border border-gray-500 dark:border-slate-800 border-slate-300 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-500 text-gray-500 dark:text-white dark:hover:text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline">
                 Cancel
               </button>
             </NextLink>
             <button
               type="submit"
-              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline"
+              className="mt-4 bg-blue-500 hover:bg-blue-700 hover:text-white text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline"
             >
               Submit
             </button>
