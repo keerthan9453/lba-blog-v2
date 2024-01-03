@@ -65,7 +65,7 @@ router.post("/", async (req: Request, res: Response) => {
 
 // Update blog by the slug
 router.put("/:id", async (req: Request, res: Response) => {
-  const { id } = req.params.id;
+  const id = req.params.id;
   const blog = await prisma.blog.update({
     where: { id },
     slug: req.body.slug,
