@@ -96,7 +96,7 @@ const Toolbar = ({ editor }: Props) => {
         id="selectValue"
         // value={selectValue}
         onChange={handleSelectChange}
-        className="px-2 w-[180px] dark:dark:bg-slate-800 rounded-tl-xl"
+        className="px-2 w-[180px] bg-slate-200 dark:dark:bg-slate-800 rounded-tl-xl"
       >
         <option selected={editor.isActive("normal")} value="normal">
           Normal
