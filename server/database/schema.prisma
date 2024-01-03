@@ -1,17 +1,33 @@
-// SAMPLE SCHEMA
-
-datasource db {
-  url      = env("DATABASE_URL")
-  provider = "mysql"
-}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model USER {
+  id           String   @id @default(uuid())
+  name         String
+  emailAddress String
+  password     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  posts        POST[]
+}
+
+model POST {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  content     String
+  author      USER     @relation(fields: [id], references: [id])
+  imageUrl    String
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
