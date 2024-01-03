@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { Request, Response } from "express";
 const express = require("express");
 
 const prisma = new PrismaClient();
 const router = express.Router();
 
-router.put("/:id", async (req, res) => {
-    const { id } = req.params.id;
+router.put("/:id", async (req: Request, res: Response) => {
+    const { id }= req.params.id;
     const blog = await prisma.user.create({
         // Add id creator
       name: req.body.name,
