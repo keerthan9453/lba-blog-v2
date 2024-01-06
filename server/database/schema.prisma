@@ -14,7 +14,7 @@ model Author {
   id           String   @id @default(uuid())
   firstName    String
   lastName     String
-  emailAddress String
+  email        String   @unique
   password     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -23,14 +23,14 @@ model Author {
 
 model Blog {
   id          String   @id @default(uuid())
-  title       String
-  description String
-  content     String
-  author      Author     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId    String
-  imageUrl    String
-  category    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  title       String
+  category    String
+  description String
+  content     String
+  imageUrl    String
+  author      Author?     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String?
   datePublished DateTime
 }
