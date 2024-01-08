@@ -1,17 +1,4 @@
 import { db } from "../utils/db.server";
-type Author = {
-  firstName: string;
-  lastName: string;
-  email: string;
-};
-type Blog = {
-  title: string;
-  description: string;
-  content: string;
-  imageUrl: string;
-  category: string;
-  datePublished: Date;
-};
 
 async function seed() {
   await Promise.all(
@@ -20,7 +7,7 @@ async function seed() {
         data: {
           firstName: author.firstName,
           lastName: author.lastName,
-          emailAddress: author.email, // not sure why email is invlaid
+          email: author.email,
           password: "password",
         },
       });
@@ -54,7 +41,7 @@ async function seed() {
   );
 }
 
-function getAuthors(): Array<Author> {
+function getAuthors() {
   return [
     {
       firstName: "Samson",
@@ -74,7 +61,7 @@ function getAuthors(): Array<Author> {
   ];
 }
 
-function getBlogs(): Array<Blog> {
+function getBlogs() {
   return [
     {
       title: "What is Blockchain",
@@ -102,3 +89,7 @@ function getBlogs(): Array<Blog> {
     },
   ];
 }
+seed().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
