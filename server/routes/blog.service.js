@@ -13,4 +13,10 @@ const updateBlog = async (id, blogData) => {
   });
 };
 
-module.exports = { createBlog, updateBlog };
+const deleteBlog = async () => {
+  return db.blog.delete({
+    where: { id: Number(id), data: blogData },
+  });
+};
+
+module.exports = { createBlog, updateBlog, deleteBlog };

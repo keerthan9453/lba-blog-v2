@@ -1,5 +1,5 @@
 import express from "express";
-import { createBlog, updateBlog } from "../services/blog.service";
+import { createBlog, updateBlog, deleteBlog } from "../services/blog.service";
 
 const blogRouter = express.Router();
 
@@ -26,5 +26,13 @@ blogRouter.put("/:id", async (req, res) => {
 });
 
 // deleteBlog
+blogRouter.delete("/:id", async (req, res) => {
+  try {
+    const blog = await deleteBlog(req.params.id, req.body);
+    return res.status(200).json(blog);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = blogRouter;
