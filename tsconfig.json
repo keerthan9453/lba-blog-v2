@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/(site)/providers.jsx"
-  ],
+, "server/routes/author.router.js", "server/index.js", "server/routes/BlogRoutes.js", "server/routes/author.service.js", "server/utils/db.server.js", "server/database/seed.js"  ],
   "exclude": ["node_modules"]
 }

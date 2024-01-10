@@ -1,0 +1,19 @@
+import { db } from "../utils/db.server";
+
+type Author = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  // email: string;
+};
+
+export const listAuthors = async (): Promise<Author[]> => {
+  return db.author.findMany({
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      // email: true,
+    },
+  });
+};

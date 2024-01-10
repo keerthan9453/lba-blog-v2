@@ -2,7 +2,7 @@ import { db } from "../utils/db.server";
 type Author = {
   firstName: string;
   lastName: string;
-  emailAdress: string;
+  email: string;
 };
 type Blog = {
   title: string;
@@ -20,16 +20,20 @@ async function seed() {
         data: {
           firstName: author.firstName,
           lastName: author.lastName,
-          emailAdress: author.emailAdress,
+          emailAddress: author.email, // not sure why email is invlaid
+          password: "password",
         },
       });
     })
   );
-  const author = await db.author.fineFirst({
+  const author = await db.author.findFirst({
     where: {
       firstName: "Samson",
     },
   });
+  if (!author) {
+    throw new Error("Author not found");
+  }
 
   await Promise.all(
     getBlogs().map((blog) => {
@@ -55,17 +59,17 @@ function getAuthors(): Array<Author> {
     {
       firstName: "Samson",
       lastName: "Chan",
-      emailAdress: "samson@gmail.com",
+      email: "samson@gmail.com",
     },
     {
       firstName: "Nikhil",
       lastName: "Sharma",
-      emailAdress: "nikhil@gmail.com",
+      email: "nikhil@gmail.com",
     },
     {
       firstName: "Daniel",
       lastName: "Kim",
-      emailAdress: "daniel@gmail.com",
+      email: "daniel@gmail.com",
     },
   ];
 }
