@@ -17,7 +17,7 @@ app.use(cors()); // Using this to prevent CORS errors
 app.use(express.json());
 app.use("/api/authors", authorRouter);
 
-// create Blog
+// create Blog server, includes createBlog, updateBlog, deleteBlog routes
 app.use("/api/blogs", blogRouter);
 
 app.listen(PORT, () => {

@@ -2,7 +2,18 @@ import { db } from "../utils/db.server";
 
 const createBlog = async (blogData) => {
   return db.blog.create({
-    data: blogData,
+    data: {
+      title: blogData.title,
+      category: blogData.category,
+      description: blogData.description,
+      content: blogData.content,
+      imageUrl: blogData.imageUrl,
+      authorId: blogData.authorId,
+      datePublished: blogData.datePublished,
+    },
+    select: {
+      id: true,
+    },
   });
 };
 
