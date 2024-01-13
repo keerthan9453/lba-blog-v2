@@ -30,7 +30,7 @@ model Blog {
   description String
   content     String
   imageUrl    String
-  author      Author?     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId    String?
+  author      Author     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
   datePublished DateTime
 }
