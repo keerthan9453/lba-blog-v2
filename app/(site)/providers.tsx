@@ -14,10 +14,6 @@ export default function Provider({ children }: ProviderProps) {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
   return (
     <ThemeProvider enableSystem={true} attribute="class">
       {children}

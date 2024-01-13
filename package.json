@@ -2,7 +2,6 @@
   "name": "lba-blog",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "prisma": {
     "seed": "node --require esbuild-register server/database/seed.ts"
   },
@@ -49,7 +48,7 @@
     "lucide-react": "^0.236.0",
     "moment": "^2.29.4",
     "mysql": "^2.18.1",
-    "next": "^13.4.4",
+    "next": "^14.0.4",
     "next-sanity": "^4.3.3",
     "next-themes": "^0.2.1",
     "react": "18.2.0",

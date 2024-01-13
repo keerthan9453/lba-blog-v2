@@ -304,7 +304,7 @@ function MyForm() {
           {/* <label className={`block mt-3 text-sm font-medium text-white `}>
             Image
           </label> */}
-          <div className="bg-slate-200">
+          <div className="rounded-xl bg-slate-200">
             <FileDragDrop image={file} setimage={handleImageChange} />
           </div>
           {imageError && (
@@ -336,7 +336,7 @@ function MyForm() {
             )}
           </div>
 
-          <div className="mt-6 bg-slate-200">
+          <div className="mt-6 bg-slate-200 rounded-xl">
             <TextEditor editor={editor}></TextEditor>
           </div>
           <p className="m-0 text-sm text-gray-500 dark:text-slate-300 flex justify-end mr-5 mt-1">
@@ -348,7 +348,7 @@ function MyForm() {
 
           <div className="flex justify-between">
             <NextLink href="/">
-              <button className="mt-4 border border-gray-500 dark:border-slate-800 border-slate-300 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-500 text-gray-500 dark:text-white dark:hover:text-white font-bold py-4 px-16 rounded-xl focus:outline-none focus:shadow-outline">
+              <button className="mt-4 border border-gray-500 dark:border-slate-800 hover:bg-gray-800 rounded-xl hover:text-white dark:hover:bg-gray-500 text-gray-500 dark:text-white dark:hover:text-white font-bold py-4 px-16 focus:outline-none focus:shadow-outline">
                 Cancel
               </button>
             </NextLink>
