@@ -79,7 +79,7 @@ export default function Home() {
               Blogs.
             </h2>
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center overflow-auto">
               <CategoryTab updateSelectedCategory={updateSelectedCategory} />
               <Link href="/submit-form">
                 <button className="mt-4 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

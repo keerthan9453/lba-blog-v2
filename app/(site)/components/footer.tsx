@@ -9,13 +9,16 @@ import {
   AiOutlineTwitter,
   AiFillLinkedin,
 } from "react-icons/ai";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
+import SelectedCategorySingleton from "../components/globalSelectedCategory";
 
 function NewsletterSection() {
   return (
-    <section className="bg-gray-900 text-white py-8 px-4 md:px-8 lg:px-20">
+    <section className="newslettersec bg-gray-300 dark:bg-gray-900 dark:text-white py-8 px-4 md:px-8 lg:px-20 dark:bg-slate-900/75">
       <div className="max-w-6xl mx-auto">
         <div
-          className="bg-gray-900 p-6 md:p-8 rounded-full"
+          className="dark:bg-gray-900 p-6 md:p-8 rounded-full"
           style={{
             borderImage: "linear-gradient(to left, orange, indigo) 1",
             borderWidth: "2px",
@@ -28,7 +31,7 @@ function NewsletterSection() {
                 <p>Welcome to LBA - Blog</p>
                 <p className="text-lg">a continuous improvement</p>
               </h2>
-              <p className="mb-4 text-sm">
+              <p className="welcometext mb-4 text-sm">
                 Don't just learn – share. Your articles can turn your profile
                 into a hub for like-minded professionals, enhancing
                 collaborations and knowledge exchange.
@@ -41,7 +44,7 @@ function NewsletterSection() {
                   <input
                     type="email"
                     placeholder="Your email address"
-                    className="w-[50%] items-right p-2 text-black flex-1 rounded-l-lg"
+                    className="bg-white w-[50%] items-right p-2 text-black flex-1 rounded-l-lg"
                     style={{ minWidth: "200px" }}
                   />
                   <button className="bg-white text-orange-700 hover:text-orange-600 font-bold py-2 px-4 rounded-r-lg transition-colors duration-300">
@@ -67,7 +70,7 @@ function NewsletterSection() {
 
 function Footer() {
   return (
-    <footer className="bg-gray-950 text-white p-20 relative">
+    <footer className="LBAfooter bg-gray-800 dark:bg-gray-950 text-white p-20 relative">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
         <Link href="https://lassondeblockchain.vercel.app/">
           <div className="md:col-span-1">
@@ -142,7 +145,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <hr className="border-white mt-8" />
+      <hr className="dark:border-white mt-8" />
       <div className="social-icons mt-8 flex justify-center">
         <Link href="https://www.instagram.com/lassondeblockchain/">
           <AiFillInstagram className="w-fit h-fit inline-block mx-2 text-4xl" />
@@ -161,8 +164,11 @@ function Footer() {
 export default function Layout() {
   return (
     <>
-      <NewsletterSection />
-      <Footer />
+      <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'></meta>
+      </head>
+        <NewsletterSection />
+        <Footer />
     </>
   );
 }

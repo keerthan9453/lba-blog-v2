@@ -74,3 +74,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* for the footer section */
+.Layout {
+  width: 100%; 
+}
+
+.newslettersec form {
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .newslettersec{
+    width: 100%;
+  }
+
+  .newslettersec h2 {
+    text-align: center;
+  }
+
+  .newslettersec form {
+    text-align: center;
+  }
+
+  .welcometext{
+    text-align: center;
+  }
+
+}
+
+
