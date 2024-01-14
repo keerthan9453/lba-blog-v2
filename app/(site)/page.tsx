@@ -67,7 +67,6 @@ export default function Home() {
 
   return (
     <>
-      <ThemeProvider>
         <div className="container mx-auto sm:px-4 top-20 box-border">
           <div className="mt-20 my-6 lg:mx-10 md:mx-10">
             {/* header section */}
@@ -101,7 +100,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </ThemeProvider>
     </>
   );
 }
