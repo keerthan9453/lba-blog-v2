@@ -217,6 +217,8 @@ function MyForm() {
           />
 
         </div> */}
+
+        {/* Date */}
         <div className="flex flex-row justify-between space-x-56">
           <div className="mt-4 flex-grow">
             {/* <label htmlFor="date" className="mb-2">
@@ -240,6 +242,8 @@ function MyForm() {
               <div className="text-red-600">The Date Field is Empty!</div>
             )}
           </div>
+
+          {/* Category */}
           <div className="mt-4 flex-grow">
             <select
               id="category"
@@ -264,6 +268,7 @@ function MyForm() {
           </div>
         </div>
 
+        {/* Title */}
         <div>
           <div className="mt-4">
             <input
@@ -273,13 +278,12 @@ function MyForm() {
               placeholder="Title"
               value={formData.title}
               onChange={handleInputChange}
-              className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 ${
-                isTitleValid
+              className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 ${isTitleValid
                   ? "dark:bg-slate-800 dark:border-0 dark:border-opacity-100 border-opacity-50 border-black"
                   : "bg-red-200 dark:bg-red-700"
-              } focus:outline-none focus:shadow-outline`}
+                } focus:outline-none focus:shadow-outline`}
               onFocus={() => setTitleError(false)}
-              //             className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
+            //             className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline" -->
             />
             <p className="text-sm text-gray-500 dark:text-slate-300 flex justify-end mr-5 mt-2">
               {wordCount(formData.title)} / 25 words
@@ -288,6 +292,8 @@ function MyForm() {
               <div className="text-red-600">Invalid Input for Title</div>
             )}
           </div>
+
+          {/* Image Upload */}
           <div className="mt-4 mb-4 ">
             <input
               type="text"
@@ -297,8 +303,8 @@ function MyForm() {
               value={formData.slug}
               readOnly
               className="border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50 focus:outline-none focus:shadow-outline"
-              //<!--             onChange={handleInputChange}
-              //        className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+            //<!--             onChange={handleInputChange}
+            //        className="border w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
             />
           </div>
           {/* <label className={`block mt-3 text-sm font-medium text-white `}>
@@ -311,6 +317,8 @@ function MyForm() {
             <div className="text-red-600">Invalid Input for Image</div>
           )}
 
+
+          {/* Description */}
           <div className="mt-4">
             <div>
               <textarea
@@ -319,13 +327,12 @@ function MyForm() {
                 placeholder="Description"
                 value={formData.description}
                 onChange={handleInputChange}
-                className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 ${
-                  isDescriptionValid
+                className={`border w-full rounded-xl pl-[7px] py-2 text-white-700 leading-tight bg-slate-200 ${isDescriptionValid
                     ? "border dark:bg-slate-800 border-black dark:border-opacity-100 border-opacity-50"
                     : "bg-black-700"
-                } focus:outline-none focus:shadow-outline`}
+                  } focus:outline-none focus:shadow-outline`}
                 onFocus={() => setDescError(false)}
-                //<!--               className="border  w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+              //<!--               className="border  w-full rounded-xl py-2 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
               />
             </div>
             <p className="m-0 text-sm text-gray-500 dark:text-slate-300 flex justify-end mr-5">
@@ -336,6 +343,7 @@ function MyForm() {
             )}
           </div>
 
+          {/* Text Box */}
           <div className="mt-6 bg-slate-200 rounded-xl">
             <TextEditor editor={editor}></TextEditor>
           </div>
@@ -346,6 +354,8 @@ function MyForm() {
             <div className="text-red-600">Invalid Input for Content</div>
           )}
 
+
+          {/* Buttons */}
           <div className="flex justify-between">
             <NextLink href="/">
               <button className="mt-4 border border-gray-500 dark:border-slate-800 hover:bg-gray-800 rounded-xl hover:text-white dark:hover:bg-gray-500 text-gray-500 dark:text-white dark:hover:text-white font-bold py-4 px-16 focus:outline-none focus:shadow-outline">
