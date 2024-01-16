@@ -35,4 +35,11 @@ blogRouter.delete("/:id", async (req, res) => {
   }
 });
 
+// get blog by author id
+
+// get all blogs
+
+// get blog by category
+
+
 module.exports = blogRouter;
