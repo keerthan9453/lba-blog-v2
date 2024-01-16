@@ -7,9 +7,12 @@ import * as AuthorService from "./author.service";
 export const authorRouter = express.Router();
 
 // signup author
+
 // login author
+
 // Update author
-// Get autho blog
+
+// Get author blog
 
 // GET: List of all Authors
 authorRouter.get("/", async (req, res) => {
