@@ -1,6 +1,6 @@
-import { db } from "../utils/db.server";
+const db = require("../utils/db.server");
 
-export const listAuthors = async () => {
+const listAuthors = async () => {
   return db.author.findMany({
     include: {
       Author: true,
@@ -13,3 +13,5 @@ export const listAuthors = async () => {
     // },
   });
 };
+
+module.exports = { listAuthors };

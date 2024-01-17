@@ -1,4 +1,4 @@
-import { db } from "../utils/db.server";
+const db = require("../utils/db.server");
 
 const createBlog = async (blogData) => {
   return db.blog.create({
