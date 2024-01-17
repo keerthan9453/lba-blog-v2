@@ -1,8 +1,8 @@
 // ES6
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 
 // CommonJS
-// const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 
 // singleton pattern to ensure only one single instance of PrismaClient is created
 let db;

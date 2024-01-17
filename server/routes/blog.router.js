@@ -1,6 +1,5 @@
-import express from "express";
-import { createBlog, updateBlog, deleteBlog } from "../services/blog.service";
-
+const { createBlog, updateBlog, deleteBlog } = require("./blog.service");
+const express = require("express");
 const blogRouter = express.Router();
 
 // createBlog
@@ -44,4 +43,4 @@ blogRouter.get("/blogs", async (req, res) => {});
 // get blog by category
 blogRouter.get("/blogs/:category", async (req, res) => {});
 
-// module.exports = blogRouter;
+module.exports = blogRouter;

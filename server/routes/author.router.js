@@ -1,9 +1,9 @@
 // import { PrismaClient } from "@prisma/client";
-import express from "express";
 // import { body, validationResult } from "express-validator";
-import * as AuthorService from "./author.service";
+const AuthorService = require("./author.service");
+const express = require("express");
 
-export const authorRouter = express.Router();
+const authorRouter = express.Router();
 
 // signup author
 authorRouter.post("/signup", async (req, res) => {});
@@ -28,4 +28,4 @@ authorRouter.get("/authors", async (req, res) => {
   }
 });
 
-// module.exports = router;
+module.exports = authorRouter;
