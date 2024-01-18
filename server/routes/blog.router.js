@@ -2,7 +2,7 @@ const { createBlog, updateBlog, deleteBlog } = require("./blog.service")
 const express = require("express")
 const blogRouter = express.Router()
 
-// createBlog
+// 🖊️ Create Blog
 blogRouter.post("/", async (req, res) => {
     try {
         // req.body is the blogData
@@ -13,7 +13,7 @@ blogRouter.post("/", async (req, res) => {
     }
 })
 
-// updateBlog
+// 📝 Update Blog
 blogRouter.put("/:id", async (req, res) => {
     try {
         // req.body is the blogData
@@ -24,7 +24,7 @@ blogRouter.put("/:id", async (req, res) => {
     }
 })
 
-// deleteBlog
+// ❌ Delete Blog
 blogRouter.delete("/:id", async (req, res) => {
     try {
         const blog = await deleteBlog(req.params.id, req.body)
@@ -34,13 +34,13 @@ blogRouter.delete("/:id", async (req, res) => {
     }
 })
 
-// get blog by author id
+// 🔎 Get Blog
 blogRouter.get("/:id/:authorId", async (req, res) => {})
 
-// get all blogs
+// 🔎 Get ALL Blogs
 blogRouter.get("/blogs", async (req, res) => {})
 
-// get blog by category
+// 🔎 Get Blogs By Catagory
 blogRouter.get("/blogs/:category", async (req, res) => {})
 
 module.exports = blogRouter

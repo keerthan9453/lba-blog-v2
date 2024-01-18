@@ -1,43 +1,48 @@
 const { Clerk } = require("@clerk/clerk-sdk-node")
 
-// @TODO move 🪦
 const clerk = Clerk({ secretKey: process.env.CLERK_SECRET_KEY })
 
 /**
- * Authenticates a user based on the session token provided in the request headers.
- * The function checks for a valid session token, verifies the session with Clerk,
- * and extracts the userId from the session. If the token is invalid, missing, or
- * if the userId cannot be retrieved, it sends a 401 Unauthorized response.
- *
+ * Extracts the session token from the request headers.
  * @param {object} req - The Express.js request object
- * @param {object} res - The Express.js res object
- * @param {function} next - The next function
- *
- * @throws Will send a 401 Unauthorized response with an error message if authentication fails.
+ * @returns {string|null} The session token
  */
+function getSessionToken(req) {
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return null
+    }
+    return authHeader.split("Bearer ")[1]
+}
 
+/**
+ * Authenticates a user based on the session token provided in the request headers.
+ * @param {object} req - The Express.js request object
+ * @param {object} res - The Express.js response object
+ * @param {function} next - The next middleware function
+ */
 async function authenticateUser(req, res, next) {
     try {
-        const sessionToken = req.headers.authorization?.split("Bearer ")[1]
+        const sessionToken = getSessionToken(req)
 
         if (!sessionToken) {
             return res.status(401).json({ error: "No session token provided" })
         }
 
-        // Networkless verification
-        const claims = await clerk.verifyToken(sessionToken)
-        const userId = claims.sub
-        console.log(claims)
+        const session = await clerk.sessions.getSession(sessionToken)
+        const user = session.user
 
-        if (!userId) {
-            return res.status(401).json({ error: "Malformed session token" })
+        if (user) {
+            throw new Error("Malformed session: No user object")
         }
 
-        req.userId = userId
+        req.user = user
         next()
     } catch (error) {
-        console.error("Authentication error:", error)
-        res.status(401).json({ error: "Authentication failed" })
+        console.error("Authentication error:", error.message)
+        res.status(401).json({
+            error: "Authentication failed: " + error.message,
+        })
     }
 }
 
