@@ -4,7 +4,15 @@ import { z } from "zod"
 const BlogSchema = z.object({
     id: z.string().uuid(),
     title: z.string().min(1).max(120),
-    category: z.string(),
+    category: z.enum([
+        "AI",
+        "BLOCKCHAIN",
+        "CLOUD",
+        "DEVOPS",
+        "METAVERSE",
+        "NFT",
+        "WEB3",
+    ]),
     description: z.string().max(256),
     content: z.string().min(1).max(16384),
     imageUrl: z.string().url(),
@@ -16,7 +24,7 @@ const BlogSchema = z.object({
 const blog = {
     id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     title: "My First Blockchain Blog",
-    category: "blockchain",
+    category: "BLOCKCHAIN",
     description: "This is my first blog about blockchain",
     content: "This is my first blog",
     imageUrl: "https://www.google.com",
@@ -25,7 +33,7 @@ const blog = {
 }
 
 try {
-    const validatedBlog = BlogSchema.safeParse(blog)
+    const validatedBlog = BlogSchema.parse(blog)
     console.log(validatedBlog)
 } catch (error) {
     console.error(error)
