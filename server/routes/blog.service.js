@@ -1,5 +1,6 @@
 const db = require("../utils/db.server")
 
+// mutations
 const createBlog = async (blogData) => {
     return db.blog.create({
         data: {
@@ -29,5 +30,13 @@ const deleteBlog = async () => {
         where: { id: Number(id), data: blogData },
     })
 }
+// @TODO 📝 Fetch blogs by specific author id
+const getBlogByAuthorId = async (id, authorId) => {}
+
+// @TODO 💻 Retrieve all blogs from database
+const getAllBlogs = async () => {}
+
+// @TODO 📋 Fetch blogs belonging to a specific category
+const getBlogByCategory = async (category) => {}
 
 module.exports = { createBlog, updateBlog, deleteBlog }

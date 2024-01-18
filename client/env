@@ -1,0 +1,5 @@
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_dGFsZW50ZWQta2l3aS00NC5jbGVyay5hY2NvdW50cy5kZXYk
+CLERK_SECRET_KEY=sk_test_emgdmFAwMImlqsDGFooh7XblNkqqYZo8o4IzgRwxoV
+
+# MySQL
+DATABASE_URL='mysql://qjex9jpk12u5l6y2ypc2:pscale_pw_ql5ze892TirvNnyeTk9uAxbdkq64r6noZMnH01Exd4a@aws.connect.psdb.cloud/testdb?sslaccept=strict'

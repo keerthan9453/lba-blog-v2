@@ -2,7 +2,7 @@ const { createBlog, updateBlog, deleteBlog } = require("./blog.service")
 const express = require("express")
 const blogRouter = express.Router()
 
-// 🖊️ Create Blog
+// createBlog
 blogRouter.post("/", async (req, res) => {
     try {
         // req.body is the blogData
@@ -13,7 +13,7 @@ blogRouter.post("/", async (req, res) => {
     }
 })
 
-// 📝 Update Blog
+// updateBlog
 blogRouter.put("/:id", async (req, res) => {
     try {
         // req.body is the blogData
@@ -24,7 +24,7 @@ blogRouter.put("/:id", async (req, res) => {
     }
 })
 
-// ❌ Delete Blog
+// deleteBlog
 blogRouter.delete("/:id", async (req, res) => {
     try {
         const blog = await deleteBlog(req.params.id, req.body)
@@ -34,13 +34,38 @@ blogRouter.delete("/:id", async (req, res) => {
     }
 })
 
-// 🔎 Get Blog
-blogRouter.get("/:id/:authorId", async (req, res) => {})
+// get blog by author id
+blogRouter.get("/:id/:authorId", async (req, res) => {
+    try {
+        const blog = await getBlogByAuthorId(
+            req.params.id,
+            req.params.authorId,
+            req.body
+        )
+        return res.status(200).json(blog)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+})
 
-// 🔎 Get ALL Blogs
-blogRouter.get("/blogs", async (req, res) => {})
+// get all blogs
+blogRouter.get("/blogs", async (req, res) => {
+    try {
+        const blogs = await getAllBlogs()
+        return res.status(200).json(blogs)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+})
 
-// 🔎 Get Blogs By Catagory
-blogRouter.get("/blogs/:category", async (req, res) => {})
+// get blog by category
+blogRouter.get("/blogs/:category", async (req, res) => {
+    try {
+        const blogs = await getBlogsByCategory(req.params.category)
+        return res.status(200).json(blogs)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+})
 
 module.exports = blogRouter
