@@ -1,5 +1,28 @@
 const db = require("../utils/db.server")
 
+// @TODO 📝 Fetch blogs by specific author id
+const getBlogByAuthorId = async (authorId) => {
+    return db.blog.findMany({
+        where: {
+            authorId: authorId,
+        },
+    })
+}
+
+// @TODO 💻 Retrieve all blogs from database
+const getAllBlogs = async () => {
+    return db.blog.findMany()
+}
+
+// @TODO 📋 Fetch blogs belonging to a specific category
+const getBlogByCategory = async (category) => {
+    return db.blog.findMany({
+        where: {
+            category: category,
+        },
+    })
+}
+
 // mutations
 const createBlog = async (blogData) => {
     return db.blog.create({
@@ -20,23 +43,22 @@ const createBlog = async (blogData) => {
 
 const updateBlog = async (id, blogData) => {
     return db.blog.update({
-        where: { id: Number(id) },
+        where: { id: String(id) },
         data: blogData,
     })
 }
 
 const deleteBlog = async () => {
     return db.blog.delete({
-        where: { id: Number(id), data: blogData },
+        where: { id: String(id) },
     })
 }
-// @TODO 📝 Fetch blogs by specific author id
-const getBlogByAuthorId = async (id, authorId) => {}
 
-// @TODO 💻 Retrieve all blogs from database
-const getAllBlogs = async () => {}
-
-// @TODO 📋 Fetch blogs belonging to a specific category
-const getBlogByCategory = async (category) => {}
-
-module.exports = { createBlog, updateBlog, deleteBlog }
+module.exports = {
+    createBlog,
+    updateBlog,
+    deleteBlog,
+    getBlogByAuthorId,
+    getAllBlogs,
+    getBlogByCategory,
+}
