@@ -11,26 +11,38 @@ datasource db {
 }
 
 model Author {
-  id           String   @id @default(uuid())
-  firstName    String
-  lastName     String
-  email        String   @unique
-  password     String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  Blogs        Blog[]
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Blogs     Blog[]
 }
 
 model Blog {
   id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
   title       String
-  category    String
+  category    Category
   description String
+  slug        String   @unique
   content     String
   imageUrl    String
-  author      Author     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author      Author   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
-  datePublished DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Tasks:
+// enum for categories
+enum Category {
+  AI
+  BLOCKCHAIN
+  CLOUD
+  DEVOPS
+  METAVERSE
+  NFT
+  WEB3
 }

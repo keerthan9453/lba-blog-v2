@@ -5,12 +5,6 @@ const listAuthors = async () => {
     include: {
       Author: true,
     },
-    // select: {
-    //   id: true,
-    //   firstName: true,
-    //   lastName: true,
-    //   email: true,
-    // },
   });
 };
 
