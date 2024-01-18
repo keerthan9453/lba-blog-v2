@@ -1,13 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 
-const express = require("express");
+const express = require("express")
 
-const prisma = new PrismaClient();
-const router = express.Router();
-const app = express();
-const blogRouter = require("./routes/blog.router");
+const prisma = new PrismaClient()
+const router = express.Router()
+const app = express()
+const blogRouter = require("./routes/blog.router")
 
-app.use(express.json());
-app.use(blogRouter);
+app.use(express.json())
+app.use(blogRouter)
 
-module.exports = router;
+module.exports = router
