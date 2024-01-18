@@ -1,5 +1,3 @@
-// import { PrismaClient } from "@prisma/client";
-// import { body, validationResult } from "express-validator";
 const AuthorService = require("./author.service");
 const express = require("express");
 
