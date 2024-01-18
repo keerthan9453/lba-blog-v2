@@ -1,8 +1,7 @@
-const express = require("express")
 const { Clerk } = require("@clerk/clerk-sdk-node")
 
 // @TODO move 🪦
-const clerk = Clerk(process.env.CLERK_API_KEY)
+const clerk = Clerk({ secretKey: process.env.CLERK_SECRET_KEY })
 
 /**
  * Authenticates a user based on the session token provided in the request headers.
@@ -25,9 +24,10 @@ async function authenticateUser(req, res, next) {
             return res.status(401).json({ error: "No session token provided" })
         }
 
-        // Verify the session using the Clerk SDK
-        const session = await clerk.sessions.verifySession(sessionToken)
-        const userId = session.userId
+        // Networkless verification
+        const claims = await clerk.verifyToken(sessionToken)
+        const userId = claims.sub
+        console.log(claims)
 
         if (!userId) {
             return res.status(401).json({ error: "Malformed session token" })
@@ -40,3 +40,5 @@ async function authenticateUser(req, res, next) {
         res.status(401).json({ error: "Authentication failed" })
     }
 }
+
+module.exports = { authenticateUser }
