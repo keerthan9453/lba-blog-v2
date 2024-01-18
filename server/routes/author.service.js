@@ -25,4 +25,4 @@ const listAuthors = async () => {
     })
 }
 
-module.exports = { listAuthors }
+module.exports = { listAuthors, findAuthorById }
