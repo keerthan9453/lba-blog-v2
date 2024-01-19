@@ -1,29 +1,21 @@
-const AuthorService = require("./author.service");
-const express = require("express");
+const express = require("express")
+const { authenticateUser } = require("../middleware/authentication")
 
-const authorRouter = express.Router();
+const authorRouter = express.Router()
 
-// signup author
-authorRouter.post("/signup", async (req, res) => {});
+// 👨 Self Author
+authorRouter.get("/@self", authenticateUser, async (req, res) => {
+    try {
+        return res.status(200).json(req.user)
+    } catch (error) {
+        return res.status(500).json(error.message)
+    }
+})
 
-// login author
-authorRouter.post("/login", async (req, res) => {});
+// @TODO 📝 Update author
 
-// Update author
-authorRouter.put("/:id", async (req, res) => {});
+// @TODO 💻 Get Blog From Author
 
-// Get author blog
-authorRouter.get("/blogs/:authorId", async (req, res) => {});
+// @TODO 📋 Get All Authors
 
-// GET: List of all Authors
-authorRouter.get("/authors", async (req, res) => {
-  try {
-    const authors = await AuthorService.listAuthors();
-    console.log(authors);
-    return res.status(200).json(authors);
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
-});
-
-module.exports = authorRouter;
+module.exports = authorRouter
