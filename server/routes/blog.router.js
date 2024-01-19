@@ -1,8 +1,13 @@
-const { createBlog, updateBlog, deleteBlog } = require("./blog.service")
+const {
+    createBlog,
+    updateBlog,
+    deleteBlog,
+    getBlogByAuthorId,
+} = require("./blog.service")
 const express = require("express")
 const blogRouter = express.Router()
 
-// @TODO Right now all routes are returning INTERNAL_SERVER_ERROR upon errors. we need to
+// @TODO Right now all routes are returning INTERNAL_SERVER_ERROR upon errors. We need to add more specific errors.
 // Warning: "/blogs/:category" and "/:id/:authorId" may lead to an overlap.
 
 // 🆕 Create blog
@@ -55,6 +60,7 @@ blogRouter.delete("/:id", async (req, res) => {
 // 🔎 Get blog By author id
 blogRouter.get("/:id/:authorId", async (req, res) => {
     try {
+        getBlogByAuthorId
         const blog = await getBlogByAuthorId(
             req.params.id,
             req.params.authorId,
