@@ -20,21 +20,25 @@ const BlogSchema = z.object({
     datePublished: z.string().datetime(),
 })
 
-// create a blog object
-const blog = {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    title: "My First Blockchain Blog",
-    category: "BLOCKCHAIN",
-    description: "This is my first blog about blockchain",
-    content: "This is my first blog",
-    imageUrl: "https://www.google.com",
-    authorId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    datePublished: new Date().toISOString(),
-}
 
-try {
-    const validatedBlog = BlogSchema.parse(blog)
-    console.log(validatedBlog)
-} catch (error) {
-    console.error(error)
-}
+
+// // create a blog object
+// const blog = {
+//     id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+//     title: "My First Blockchain Blog",
+//     category: "BLOCKCHAIN",
+//     description: "This is my first blog about blockchain",
+//     content: "This is my first blog",
+//     imageUrl: "https://www.google.com",
+//     authorId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+//     datePublished: new Date().toISOString(),
+// }
+
+// try {
+//     const validatedBlog = BlogSchema.parse(blog)
+//     console.log(validatedBlog)
+// } catch (error) {
+//     console.error(error)
+// }
+
+module.exports = {BlogSchema}

@@ -1,4 +1,5 @@
 const db = require("../utils/db.server")
+const BlogSchema = require("../schema/blog")
 
 // @TODO 📝 Fetch blogs by specific author id
 const getBlogByAuthorId = async (authorId) => {
@@ -25,16 +26,11 @@ const getBlogByCategory = async (category) => {
 
 // mutations
 const createBlog = async (blogData) => {
+
+    const validatedBlog = BlogSchema.parse(blogData)
+
     return db.blog.create({
-        data: {
-            title: blogData.title,
-            category: blogData.category,
-            description: blogData.description,
-            content: blogData.content,
-            imageUrl: blogData.imageUrl,
-            authorId: blogData.authorId,
-            datePublished: blogData.datePublished,
-        },
+        data:validatedBlog,
         select: {
             id: true,
         },
@@ -42,11 +38,37 @@ const createBlog = async (blogData) => {
 }
 
 const updateBlog = async (id, blogData) => {
+    const validatedData = BlogSchema.parse(blogData)
     return db.blog.update({
         where: { id: String(id) },
-        data: blogData,
+        data: validatedData,
     })
 }
+
+// const createBlog = async (blogData) => {
+//     return db.blog.create({
+//         data: {
+//             title: blogData.title,
+//             category: blogData.category,
+//             description: blogData.description,
+//             content: blogData.content,
+//             imageUrl: blogData.imageUrl,
+//             authorId: blogData.authorId,
+//             datePublished: blogData.datePublished,
+//         },
+//         select: {
+//             id: true,
+//         },
+//     })
+// }
+
+
+// const updateBlog = async (id, blogData) => {
+//     return db.blog.update({
+//         where: { id: String(id) },
+//         data: blogData,
+//     })
+// }
 
 const deleteBlog = async () => {
     return db.blog.delete({
