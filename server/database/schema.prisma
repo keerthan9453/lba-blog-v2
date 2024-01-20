@@ -34,9 +34,9 @@ model Blog {
   authorId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  deletedAt   Boolean  @default(false)
 }
 
-// Tasks:
 // enum for categories
 enum Category {
   AI
