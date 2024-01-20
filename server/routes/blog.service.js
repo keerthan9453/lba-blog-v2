@@ -26,22 +26,31 @@ const getBlogByCategory = async (category) => {
 
 // mutations
 const createBlog = async (blogData) => {
+    const validatedBlog = BlogSchema.safeParse(blogData)
 
-    const validatedBlog = BlogSchema.parse(blogData)
+    if (!validatedBlog.success) {
+        throw new Error("Invalid blog data")
+    }
 
     return db.blog.create({
-        data:validatedBlog,
+        data: validatedBlog.data,
         select: {
             id: true,
+            slug: true,
         },
     })
 }
 
-const updateBlog = async (id, blogData) => {
-    const validatedData = BlogSchema.parse(blogData)
+const updateBlog = async (slug, blogData) => {
+    const validatedData = BlogSchema.safeParse(blogData)
+
+    if (!validatedData.success) {
+        throw new Error("Invalid blog data")
+    }
+
     return db.blog.update({
-        where: { id: String(id) },
-        data: validatedData,
+        where: { slug: String(slug) },
+        data: validatedData.data,
     })
 }
 
@@ -62,7 +71,6 @@ const updateBlog = async (id, blogData) => {
 //     })
 // }
 
-
 // const updateBlog = async (id, blogData) => {
 //     return db.blog.update({
 //         where: { id: String(id) },
@@ -71,8 +79,12 @@ const updateBlog = async (id, blogData) => {
 // }
 
 const deleteBlog = async () => {
-    return db.blog.delete({
-        where: { id: String(id) },
+    // return db.blog.delete({
+    //     where: { id: String(id) },
+    // })
+    return db.blog.update({
+        where: { slug: String(slug) },
+        data: { isDeleted: true },
     })
 }
 
