@@ -10,6 +10,8 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import NextLink from "next/link";
 
+import z from "zod";
+
 function MyForm() {
   const [file, setFile] = useState<File>();
   const [imageSrc, setImageSrc] = useState("");
@@ -43,6 +45,31 @@ function MyForm() {
     category: "",
     date: "",
   });
+
+  const BlogSchema = z.object({
+    title: z
+        .string()
+        .min(3, { message: "Title must be 3 characters long" })
+        .max(120, { message: "Title must be 120 characters or less" }),
+    category: z.enum([
+        "AI",
+        "BLOCKCHAIN",
+        "CLOUD",
+        "DEVOPS",
+        "METAVERSE",
+        "NFT",
+        "WEB3",
+    ]),
+    description: z
+        .string()
+        .min(3, { message: "Description must be more than 3 characters" })
+        .max(512, { message: "Description must be 512 characters or less" }),
+    content: z
+        .string()
+        .min(100, { message: "Content must be more than 100 characters" })
+        .max(16384, { message: "Content must be 16384 characters or less" }),
+    imageUrl: z.string().url(),
+});
 
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
@@ -113,11 +140,37 @@ function MyForm() {
       return;
     }
 
-    const response = await fetch("http://localhost:5500", {
-      method: "POST",
-      body: JSON.stringify({ ...formData, content: editor?.getHTML().toString()}),
-    })
+    const submittedBlog = {
+      title: formData.title,
+      category: formData.category.toUpperCase(),
+      description: formData.description,
+      content: editor?.getText(),
+      imageUrl: file?.webkitRelativePath
+    };
 
+    try {
+      BlogSchema.parse(submittedBlog);
+    } catch {
+      alert("Incorrect formatting for submitting blog");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5500", {
+        method: "POST",
+        body: JSON.stringify({
+          title: formData.title,
+          category: formData.category,
+          description: formData.description,
+          content: editor?.getHTML().toString(),
+          imageURL: file?.webkitRelativePath
+        })
+      });
+      console.log(response);
+    } catch {
+      console.log("Error trying to submit blog");
+    }
+    
     console.log("Title:", formData.title);
     console.log("Slug:", formData.slug);
     console.log("Description:", formData.description);
