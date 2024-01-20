@@ -72,7 +72,7 @@ function MyForm() {
       .trim(); // Trim leading and trailing spaces
   };
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     if (!formData.category) {
@@ -112,6 +112,11 @@ function MyForm() {
       setShouldMsgShow(false);
       return;
     }
+
+    const response = await fetch("http://localhost:5500", {
+      method: "POST",
+      body: JSON.stringify({ ...formData, content: editor?.getHTML().toString()}),
+    })
 
     console.log("Title:", formData.title);
     console.log("Slug:", formData.slug);
