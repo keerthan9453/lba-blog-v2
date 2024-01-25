@@ -1,4 +1,5 @@
-import { z } from "zod"
+//import { z } from "zod"
+const { z } = require("zod")
 
 // define a schema for a blog
 const BlogSchema = z.object({
