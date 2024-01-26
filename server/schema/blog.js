@@ -47,4 +47,4 @@ const BlogSchema = z.object({
 //     console.error(error)
 // }
 
-module.exports = BlogSchema 
+module.exports = BlogSchema
