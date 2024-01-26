@@ -57,7 +57,7 @@ const Navbar = () => {
                   className="cursor-pointer hover:shadow-lg transform duration-150 h-[50px] w-[50px] hover:h-[60px] hover:w-[60px]"
                 />
               </Link>
-              <span className="text-white text-4xl">/</span>
+              <span className="text-black text-4xl dark:text-white">/</span>
               <Link
                 href=""
                 // href="https://lba-blog.vercel.app/"

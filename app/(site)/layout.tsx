@@ -7,6 +7,7 @@ import Providers from "./providers";
 import Head from "next/head";
 import { Poppins, Roboto_Slab } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { ClerkProvider } from "@clerk/nextjs"; // added for clerk
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,16 +30,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body>
-        <main className={poppins.className}>
-          <Providers>
-            <Navbar />
-            {children}
-            <Footer />
-          </Providers>
-        </main>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="dark scroll-smooth">
+        <body>
+          <main className={poppins.className}>
+            <Providers>
+              <Navbar />
+              {children}
+              <Footer />
+            </Providers>
+          </main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

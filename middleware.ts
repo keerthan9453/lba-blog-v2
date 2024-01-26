@@ -1,12 +1,12 @@
 import { authMiddleware } from "@clerk/nextjs";
 
-export const config = {
-  matcher: [
-    // Specify the routes you want to protect with Clerk authentication
-    '/login-page/',
-  ],
-};
-
+// This example protects all routes including api/trpc routes
+// Please edit this to allow other routes to be public as needed.
+// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-  // Add any specific configuration here if needed, like public routes
+  publicRoutes: ["/"],
 });
+
+export const config = {
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+};
