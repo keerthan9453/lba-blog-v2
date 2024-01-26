@@ -13,7 +13,7 @@ import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import SelectedCategorySingleton from "../components/globalSelectedCategory";
 import Head from "next/head";
-
+import logo from "../../../public/logo.png";
 type NewsletterPopupProps = {
   onClose: () => void;
 };
@@ -135,7 +135,11 @@ function Footer() {
         <Link href="https://lassondeblockchain.vercel.app/">
           <div className="md:col-span-1">
             <h1 className="font-bold text-2xl">
-              <img src="../images/logo.png" alt="LBA Logo" width="80"></img>
+              <img
+                src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.d275875e.png&amp;w=1080&amp;q=75"
+                alt="LBA Logo"
+                width="80"
+              ></img>
             </h1>
             <ul>
               <li>
