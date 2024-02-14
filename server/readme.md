@@ -1,13 +1,14 @@
-# LBA Blog Server
+# 🗞️ LBA Blog API
 
-## ⚙️ Evironment Variables
+## Environment Variables
+
+An example .env file is below.
 
 ```
-DATABASE_URL=[SQL DATABASE URL]
-CLERK_SECRET_KEY=[CLERK SECRET KEY]
-PORT=[DESIRED PORT]
+PORT=
 ```
 
+<<<<<<< Updated upstream
 ## 🟢 Get Started
 
 1. Clone the project using `git clone`
@@ -40,3 +41,6 @@ All endpoints of this API return requests in one of the two formats.
   "userFacingError": "You do not have permission to view this page."
 }
 ```
+=======
+-   PORT: The port the server will run on. Ex. 4000. If no port is set the server will listen on port 3000.
+>>>>>>> Stashed changes
