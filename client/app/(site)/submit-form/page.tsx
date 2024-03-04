@@ -140,7 +140,7 @@ function MyForm() {
       title: formData.title,
       category: formData.category.toUpperCase(),
       description: formData.description,
-      content: editor?.getText(),
+      content: editor?.getHTML().toString(),
       //imageUrl: file?.webkitRelativePath,
       imageUrl: "",
     };
@@ -153,19 +153,27 @@ function MyForm() {
     }
 
     try {
-      const response = await fetch("http://localhost:5500", {
+      const response = await fetch("http://localhost:5000", {
         method: "POST",
-        body: JSON.stringify({
-          title: formData.title,
-          category: formData.category,
-          description: formData.description,
-          content: editor?.getHTML().toString(),
-          imageURL: file?.webkitRelativePath,
-        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submittedBlog),
+        // body: JSON.stringify({
+        //   title: formData.title,
+        //   category: formData.category,
+        //   description: formData.description,
+        //   content: editor?.getHTML().toString(),
+        //   imageURL: file?.webkitRelativePath,
+        // }),
       });
-      console.log(response);
-    } catch {
-      console.log("Error trying to submit blog");
+      if (!response.ok) {
+        throw new Error("Server responded with an error");
+      }
+      console.log("Blog submitted successfully:", await response.json());
+      setShouldMsgShow(true);
+    } catch (error) {
+      console.log("Error trying to submit blog: ", error);
       alert("Server error with posting blog");
       return;
     }
