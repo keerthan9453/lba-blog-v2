@@ -85,49 +85,49 @@ export async function createBlog(data: z.infer<typeof BlogSchema>) {
     return { success: "Blog created successfully" }
 
 }
-export async function updateBlog(data: z.infer<typeof BlogSchema>) {
-    const validatedBlog = BlogSchema.safeParse(data)
-    if (!validatedBlog.success) throw new Error("Invalid blog data")
+// export async function updateBlog(data: z.infer<typeof BlogSchema>) {
+//     const validatedBlog = BlogSchema.safeParse(data)
+//     if (!validatedBlog.success) throw new Error("Invalid blog data")
 
-    //Change this to current user id by session
-    const currentUser = {
-        id: "7d7b47a3-e8b4-40e5-ab95-9a5fddc369c6",
-    } 
+//     //Change this to current user id by session
+//     const currentUser = {
+//         id: "7d7b47a3-e8b4-40e5-ab95-9a5fddc369c6",
+//     } 
 
-    const { title, category, description, content, imageUrl, slug } =
-        validatedBlog.data
+//     const { title, category, description, content, imageUrl, slug } =
+//         validatedBlog.data
 
-    const existingBlogbySlug = await getBlogById(id)
-    if (!existingBlogbySlug)
-        return {error: "No blogs for this id exist"}
+//     const existingBlogbySlug = await getBlogById(id)
+//     if (!existingBlogbySlug)
+//         return {error: "No blogs for this id exist"}
 
-    await db.blog
-    .update({
-        where:{
-            id,
-        },
-            data: {
-                title,
-                category,
-                description,
-                content,
-                imageUrl,
-                slug,
-                author: {
-                    connect: {
-                        id: currentUser.id,
-                    },
-                },
-            },
-        })
-        .catch((error) => {
-            console.log("CREATE BLOG ERROR")
-            return { error: "Something went wrong" }
-        })
+//     await db.blog
+//     .update({
+//         where:{
+//             id,
+//         },
+//             data: {
+//                 title,
+//                 category,
+//                 description,
+//                 content,
+//                 imageUrl,
+//                 slug,
+//                 author: {
+//                     connect: {
+//                         id: currentUser.id,
+//                     },
+//                 },
+//             },
+//         })
+//         .catch((error) => {
+//             console.log("CREATE BLOG ERROR")
+//             return { error: "Something went wrong" }
+//         })
 
-    return { success: "Blog created successfully" }
+//     return { success: "Blog created successfully" }
 
-}
+// }
 
 export async function deleteBlog(id:string) {
     const existingBlogbySlug = await getBlogById(id)
