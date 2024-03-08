@@ -4,6 +4,7 @@ interface SmallBlogProps {
   title?: string;
   date?: string;
   author?: string;
+  imgSrc?: string;
   content?: string;
 }
 
@@ -20,19 +21,20 @@ export default function SmallBlogCard({
   title = "Title of Article Goes Here",
   date = "Date Goes Here",
   author = "Author Goes Here",
+  imgSrc = "/growtika-nGoCBxiaRO0-unsplash.jpg",
   content = defaultContent,
 }: SmallBlogProps) {
   return (
     <div className="flex flex-col w-96 my-2">
-      <div className=" bg-slate-500  aspect-video" />
+      <img src={imgSrc} className="   aspect-video" />
       {/* Replace with IMG later */}
       <h1 className="mt-2 text-lg font-semibold">{title}</h1>
       <h2 className="mt-1 text-sm line-clamp-4">{content}</h2>
       <div className="flex mt-2 items-center">
         <img
-          src="/avatar.jpg"
-          alt="/logo.png"
-          className="h-6 w-6 rounded-full"
+          src="/user-solid.svg"
+          alt="/user-solid.svg"
+          className="h-6 w-6 rounded-full mr-2 "
         />
         <h2 className="text-xs">{author}</h2>
         <span className="mx-2 h-1 w-1 rounded-full bg-white" />

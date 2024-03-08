@@ -34,13 +34,23 @@ exampleBlogs.fill(exampleBlog);
 
 export default function CategoryPage() {
   return (
-    <div className="h-full w-full p-16 pt-20">
-      <div className="my-32 w-8/12">
-        <h1 className="text-6xl font-semibold">{defaultCategoryTitle}</h1>
-        <p className="m-2 mt-5 w-6/12">{defaultCategoryDescription}</p>
+    <div className="">
+      <div className="absolute -z-10">
+        <img
+          src="/growtika-nGoCBxiaRO0-unsplash.jpg"
+          className="object-cover bg-gradient-to-b opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent dark:to-[hsl(222.2,84%,4.9%)] to-white"></div>
       </div>
-      <div className="grid grid-cols-3 gap-4 justify-center items-center">
-        {exampleBlogs.map((blog, index) => Blog(blog, index))}
+
+      <div className="container h-full w-full pt-20">
+        <div className="my-32 w-8/12">
+          <h1 className="text-6xl font-semibold">{defaultCategoryTitle}</h1>
+          <p className="m-2 mt-5 w-6/12">{defaultCategoryDescription}</p>
+        </div>
+        <div className="grid grid-cols-3 gap-4 gap-y-16 justify-center items-center">
+          {exampleBlogs.map((blog, index) => Blog(blog, index))}
+        </div>
       </div>
     </div>
   );
